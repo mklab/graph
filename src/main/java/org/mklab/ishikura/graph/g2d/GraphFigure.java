@@ -51,7 +51,7 @@ public class GraphFigure extends ContainerFigureImpl {
     this.coordinateSpace.setBounds(0, 0, getWidth() - rightSpace, getHeight() - statusBarHeight);
     this.statusBar.setBounds(0, getHeight() - statusBarHeight, getWidth(), statusBarHeight);
 
-    super.layout(g);
+    validateChildren(g);
   }
 
   /**

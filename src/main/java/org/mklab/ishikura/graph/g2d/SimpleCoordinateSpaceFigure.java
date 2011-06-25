@@ -5,6 +5,8 @@
  */
 package org.mklab.ishikura.graph.g2d;
 
+import java.text.MessageFormat;
+
 import org.mklab.ishikura.graph.figure.ContainerFigureImpl;
 import org.mklab.ishikura.graph.graphics.Color;
 import org.mklab.ishikura.graph.graphics.Graphics;
@@ -33,6 +35,8 @@ public class SimpleCoordinateSpaceFigure extends ContainerFigureImpl implements 
   private Color textColor = Color.BLACK;
   /** 左側の最小スペースです。初回レイアウト時に設定されます。 */
   private int minimumLeftSpace = -1;
+  private int lineNumber = 1;
+  private FunctionInfoBoxFigure lineInfoBox;
 
   /**
    * {@link SimpleCoordinateSpaceFigure}オブジェクトを構築します。
@@ -41,10 +45,12 @@ public class SimpleCoordinateSpaceFigure extends ContainerFigureImpl implements 
     this.grid = new GridFigure();
     this.functionsFigure = new FunctionsFigure();
     this.guideFigure = new GuideFigure(this.grid);
+    this.lineInfoBox = new FunctionInfoBoxFigure();
 
     add(this.grid);
     add(this.functionsFigure);
     add(this.guideFigure);
+    add(this.lineInfoBox);
 
     this.guideFigure.setVisible(false);
   }
@@ -62,7 +68,8 @@ public class SimpleCoordinateSpaceFigure extends ContainerFigureImpl implements 
    */
   @Override
   protected void layout(Graphics g) {
-    super.layout(g);
+    validateChildren(g);
+
     if (this.minimumLeftSpace == -1) this.minimumLeftSpace = g.computeTextWidth("0000"); //$NON-NLS-1$
 
     final int leftSpaceToGrid = Math.max(this.minimumLeftSpace, this.computePaddingOfYAxisGraduation(g, this.grid.getGridY()));
@@ -73,9 +80,12 @@ public class SimpleCoordinateSpaceFigure extends ContainerFigureImpl implements 
   }
 
   private void setGridBounds(int x, int y, int width, int height) {
+    final int borderWidth = 1;
     this.grid.setBounds(x, y, width, height);
-    this.functionsFigure.setBounds(x, y, width, height);
-    this.guideFigure.setBounds(x, y, width, height);
+    this.functionsFigure.setBounds(x + borderWidth, y + borderWidth, width - borderWidth * 2, height - borderWidth * 2);
+    this.guideFigure.setBounds(x + borderWidth, y + borderWidth, width - borderWidth * 2, height - borderWidth * 2);
+    this.lineInfoBox.setX(getWidth() - this.lineInfoBox.getWidth() - borderWidth);
+    this.lineInfoBox.setY(borderWidth);
   }
 
   /**
@@ -185,17 +195,19 @@ public class SimpleCoordinateSpaceFigure extends ContainerFigureImpl implements 
 
   private String toGraduationText(double value) {
     if (value == (int)value) return String.valueOf((int)value);
-
     return String.valueOf(value);
   }
 
   /**
    * {@inheritDoc}
    */
+  @SuppressWarnings("boxing")
   @Override
   public FunctionFigure newFunctionFigure() {
     final FunctionFigure figure = new FunctionFigure(this.grid);
+    figure.setLineName(MessageFormat.format("Function {0}", this.lineNumber++)); //$NON-NLS-1$
     this.functionsFigure.add(figure);
+    this.lineInfoBox.addLineInfo(figure);
     return figure;
   }
 

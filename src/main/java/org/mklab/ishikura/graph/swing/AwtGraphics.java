@@ -5,6 +5,7 @@
  */
 package org.mklab.ishikura.graph.swing;
 
+import java.awt.AlphaComposite;
 import java.awt.BasicStroke;
 import java.awt.Color;
 
@@ -28,6 +29,8 @@ public class AwtGraphics implements Graphics {
   LineType lineType;
   /** 現在の色です。 */
   org.mklab.ishikura.graph.graphics.Color color;
+  /** 透明度です。 */
+  float alpha = 1;
 
   /**
    * {@link AwtGraphics}オブジェクトを構築します。
@@ -71,7 +74,7 @@ public class AwtGraphics implements Graphics {
         this.g.setStroke(new BasicStroke(this.lineWidth));
         return;
       case DOT:
-        this.g.setStroke(new BasicStroke(this.lineWidth, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND, 0, new float[] {4 * this.lineWidth, 4 * this.lineWidth}, 0));
+        this.g.setStroke(new BasicStroke(this.lineWidth, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND, 0, new float[] {4, 4}, 0));
         return;
       default:
         throw new IllegalArgumentException(String.valueOf(this.lineType));
@@ -91,6 +94,8 @@ public class AwtGraphics implements Graphics {
    */
   @Override
   public int computeTextWidth(String text) {
+    if (text == null) return 0;
+
     return this.g.getFontMetrics().stringWidth(text);
   }
 
@@ -192,6 +197,7 @@ public class AwtGraphics implements Graphics {
     if (width <= 0) throw new IllegalArgumentException();
 
     this.lineWidth = width;
+    updateStroke();
   }
 
   /**
@@ -200,6 +206,23 @@ public class AwtGraphics implements Graphics {
   @Override
   public float getLineWidth() {
     return this.lineWidth;
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public void setAlpha(float alpha) {
+    this.alpha = alpha;
+    this.g.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, alpha));
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public float getAlpha() {
+    return this.alpha;
   }
 
 }

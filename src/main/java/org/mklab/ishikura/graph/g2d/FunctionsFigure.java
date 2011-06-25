@@ -25,7 +25,7 @@ final class FunctionsFigure extends ContainerFigureImpl {
       figure.setBounds(0, 0, getWidth(), getHeight());
     }
 
-    super.layout(g);
+    validateChildren(g);
   }
 
 }

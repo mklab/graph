@@ -58,9 +58,11 @@ public class GraphSample {
     final FunctionFigure function1 = coords.newFunctionFigure();
     function1.setFunction(createQuadraticFunction());
     function1.setLineWidth(3);
+    function1.setLineName("y = x^3");
     final FunctionFigure function2 = coords.newFunctionFigure();
     function2.setFunction(createCubicFunction());
     function2.setLineColor(Color.GREEN);
+    function2.setLineName("y = x^2");
 
     graph.setSize(400, 300);
     graph.setScope(-25, 25, -300, 300);

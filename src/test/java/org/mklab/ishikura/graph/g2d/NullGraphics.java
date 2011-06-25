@@ -163,4 +163,20 @@ public class NullGraphics implements Graphics {
     return 0;
   }
 
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public void setAlpha(float alpha) {
+    // do nothing
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public float getAlpha() {
+    return 1;
+  }
+
 }

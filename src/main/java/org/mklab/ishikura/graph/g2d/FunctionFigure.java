@@ -33,15 +33,26 @@ public class FunctionFigure extends AbstractFigure {
   private int lineWidth = 1;
   /** 線種です。 */
   private LineType lineType = LineType.DEFAULT;
+  /** 関数名です。 */
+  private String lineName;
 
   /**
    * {@link FunctionFigure}オブジェクトを構築します。
    * 
    * @param grid グラフの格子
    */
-  public FunctionFigure(GridFigure grid) {
+  FunctionFigure(GridFigure grid) {
     if (grid == null) throw new NullPointerException();
     this.grid = grid;
+  }
+
+  /**
+   * 線の色を取得します。
+   * 
+   * @return 線の色
+   */
+  public Color getLineColor() {
+    return this.lineColor;
   }
 
   /**
@@ -51,6 +62,16 @@ public class FunctionFigure extends AbstractFigure {
    */
   public void setLineColor(Color lineColor) {
     this.lineColor = lineColor;
+    invalidate();
+  }
+
+  /**
+   * 線種を取得します。
+   * 
+   * @return 線種
+   */
+  public LineType getLineType() {
+    return this.lineType;
   }
 
   /**
@@ -61,6 +82,35 @@ public class FunctionFigure extends AbstractFigure {
   public void setLineType(LineType lineType) {
     if (lineType == null) throw new NullPointerException();
     this.lineType = lineType;
+    invalidate();
+  }
+
+  /**
+   * 線の名前を取得します。
+   * 
+   * @return lineName
+   */
+  public String getLineName() {
+    return this.lineName;
+  }
+
+  /**
+   * 線の名前を設定します。
+   * 
+   * @param lineName 線の名前
+   */
+  public void setLineName(String lineName) {
+    this.lineName = lineName;
+    invalidate();
+  }
+
+  /**
+   * 線の幅を取得します。
+   * 
+   * @return 線の幅
+   */
+  public int getLineWidth() {
+    return this.lineWidth;
   }
 
   /**

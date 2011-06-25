@@ -14,6 +14,20 @@ package org.mklab.ishikura.graph.graphics;
 public interface Graphics {
 
   /**
+   * 透明度を設定します。
+   * 
+   * @param alpha 透明度(0~1)
+   */
+  void setAlpha(float alpha);
+
+  /**
+   * 透明度を取得します。
+   * 
+   * @return 透明度
+   */
+  float getAlpha();
+
+  /**
    * {@link #drawLine(int, int, int, int)}の線種を設定します。
    * 
    * @param type 線種

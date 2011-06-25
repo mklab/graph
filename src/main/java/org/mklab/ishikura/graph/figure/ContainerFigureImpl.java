@@ -79,6 +79,15 @@ public class ContainerFigureImpl extends AbstractFigure implements ContainerFigu
   @Override
   protected void layout(Graphics g) {
     validateChildren(g);
+
+    int maximumWidth = 0;
+    int bottom = 0;
+    for (Figure child : getChildren()) {
+      if (child.getWidth() > maximumWidth) maximumWidth = child.getWidth();
+      child.setY(bottom);
+      bottom += child.getHeight();
+      child.setX(0);
+    }
   }
 
   /**
@@ -86,7 +95,7 @@ public class ContainerFigureImpl extends AbstractFigure implements ContainerFigu
    * 
    * @param g グラフィックスコンテキスト
    */
-  private final void validateChildren(Graphics g) {
+  protected final void validateChildren(Graphics g) {
     for (final Figure child : this.children) {
       child.validate(g);
     }

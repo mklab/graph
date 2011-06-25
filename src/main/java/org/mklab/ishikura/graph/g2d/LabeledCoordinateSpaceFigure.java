@@ -114,16 +114,19 @@ public class LabeledCoordinateSpaceFigure extends ContainerFigureImpl implements
    */
   @Override
   protected void layout(Graphics g) {
-    final int left = g.getTextHeight();
-    final int titleBottomSpace = 10;
-    final int top = left + titleBottomSpace;
-    final int bottom = left;
+    final int textHeight = g.getTextHeight();
 
-    this.coordinateSpace.setBounds(left, top, getWidth() - left, getHeight() - bottom - top);
+    final int left = textHeight;
+    final int titleBottomSpace = 10;
+    final int top = textHeight + titleBottomSpace;
+    final int bottom = textHeight;
+
+    this.coordinateSpace.setBounds(left, top, getWidth() - textHeight, getHeight() - bottom - top);
     this.titleLabel.setBounds(left, 0, this.coordinateSpace.getWidth(), top);
     this.xLabel.setBounds(left, top + this.coordinateSpace.getHeight(), this.coordinateSpace.getWidth(), bottom);
     this.yLabel.setBounds(0, 0, left, this.coordinateSpace.getHeight());
-    super.layout(g);
+
+    validateChildren(g);
   }
 
   /**
