@@ -24,6 +24,10 @@ public class GridFigure extends AbstractFigure {
 
   /** 数学上(モデル上)での値の範囲です。 */
   private Scope scope;
+  /** x方向のグリッドを生成するファクトリです。 */
+  private GridFactory gridFactoryX;
+  /** y方向のグリッドを生成するファクトリです。 */
+  private GridFactory gridFactoryY;
   /** x方向のグリッドです。 */
   private Grid gridX;
   /** y方向のグリッドです。 */
@@ -43,6 +47,8 @@ public class GridFigure extends AbstractFigure {
   public GridFigure() {
     this.measureX = new StandardMeasure();
     this.measureY = new StandardMeasure();
+    this.gridFactoryX = new GridFactoryImpl();
+    this.gridFactoryY = new GridFactoryImpl();
   }
 
   /**
@@ -103,8 +109,8 @@ public class GridFigure extends AbstractFigure {
     assertScopeIsSet();
     super.layout(g);
 
-    this.gridX = Grid.create(this.scope.getX().getStart(), this.scope.getX().getEnd());
-    this.gridY = Grid.create(this.scope.getY().getStart(), this.scope.getY().getEnd());
+    this.gridX = this.gridFactoryX.create(this.scope.getX().getStart(), this.scope.getX().getEnd());
+    this.gridY = this.gridFactoryY.create(this.scope.getY().getStart(), this.scope.getY().getEnd());
 
     this.measureX.setViewSize(getWidth());
     this.measureY.setViewSize(getHeight());
