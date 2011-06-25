@@ -33,9 +33,9 @@ public class GridFigure extends AbstractFigure {
   /** y軸方向の座標変換を行うオブジェクトです。 */
   Measure measureY;
   /** 軸、及びボーダーの色です。 */
-  private Color axisColor = Color.BLACK;
+  private Color axisColor = ColorConstants.AXIS;
   /** グリッドの色です。 */
-  private Color gridColor = Color.BLUE;
+  private Color gridColor = ColorConstants.GRID;
 
   /**
    * {@link GridFigure}オブジェクトを構築します。
@@ -245,16 +245,14 @@ public class GridFigure extends AbstractFigure {
   protected void handleDraw(Graphics g) {
     assertScopeIsSet();
 
+    final Color oldColor = g.getColor();
     // zero lines
     g.setColor(getAxisColor());
     drawZeroLines(g);
 
     // grid
     drawGrid(g);
-
-    // axis
-    g.setColor(getAxisColor());
-    g.drawRect(0, 0, getWidth() - 1, getHeight() - 1);
+    g.setColor(oldColor);
   }
 
   private void assertScopeIsSet() {

@@ -26,7 +26,7 @@ public class AwtGraphics implements Graphics {
   /** 線の幅です。 */
   float lineWidth = 1;
   /** 線種です。 */
-  LineType lineType;
+  LineType lineType = LineType.DEFAULT;
   /** 現在の色です。 */
   org.mklab.ishikura.graph.graphics.Color color;
   /** 透明度です。 */

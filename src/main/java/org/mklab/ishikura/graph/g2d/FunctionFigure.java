@@ -28,7 +28,7 @@ public class FunctionFigure extends AbstractFigure {
   /** 座標系です。描画時の座標計算に利用します。 */
   private GridFigure grid;
   /** 線の色です。 */
-  private Color lineColor = Color.RED;
+  private Color lineColor = ColorConstants.FUNCTION_LINE;
   /** 線の太さです。 */
   private int lineWidth = 1;
   /** 線種です。 */

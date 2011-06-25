@@ -8,7 +8,6 @@ import org.mklab.ishikura.graph.figure.Figures;
 import org.mklab.ishikura.graph.figure.Point;
 import org.mklab.ishikura.graph.figure.TextFigure;
 import org.mklab.ishikura.graph.function.Function2D;
-import org.mklab.ishikura.graph.graphics.Color;
 import org.mklab.ishikura.graph.graphics.Graphics;
 
 
@@ -36,8 +35,8 @@ public class GraphFigure extends ContainerFigureImpl {
     add(this.statusBar);
     add(this.coordinateSpace);
 
-    setBackgroundColor(Color.GRAY);
-    this.coordinateSpace.getGrid().setBackgroundColor(Color.WHITE);
+    setBackgroundColor(ColorConstants.BACKGROUND);
+    this.coordinateSpace.getGrid().setBackgroundColor(ColorConstants.COORDINATES_BACKGROUND);
   }
 
   /**

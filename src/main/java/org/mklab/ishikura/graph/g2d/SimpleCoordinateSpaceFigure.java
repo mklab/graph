@@ -31,12 +31,15 @@ public class SimpleCoordinateSpaceFigure extends ContainerFigureImpl implements 
   private FunctionsFigure functionsFigure;
   /** ガイドの表示を行う図です。 */
   private GuideFigure guideFigure;
+  /** 関数情報表示ボックスです。 */
+  private FunctionInfoBoxFigure lineInfoBox;
+
   /** 目盛り文字の色です。 */
-  private Color textColor = Color.BLACK;
+  private Color textColor = ColorConstants.GRADUATION_TEXT;
   /** 左側の最小スペースです。初回レイアウト時に設定されます。 */
   private int minimumLeftSpace = -1;
-  private int lineNumber = 1;
-  private FunctionInfoBoxFigure lineInfoBox;
+  /** 関数の数です。デフォルト関数名の命名に利用します。 */
+  private int functionCount = 1;
 
   /**
    * {@link SimpleCoordinateSpaceFigure}オブジェクトを構築します。
@@ -80,12 +83,11 @@ public class SimpleCoordinateSpaceFigure extends ContainerFigureImpl implements 
   }
 
   private void setGridBounds(int x, int y, int width, int height) {
-    final int borderWidth = 1;
     this.grid.setBounds(x, y, width, height);
-    this.functionsFigure.setBounds(x + borderWidth, y + borderWidth, width - borderWidth * 2, height - borderWidth * 2);
-    this.guideFigure.setBounds(x + borderWidth, y + borderWidth, width - borderWidth * 2, height - borderWidth * 2);
-    this.lineInfoBox.setX(getWidth() - this.lineInfoBox.getWidth() - borderWidth);
-    this.lineInfoBox.setY(borderWidth);
+    this.functionsFigure.setBounds(x, y, width, height);
+    this.guideFigure.setBounds(x, y, width, height);
+    this.lineInfoBox.setX(getWidth() - this.lineInfoBox.getWidth());
+    this.lineInfoBox.setY(0);
   }
 
   /**
@@ -150,10 +152,22 @@ public class SimpleCoordinateSpaceFigure extends ContainerFigureImpl implements 
    */
   @Override
   protected void handleDraw(Graphics g) {
+    final Color oldColor = g.getColor();
+
     drawChildren(g);
+    drawBorder(g);
+    drawGraduations(g);
 
+    g.setColor(oldColor);
+  }
+
+  private void drawBorder(Graphics g) {
+    g.setColor(ColorConstants.COORDINATES_BORDER);
+    g.drawRect(this.grid.getX(), this.grid.getY(), this.grid.getWidth() - 1, this.grid.getHeight() - 1);
+  }
+
+  private void drawGraduations(Graphics g) {
     g.setColor(this.textColor);
-
     final int paddingX = this.grid.getX();
     final int paddingY = this.grid.getY();
     g.translate(paddingX, paddingY);
@@ -205,7 +219,7 @@ public class SimpleCoordinateSpaceFigure extends ContainerFigureImpl implements 
   @Override
   public FunctionFigure newFunctionFigure() {
     final FunctionFigure figure = new FunctionFigure(this.grid);
-    figure.setLineName(MessageFormat.format("Function {0}", this.lineNumber++)); //$NON-NLS-1$
+    figure.setLineName(MessageFormat.format("Function {0}", this.functionCount++)); //$NON-NLS-1$
     this.functionsFigure.add(figure);
     this.lineInfoBox.addLineInfo(figure);
     return figure;

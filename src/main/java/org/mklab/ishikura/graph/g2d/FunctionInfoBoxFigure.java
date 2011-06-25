@@ -53,11 +53,11 @@ class FunctionInfoBoxFigure extends ContainerFigureImpl {
 
     float oldAlpha = g.getAlpha();
     g.setAlpha(0.8f);
-    g.setColor(Color.WHITE);
+    g.setColor(ColorConstants.FUNCTION_INFO_BACKGROUND);
     g.fillRect(0, 0, getWidth(), getHeight());
     g.setAlpha(oldAlpha);
 
-    g.setColor(Color.BLACK);
+    g.setColor(ColorConstants.FUNCTION_INFO_BORDER);
     // 上端、右端は、親の図とわざとかぶらせる
     g.drawRect(0, -1, getWidth(), getHeight() - 1);
 
