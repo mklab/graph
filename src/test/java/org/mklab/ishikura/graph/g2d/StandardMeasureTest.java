@@ -17,7 +17,7 @@ import org.junit.Test;
  * @author Yuhi Ishikura
  * @version $Revision$, 2010/10/13
  */
-public class MeasureTest {
+public class StandardMeasureTest {
 
   /**
    * Test method for

@@ -28,7 +28,7 @@ public class Bound {
    * @param end 範囲の終了位置
    */
   public Bound(double start, double end) {
-    super();
+    if (start > end) throw new IllegalArgumentException();
     this.start = start;
     this.end = end;
   }

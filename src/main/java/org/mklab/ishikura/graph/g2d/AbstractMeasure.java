@@ -27,6 +27,7 @@ abstract class AbstractMeasure implements Measure {
    */
   @Override
   public final void setViewSize(int viewSize) {
+    if (viewSize < 0) throw new IllegalArgumentException();
     this.viewSize = viewSize;
   }
 
