@@ -1,0 +1,153 @@
+/**
+ * 
+ */
+package org.mklab.ishikura.graph.function;
+
+import org.junit.Before;
+import org.junit.Test;
+import static org.junit.Assert.fail;
+
+
+/**
+ * @author Yuhi Ishikura
+ * @version $Revision$, 2010/10/23
+ */
+public class ArrayTraversableIteratorTest extends AbstractTraversableIteratorTest {
+
+  /** {@link #create(int)}で生成するイテレータの配列のオフセットです。 */
+  private int offset;
+
+  /**
+   * 各テスト前に必ず実行されます。
+   */
+  @Before
+  public void beforeTest() {
+    this.offset = 0;
+  }
+
+  /**
+   * Test method for
+   * {@link org.mklab.ishikura.graph.function.ArrayTraversableIterator#ArrayTraversableIterator(Object[], int, int)}
+   * .
+   */
+  @Test
+  public void testArrayTraversableIteratorThrowsException() {
+    testArrayTraversableIteratorNotThrowException(10, 0, 0);
+    testArrayTraversableIteratorNotThrowException(10, 0, 10);
+    testArrayTraversableIteratorThrowsException(10, 0, 11);
+    testArrayTraversableIteratorThrowsException(10, 0, 100);
+    testArrayTraversableIteratorNotThrowException(10, 5, 0);
+    testArrayTraversableIteratorNotThrowException(10, 5, 5);
+    testArrayTraversableIteratorThrowsException(10, 5, 6);
+    testArrayTraversableIteratorThrowsException(10, 5, 100);
+  }
+
+  /**
+   * 与えられた条件でインスタンスを生成し、例外がスローされることをテストします。
+   * 
+   * @param arraySize 行列のサイズ
+   * @param offs 行列中の有効領域のオフセット
+   * @param length 有効領域のサイズ
+   */
+  private void testArrayTraversableIteratorThrowsException(int arraySize, int offs, int length) {
+    Object[] obj = new Object[arraySize];
+    boolean thrown = false;
+    try {
+      new ArrayTraversableIterator<Object>(obj, offs, length);
+    } catch (IndexOutOfBoundsException ex) {
+      thrown = true;
+    }
+    if (thrown == false) fail();
+  }
+
+  /**
+   * 与えられた条件でインスタンスを生成し、例外がスローされることをテストします。
+   * 
+   * @param arraySize 行列のサイズ
+   * @param offs 行列中の有効領域のオフセット
+   * @param length 有効領域のサイズ
+   */
+  private void testArrayTraversableIteratorNotThrowException(int arraySize, int offs, int length) {
+    Object[] obj = new Object[arraySize];
+    boolean thrown = false;
+    try {
+      new ArrayTraversableIterator<Object>(obj, offs, length);
+    } catch (IndexOutOfBoundsException ex) {
+      thrown = true;
+    }
+    if (thrown) fail();
+  }
+
+  /**
+   * Test method for
+   * {@link org.mklab.ishikura.graph.function.ArrayTraversableIterator#hasNext()}
+   * .
+   */
+  @Test
+  public void testHasNextWithOffset() {
+    this.offset = 5;
+    createAndTestHasNext(0);
+    this.offset = 10;
+    createAndTestHasNext(1);
+    this.offset = 100;
+    createAndTestHasNext(100);
+  }
+
+  /**
+   * Test method for
+   * {@link org.mklab.ishikura.graph.function.ArrayTraversableIterator#hasPrevious()}
+   * .
+   */
+  @Test
+  public void testHasPreviousWithOffset() {
+    this.offset = 100;
+    createAndTestHasPrevious(0);
+    this.offset = 1000;
+    createAndTestHasPrevious(1);
+    this.offset = 1;
+    createAndTestHasPrevious(100);
+  }
+
+  /**
+   * Test method for
+   * {@link org.mklab.ishikura.graph.function.ArrayTraversableIterator#next()}.
+   */
+  @Test
+  public void testNextWithOffset() {
+    this.offset = 1;
+    createAndTestNext(0);
+    this.offset = 10;
+    createAndTestNext(100);
+  }
+
+  /**
+   * Test method for
+   * {@link org.mklab.ishikura.graph.function.ArrayTraversableIterator#previous()}
+   * .
+   */
+  @Test
+  public void testPreviousWithOffset() {
+    this.offset = 1;
+    createAndTestPrevious(0);
+    this.offset = 10;
+    createAndTestPrevious(100);
+  }
+
+  /**
+   * 与えられたサイズでテスト対象のイテレータを生成します。
+   * 
+   * @param size サイズ
+   * @return イテレータ
+   */
+  @Override
+  protected TraversableIterator<Object> create(int size) {
+    int arraySize = size + this.offset;
+    Object[] array = new Object[arraySize];
+    for (int i = 0; i < arraySize; i++)
+      array[i] = new Object();
+
+    TraversableIterator<Object> itr = new ArrayTraversableIterator<Object>(array, this.offset, size);
+    return itr;
+  }
+
+}
