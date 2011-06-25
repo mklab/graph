@@ -23,7 +23,16 @@ public class NullGraphics implements Graphics {
   }
 
   /**
-   * @see org.mklab.ishikura.graph.graphics.Graphics#drawLine(int, int, int, int)
+   * @see org.mklab.ishikura.graph.graphics.Graphics#getLineType()
+   */
+  @Override
+  public LineType getLineType() {
+    return LineType.DEFAULT;
+  }
+
+  /**
+   * @see org.mklab.ishikura.graph.graphics.Graphics#drawLine(int, int, int,
+   *      int)
    */
   @Override
   public void drawLine(int x1, int y1, int x2, int y2) {
@@ -48,7 +57,8 @@ public class NullGraphics implements Graphics {
   }
 
   /**
-   * @see org.mklab.ishikura.graph.graphics.Graphics#fillRect(int, int, int, int)
+   * @see org.mklab.ishikura.graph.graphics.Graphics#fillRect(int, int, int,
+   *      int)
    */
   @Override
   public void fillRect(int x, int y, int width, int height) {
@@ -56,7 +66,8 @@ public class NullGraphics implements Graphics {
   }
 
   /**
-   * @see org.mklab.ishikura.graph.graphics.Graphics#drawRect(int, int, int, int)
+   * @see org.mklab.ishikura.graph.graphics.Graphics#drawRect(int, int, int,
+   *      int)
    */
   @Override
   public void drawRect(int x, int y, int width, int height) {
@@ -80,7 +91,8 @@ public class NullGraphics implements Graphics {
   }
 
   /**
-   * @see org.mklab.ishikura.graph.graphics.Graphics#clipRect(int, int, int, int)
+   * @see org.mklab.ishikura.graph.graphics.Graphics#clipRect(int, int, int,
+   *      int)
    */
   @Override
   public void clipRect(int x, int y, int width, int height) {
@@ -133,6 +145,22 @@ public class NullGraphics implements Graphics {
   @Override
   public Color getColor() {
     return null;
+  }
+
+  /**
+   * @see org.mklab.ishikura.graph.graphics.Graphics#setLineWidth(float)
+   */
+  @Override
+  public void setLineWidth(float width) {
+    // do nothing
+  }
+
+  /**
+   * @see org.mklab.ishikura.graph.graphics.Graphics#getLineWidth()
+   */
+  @Override
+  public float getLineWidth() {
+    return 0;
   }
 
 }

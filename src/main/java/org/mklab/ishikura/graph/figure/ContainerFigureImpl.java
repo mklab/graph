@@ -33,7 +33,7 @@ public class ContainerFigureImpl extends AbstractFigure implements ContainerFigu
    * {@inheritDoc}
    */
   @Override
-  public void add(Figure figure) {
+  public final void add(Figure figure) {
     if (figure == null) throw new NullPointerException();
     if (figure.getParent() != null) throw new IllegalStateException("figure's parent was already set."); //$NON-NLS-1$
 
@@ -46,9 +46,21 @@ public class ContainerFigureImpl extends AbstractFigure implements ContainerFigu
   }
 
   /**
+   * 与えられた図をこの図から削除します。
+   * 
+   * @param figure 削除する図
+   * @throws IllegalArgumentException 図が含まれていない場合
+   */
+  public final void remove(Figure figure) {
+    if (this.children.remove(figure) == false) {
+      throw new IllegalArgumentException("figure is not contained."); //$NON-NLS-1$
+    }
+  }
+
+  /**
    * すべての子の図を削除します。
    */
-  protected void clear() {
+  public final void removeAll() {
     this.children.clear();
   }
 
@@ -57,7 +69,7 @@ public class ContainerFigureImpl extends AbstractFigure implements ContainerFigu
    * 
    * @return 子の図
    */
-  protected Iterable<Figure> getChildren() {
+  public final Iterable<Figure> getChildren() {
     return this.children;
   }
 
@@ -101,7 +113,7 @@ public class ContainerFigureImpl extends AbstractFigure implements ContainerFigu
    * {@inheritDoc}
    */
   @Override
-  public List<Figure> getFiguresAt(int x, int y) {
+  public final List<Figure> getFiguresAt(int x, int y) {
     final List<Figure> list = new ArrayList<Figure>();
     for (final Figure child : this.children) {
       if (child.contains(x - child.getX(), y - child.getY()) == false) continue;

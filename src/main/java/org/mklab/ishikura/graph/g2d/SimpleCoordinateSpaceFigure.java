@@ -6,7 +6,6 @@
 package org.mklab.ishikura.graph.g2d;
 
 import org.mklab.ishikura.graph.figure.ContainerFigureImpl;
-import org.mklab.ishikura.graph.function.Function2D;
 import org.mklab.ishikura.graph.graphics.Color;
 import org.mklab.ishikura.graph.graphics.Graphics;
 
@@ -27,7 +26,7 @@ public class SimpleCoordinateSpaceFigure extends ContainerFigureImpl implements 
   /** 格子部分の図です。 */
   private GridFigure grid;
   /** 関数を表示する図です。 */
-  private FunctionsFigure functionFigure;
+  private FunctionsFigure functionsFigure;
   /** ガイドの表示を行う図です。 */
   private GuideFigure guideFigure;
   /** 目盛り文字の色です。 */
@@ -40,11 +39,11 @@ public class SimpleCoordinateSpaceFigure extends ContainerFigureImpl implements 
    */
   public SimpleCoordinateSpaceFigure() {
     this.grid = new GridFigure();
-    this.functionFigure = new FunctionsFigure(this.grid);
+    this.functionsFigure = new FunctionsFigure();
     this.guideFigure = new GuideFigure(this.grid);
 
     add(this.grid);
-    add(this.functionFigure);
+    add(this.functionsFigure);
     add(this.guideFigure);
 
     this.guideFigure.setVisible(false);
@@ -75,7 +74,7 @@ public class SimpleCoordinateSpaceFigure extends ContainerFigureImpl implements 
 
   private void setGridBounds(int x, int y, int width, int height) {
     this.grid.setBounds(x, y, width, height);
-    this.functionFigure.setBounds(x, y, width, height);
+    this.functionsFigure.setBounds(x, y, width, height);
     this.guideFigure.setBounds(x, y, width, height);
   }
 
@@ -194,8 +193,18 @@ public class SimpleCoordinateSpaceFigure extends ContainerFigureImpl implements 
    * {@inheritDoc}
    */
   @Override
-  public void setFunctions(Function2D[] function) {
-    this.functionFigure.setFunctions(function);
+  public FunctionFigure newFunctionFigure() {
+    final FunctionFigure figure = new FunctionFigure(this.grid);
+    this.functionsFigure.add(figure);
+    return figure;
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public void removeFunctionFigure(FunctionFigure figure) {
+    this.functionsFigure.remove(figure);
   }
 
 }

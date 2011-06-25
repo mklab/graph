@@ -4,7 +4,6 @@
 package org.mklab.ishikura.graph.g2d;
 
 import org.mklab.ishikura.graph.figure.ContainerFigure;
-import org.mklab.ishikura.graph.function.Function2D;
 
 
 /**
@@ -47,10 +46,19 @@ public interface CoordinateSpaceFigure extends ContainerFigure {
   void setScope(Scope scope);
 
   /**
-   * 表示する関数を設定します。
+   * 関数の図を新たに作成します。
    * 
-   * @param function 表示する関数
+   * @param functionFigure 関数
+   * @return 新しく追加した関数の図
    */
-  void setFunctions(Function2D[] function);
+  FunctionFigure newFunctionFigure();
+
+  /**
+   * 関数の図を削除します。
+   * 
+   * @param figure 関数の図
+   * @throws IllegalArgumentException 関数図がこの座標系に存在しない場合
+   */
+  void removeFunctionFigure(FunctionFigure figure);
 
 }

@@ -60,7 +60,10 @@ public class GraphFigure extends ContainerFigureImpl {
    * @param functions 関数
    */
   public void setFunctions(Function2D[] functions) {
-    this.coordinateSpace.setFunctions(functions);
+    for (Function2D f : functions) {
+      final FunctionFigure fig = this.coordinateSpace.newFunctionFigure();
+      fig.setFunction(f);
+    }
   }
 
   /**

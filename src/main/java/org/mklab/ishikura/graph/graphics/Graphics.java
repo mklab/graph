@@ -16,9 +16,30 @@ public interface Graphics {
   /**
    * {@link #drawLine(int, int, int, int)}の線種を設定します。
    * 
-   * @param type 線種類
+   * @param type 線種
    */
   void setLineType(LineType type);
+
+  /**
+   * 現在の線種を取得します。
+   * 
+   * @return 線種
+   */
+  LineType getLineType();
+
+  /**
+   * 線幅を設定します。
+   * 
+   * @param width 線幅
+   */
+  void setLineWidth(float width);
+
+  /**
+   * 線幅を取得します。
+   * 
+   * @return 線幅
+   */
+  float getLineWidth();
 
   /**
    * 線を描画します。

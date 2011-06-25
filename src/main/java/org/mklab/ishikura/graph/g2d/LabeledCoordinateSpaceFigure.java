@@ -7,7 +7,6 @@ import org.mklab.ishikura.graph.figure.ContainerFigureImpl;
 import org.mklab.ishikura.graph.figure.TextAlignment;
 import org.mklab.ishikura.graph.figure.TextFigure;
 import org.mklab.ishikura.graph.figure.TextOrientation;
-import org.mklab.ishikura.graph.function.Function2D;
 import org.mklab.ishikura.graph.graphics.Graphics;
 
 
@@ -163,7 +162,15 @@ public class LabeledCoordinateSpaceFigure extends ContainerFigureImpl implements
    * {@inheritDoc}
    */
   @Override
-  public void setFunctions(Function2D[] function) {
-    this.coordinateSpace.setFunctions(function);
+  public FunctionFigure newFunctionFigure() {
+    return this.coordinateSpace.newFunctionFigure();
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public void removeFunctionFigure(FunctionFigure figure) {
+    this.coordinateSpace.removeFunctionFigure(figure);
   }
 }

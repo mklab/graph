@@ -13,8 +13,11 @@ import javax.swing.WindowConstants;
 import org.mklab.ishikura.graph.figure.Figure;
 import org.mklab.ishikura.graph.function.Function2D;
 import org.mklab.ishikura.graph.function.ListFunction2D;
+import org.mklab.ishikura.graph.g2d.CoordinateSpaceFigure;
 import org.mklab.ishikura.graph.g2d.FunctionFigure;
 import org.mklab.ishikura.graph.g2d.GraphFigure;
+import org.mklab.ishikura.graph.graphics.Color;
+import org.mklab.ishikura.graph.graphics.LineType;
 import org.mklab.ishikura.graph.swing.GraphComponent;
 
 
@@ -51,7 +54,13 @@ public class GraphSample {
         }
       }
     });
-    graph.setFunctions(new Function2D[] {createQuadraticFunction(), createCubicFunction()});
+    final CoordinateSpaceFigure coords = graph.getCoordinateSpace();
+    final FunctionFigure function1 = coords.newFunctionFigure();
+    function1.setFunction(createQuadraticFunction());
+    function1.setLineWidth(3);
+    final FunctionFigure function2 = coords.newFunctionFigure();
+    function2.setFunction(createCubicFunction());
+    function2.setLineColor(Color.GREEN);
 
     graph.setSize(400, 300);
     graph.setScope(-25, 25, -300, 300);

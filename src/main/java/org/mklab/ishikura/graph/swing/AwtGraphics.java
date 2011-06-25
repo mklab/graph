@@ -23,7 +23,9 @@ public class AwtGraphics implements Graphics {
   /** 描画対象グラフィックスコンテキストです。 */
   java.awt.Graphics2D g;
   /** 線の幅です。 */
-  int lineWidth = 1;
+  float lineWidth = 1;
+  /** 線種です。 */
+  LineType lineType;
   /** 現在の色です。 */
   org.mklab.ishikura.graph.graphics.Color color;
 
@@ -50,17 +52,29 @@ public class AwtGraphics implements Graphics {
    * {@inheritDoc}
    */
   @Override
+  public LineType getLineType() {
+    return this.lineType;
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  @Override
   public void setLineType(LineType type) {
-    this.g.setStroke(new BasicStroke(this.lineWidth, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND, 0, new float[] {4, 4}, 0));
-    switch (type) {
+    this.lineType = type;
+    updateStroke();
+  }
+
+  private void updateStroke() {
+    switch (this.lineType) {
       case DEFAULT:
         this.g.setStroke(new BasicStroke(this.lineWidth));
         return;
       case DOT:
-        this.g.setStroke(new BasicStroke(this.lineWidth, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND, 0, new float[] {4, 4}, 0));
+        this.g.setStroke(new BasicStroke(this.lineWidth, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND, 0, new float[] {4 * this.lineWidth, 4 * this.lineWidth}, 0));
         return;
       default:
-        throw new IllegalArgumentException(String.valueOf(type));
+        throw new IllegalArgumentException(String.valueOf(this.lineType));
     }
   }
 
@@ -168,6 +182,24 @@ public class AwtGraphics implements Graphics {
   @Override
   public org.mklab.ishikura.graph.graphics.Color getColor() {
     return this.color;
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public void setLineWidth(float width) {
+    if (width <= 0) throw new IllegalArgumentException();
+
+    this.lineWidth = width;
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public float getLineWidth() {
+    return this.lineWidth;
   }
 
 }

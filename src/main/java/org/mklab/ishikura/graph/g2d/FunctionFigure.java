@@ -12,6 +12,7 @@ import org.mklab.ishikura.graph.function.DiscreteFunction2D;
 import org.mklab.ishikura.graph.function.TraversableIterator;
 import org.mklab.ishikura.graph.graphics.Color;
 import org.mklab.ishikura.graph.graphics.Graphics;
+import org.mklab.ishikura.graph.graphics.LineType;
 
 
 /**
@@ -28,6 +29,10 @@ public class FunctionFigure extends AbstractFigure {
   private GridFigure grid;
   /** 線の色です。 */
   private Color lineColor = Color.RED;
+  /** 線の太さです。 */
+  private int lineWidth = 1;
+  /** 線種です。 */
+  private LineType lineType = LineType.DEFAULT;
 
   /**
    * {@link FunctionFigure}オブジェクトを構築します。
@@ -46,6 +51,26 @@ public class FunctionFigure extends AbstractFigure {
    */
   public void setLineColor(Color lineColor) {
     this.lineColor = lineColor;
+  }
+
+  /**
+   * 線種を設定します。
+   * 
+   * @param lineType 線種
+   */
+  public void setLineType(LineType lineType) {
+    if (lineType == null) throw new NullPointerException();
+    this.lineType = lineType;
+  }
+
+  /**
+   * 線幅を設定します。
+   * 
+   * @param lineWidth 線幅
+   */
+  public void setLineWidth(int lineWidth) {
+    if (lineWidth <= 0) throw new IllegalArgumentException();
+    this.lineWidth = lineWidth;
   }
 
   /**
@@ -81,13 +106,22 @@ public class FunctionFigure extends AbstractFigure {
   protected void handleDraw(Graphics g) {
     if (this.function == null) return;
 
+    final Color oldColor = g.getColor();
+    final float oldLineWidth = g.getLineWidth();
+    final LineType oldLineType = g.getLineType();
+
     g.setColor(this.lineColor);
+    g.setLineWidth(this.lineWidth);
+    g.setLineType(this.lineType);
     if (this.function instanceof DiscreteFunction2D) {
       final Scope scope = this.grid.getScope();
       drawDiscreteFunction(g, scope, this.function);
     } else {
       drawContinuousFunction(g, this.function);
     }
+    g.setLineType(oldLineType);
+    g.setLineWidth(oldLineWidth);
+    g.setColor(oldColor);
   }
 
   /**
