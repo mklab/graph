@@ -3,11 +3,9 @@
  */
 package org.mklab.ishikura.graph.g2d;
 
-import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
-
-import java.util.ArrayList;
-import java.util.List;
+import static org.mklab.ishikura.graph.g2d.GridAssertion.assertGridEquals;
+import static org.mklab.ishikura.graph.g2d.GridAssertion.grid;
 
 import org.junit.Test;
 
@@ -126,26 +124,6 @@ public class GridFactoryImplTest {
     assertGridEquals(grid(-0.2, 0, 0.2), gridFactory.create(-0.3379, 0.3647));
     assertGridEquals(grid(-100000, 0, 100000), gridFactory.create(-154077.167222, 156115.562485));
     assertGridEquals(grid(-0.6, -0.4, -0.2, 0), gridFactory.create(-0.681267, 0.165232));
-  }
-
-  private Grid grid(double... d) {
-    Grid grid = new Grid();
-    for (double dd : d) {
-      grid.add(dd);
-    }
-    return grid;
-  }
-
-  private void assertGridEquals(Grid expected, Grid actual) {
-    assertArrayEquals(getGridElements(expected), getGridElements(actual));
-  }
-
-  private Double[] getGridElements(Grid g) {
-    List<Double> grids = new ArrayList<Double>();
-    for (Double d : g) {
-      grids.add(d);
-    }
-    return grids.toArray(new Double[grids.size()]);
   }
 
 }
