@@ -46,9 +46,9 @@ public class GridFigure extends AbstractFigure {
    */
   public GridFigure() {
     this.measureX = new StandardMeasure();
-    this.measureY = new StandardMeasure();
+    this.measureY = new LogScaleMeasure();
     this.gridFactoryX = new GridFactoryImpl();
-    this.gridFactoryY = new GridFactoryImpl();
+    this.gridFactoryY = new LogScaleGridFactory();
   }
 
   /**
