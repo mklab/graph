@@ -9,7 +9,9 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
-import org.mklab.ishikura.graph.g2d.LabeledCoordinateSpaceFigure;
+import org.mklab.ishikura.graph.function.Function2D;
+import org.mklab.ishikura.graph.g2d.FunctionFigure;
+import org.mklab.ishikura.graph.g2d.GraphFigure;
 import org.mklab.ishikura.graph.g2d.Scope;
 import org.mklab.ishikura.graph.swing.FigureRasterizer;
 
@@ -29,17 +31,27 @@ public class RasterizationSample {
    */
   @SuppressWarnings("nls")
   public static void main(final String[] args) {
-    FigureRasterizer r = new FigureRasterizer();
-    final LabeledCoordinateSpaceFigure coordinateSpace = new LabeledCoordinateSpaceFigure();
+    final FigureRasterizer r = new FigureRasterizer();
 
-    coordinateSpace.setWidth(300);
-    coordinateSpace.setHeight(300);
-    coordinateSpace.setTitle("Sample GraphFigure");
-    coordinateSpace.setNameOfX("Name of X Axis");
-    coordinateSpace.setNameOfY("Name of Y Axis");
-    coordinateSpace.setScope(new Scope(0, 300, 0, 300));
+    final GraphFigure graph = new GraphFigure();
+    graph.setWidth(300);
+    graph.setHeight(300);
+    graph.setTitle("Sample GraphFigure");
+    graph.setNameOfX("Name of X Axis");
+    graph.setNameOfY("Name of Y Axis");
+    graph.setScope(new Scope(0, 10, -1, 1));
 
-    final BufferedImage image = r.rasterize(coordinateSpace);
+    final FunctionFigure f1 = graph.getCoordinateSpace().newFunctionFigure();
+    f1.setLineName("y = x");
+    f1.setFunction(new Function2D() {
+
+      @Override
+      public double evalY(double x) {
+        return Math.sin(x);
+      }
+    });
+
+    final BufferedImage image = r.rasterize(graph);
     try {
       ImageIO.write(image, "png", new File("target/test.png"));
     } catch (IOException e) {

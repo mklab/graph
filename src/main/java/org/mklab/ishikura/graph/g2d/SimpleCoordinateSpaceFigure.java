@@ -71,15 +71,15 @@ public class SimpleCoordinateSpaceFigure extends ContainerFigureImpl implements 
    */
   @Override
   protected void layout(Graphics g) {
-    validateChildren(g);
-
     if (this.minimumLeftSpace == -1) this.minimumLeftSpace = g.computeTextWidth("0000"); //$NON-NLS-1$
 
+    validateChildren(g);
     final int leftSpaceToGrid = Math.max(this.minimumLeftSpace, this.computePaddingOfYAxisGraduation(g, this.grid.getGridY()));
     final int bottomSpace = computePaddingOfXAxisGraduation(g);
     final int topSpace = 0;
 
     setGridBounds(leftSpaceToGrid, topSpace, getWidth() - leftSpaceToGrid, getHeight() - bottomSpace - topSpace);
+    validateChildren(g);
   }
 
   private void setGridBounds(int x, int y, int width, int height) {

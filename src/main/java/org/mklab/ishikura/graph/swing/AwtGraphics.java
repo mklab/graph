@@ -40,7 +40,7 @@ public class AwtGraphics implements Graphics {
   public AwtGraphics(java.awt.Graphics2D g) {
     if (g == null) throw new NullPointerException();
     this.g = g;
-    g.setColor(Color.BLACK);
+    setColor(org.mklab.ishikura.graph.graphics.Color.BLACK);
   }
 
   /**
@@ -213,8 +213,13 @@ public class AwtGraphics implements Graphics {
    */
   @Override
   public void setAlpha(float alpha) {
+    if (alpha < 0 || alpha > 1) throw new IllegalArgumentException();
     this.alpha = alpha;
-    this.g.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, alpha));
+    if (alpha == 1) {
+      this.g.setComposite(AlphaComposite.SrcOver);
+    } else {
+      this.g.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, alpha));
+    }
   }
 
   /**
