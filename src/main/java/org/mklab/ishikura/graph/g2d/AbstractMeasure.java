@@ -19,7 +19,12 @@ abstract class AbstractMeasure implements Measure {
    */
   @Override
   public final void setBound(Bound bound) {
+    checkBound(bound);
     this.bound = bound;
+  }
+
+  protected void checkBound(@SuppressWarnings({"unused", "hiding"}) Bound bound) {
+    // do nothing
   }
 
   /**

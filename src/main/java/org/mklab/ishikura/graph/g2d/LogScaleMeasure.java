@@ -7,7 +7,15 @@ package org.mklab.ishikura.graph.g2d;
  * @author Yuhi Ishikura
  * @version $Revision$, 2011/06/25
  */
-class LogScaleMeasure extends AbstractMeasure {
+final class LogScaleMeasure extends AbstractMeasure {
+
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  protected void checkBound(@SuppressWarnings("hiding") Bound bound) {
+    if (bound.getStart() <= 0) throw new IllegalArgumentException("Log scale graph not support zero or negative value."); //$NON-NLS-1$
+  }
 
   /**
    * {@inheritDoc}

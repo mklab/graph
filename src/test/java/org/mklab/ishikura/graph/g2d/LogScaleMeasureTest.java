@@ -3,7 +3,7 @@
  */
 package org.mklab.ishikura.graph.g2d;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
