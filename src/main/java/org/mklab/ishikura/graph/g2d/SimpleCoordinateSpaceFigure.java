@@ -33,6 +33,8 @@ public class SimpleCoordinateSpaceFigure extends ContainerFigureImpl implements 
   private GuideFigure guideFigure;
   /** 関数情報表示ボックスです。 */
   private FunctionInfoBoxFigure lineInfoBox;
+  /** グラフ上の値を文字列にするために利用します。 */
+  private ValueToStringer valueToStringer;
 
   /** 目盛り文字の色です。 */
   private Color textColor = ColorConstants.GRADUATION_TEXT;
@@ -49,6 +51,7 @@ public class SimpleCoordinateSpaceFigure extends ContainerFigureImpl implements 
     this.functionsFigure = new FunctionsFigure();
     this.guideFigure = new GuideFigure(this.grid);
     this.lineInfoBox = new FunctionInfoBoxFigure();
+    this.valueToStringer = new ValueToStringerImpl();
 
     add(this.grid);
     add(this.functionsFigure);
@@ -111,7 +114,7 @@ public class SimpleCoordinateSpaceFigure extends ContainerFigureImpl implements 
   private int computePaddingOfYAxisGraduation(Graphics g, final Grid gridForYAxis) {
     int maximumScaleWidth = Integer.MIN_VALUE;
     for (final Double y : gridForYAxis) {
-      final int w = g.computeTextWidth(y.toString());
+      final int w = g.computeTextWidth(this.valueToStringer.valueToString(y.doubleValue()));
       if (maximumScaleWidth < w) maximumScaleWidth = w;
     }
     if (maximumScaleWidth < 0) return 50;
@@ -208,8 +211,7 @@ public class SimpleCoordinateSpaceFigure extends ContainerFigureImpl implements 
   }
 
   private String toGraduationText(double value) {
-    if (value == (int)value) return String.valueOf((int)value);
-    return String.valueOf(value);
+    return this.valueToStringer.valueToString(value);
   }
 
   /**
