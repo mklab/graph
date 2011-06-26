@@ -14,13 +14,13 @@ import org.junit.Test;
  * @author Yuhi Ishikura
  * @version $Revision$, 2011/06/25
  */
-public class GridFactoryImplTest {
+public class StandardGridFactoryTest {
 
-  static GridFactoryImpl gridFactory = new GridFactoryImpl();
+  static StandardGridFactory gridFactory = new StandardGridFactory();
 
   /**
    * Test method for
-   * {@link org.mklab.ishikura.graph.g2d.GridFactoryImpl#getMultiplierForMakingNumberBetween0_29(double)}
+   * {@link org.mklab.ishikura.graph.g2d.StandardGridFactory#getMultiplierForMakingNumberBetween0_29(double)}
    * .
    */
   @Test
@@ -59,7 +59,7 @@ public class GridFactoryImplTest {
 
   /**
    * Test method for
-   * {@link org.mklab.ishikura.graph.g2d.GridFactoryImpl#mapGridInterval(double)}
+   * {@link org.mklab.ishikura.graph.g2d.StandardGridFactory#mapGridInterval(double)}
    * .
    */
   @Test
@@ -80,7 +80,7 @@ public class GridFactoryImplTest {
 
   /**
    * Test method for
-   * {@link org.mklab.ishikura.graph.g2d.GridFactoryImpl#getGridInterval(double)}
+   * {@link org.mklab.ishikura.graph.g2d.StandardGridFactory#getGridInterval(double)}
    * .
    */
   @Test
@@ -116,7 +116,7 @@ public class GridFactoryImplTest {
 
   /**
    * Test method for
-   * {@link org.mklab.ishikura.graph.g2d.GridFactoryImpl#create(double, double)}
+   * {@link org.mklab.ishikura.graph.g2d.StandardGridFactory#create(double, double)}
    * .
    */
   @Test

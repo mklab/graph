@@ -7,7 +7,7 @@ package org.mklab.ishikura.graph.g2d;
  * @author Yuhi Ishikura
  * @version $Revision$, 2011/06/25
  */
-class GridFactoryImpl implements GridFactory {
+class StandardGridFactory implements GridFactory {
 
   /**
    * {@inheritDoc}
