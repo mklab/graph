@@ -46,9 +46,9 @@ public class GridFigure extends AbstractFigure {
    */
   public GridFigure() {
     this.measureX = new StandardMeasure();
-    this.measureY = new LogScaleMeasure();
+    this.measureY = new StandardMeasure();
     this.gridFactoryX = new GridFactoryImpl();
-    this.gridFactoryY = new LogScaleGridFactory();
+    this.gridFactoryY = new GridFactoryImpl();
   }
 
   /**
@@ -97,6 +97,8 @@ public class GridFigure extends AbstractFigure {
   public void scaleScope(final int x, final int y, double ratio) {
     final double modelX = this.measureX.viewToModel(x);
     final double modelY = this.measureY.viewToModel(y);
+
+    if (modelX == Double.NaN || modelY == Double.NaN) throw new InvalidScopeException();
 
     setScope(this.scope.scaledScope(modelX, modelY, ratio));
   }
@@ -231,7 +233,9 @@ public class GridFigure extends AbstractFigure {
    * @return モデルのx座標
    */
   public double viewToModelX(int x) {
-    return this.measureX.viewToModel(x);
+    final double modelValue = this.measureX.viewToModel(x);
+    if (Double.isNaN(modelValue)) throw new InvalidScopeException();
+    return modelValue;
   }
 
   /**
@@ -241,7 +245,9 @@ public class GridFigure extends AbstractFigure {
    * @return モデルのy座標
    */
   public double viewToModelY(int y) {
-    return this.measureY.viewToModel(getHeight() - y - 1);
+    final double modelValue = this.measureY.viewToModel(getHeight() - y - 1);
+    if (Double.isNaN(modelValue)) throw new InvalidScopeException();
+    return modelValue;
   }
 
   /**

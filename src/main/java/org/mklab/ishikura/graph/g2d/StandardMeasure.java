@@ -18,12 +18,11 @@ final class StandardMeasure extends AbstractMeasure {
    */
   @Override
   public double viewToModel(int viewValue) {
-    if (containsInView(viewValue) == false) throw new IllegalArgumentException("position is out of view bounds : " + viewValue); //$NON-NLS-1$
     return this.bound.getStart() + getViewToModelRatio() * viewValue;
   }
 
   /**
-   * @see org.mklab.ishikura.graph.g2d.Measure#modelToViewIgnoreBound(double)
+   * {@inheritDoc}
    */
   @Override
   public int modelToViewIgnoreBound(double modelValue) {
@@ -31,7 +30,7 @@ final class StandardMeasure extends AbstractMeasure {
   }
 
   /**
-   * @see org.mklab.ishikura.graph.g2d.Measure#modelToView(double)
+   * {@inheritDoc}
    */
   @Override
   public int modelToView(double modelValue) {
@@ -50,10 +49,10 @@ final class StandardMeasure extends AbstractMeasure {
     final double modelSize = scopeEnd - scopeStart;
     final double viewValue = (modelValue - scopeStart) * this.viewSize / modelSize;
     final int viewValueInt = (int)(viewValue > 0 ? (viewValue + 0.5) : viewValue - 0.5);
+
     if (ignoreBound == false) {
       if (viewValueInt == this.viewSize && viewValue < this.viewSize) return viewValueInt - 1;
     }
     return viewValueInt;
   }
-
 }

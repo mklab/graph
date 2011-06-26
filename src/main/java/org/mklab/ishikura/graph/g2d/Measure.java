@@ -63,7 +63,8 @@ interface Measure {
    * ビュー上の座標から数学上の座標に変換します。
    * 
    * @param viewValue ビュー上の座標
-   * @return 数学的な座標
+   * @return 数学的な座標。座標系で存在し得ない場合(ex:対数グラフでviewValue<=0)には、{@link Double#NaN}
+   *         を返します。
    */
   double viewToModel(int viewValue);
 

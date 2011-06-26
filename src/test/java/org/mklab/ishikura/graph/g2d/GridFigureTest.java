@@ -71,22 +71,22 @@ public class GridFigureTest {
    */
   @Test
   public void testModelToViewFigure() {
-    final GridFigure figure = new GridFigure();
+    final GridFigure gridFigure = new GridFigure();
     final Graphics g = new NullGraphics();
     final ContainerFigureImpl parent = new ContainerFigureImpl();
 
-    figure.setX(10);
-    figure.setY(10);
-    figure.setWidth(300);
-    figure.setHeight(300);
+    gridFigure.setX(10);
+    gridFigure.setY(10);
+    gridFigure.setWidth(300);
+    gridFigure.setHeight(300);
 
-    figure.setScope(new Scope(0, 300, 0, 300));
-    parent.add(figure);
+    gridFigure.setScope(new Scope(0, 300, 0, 300));
+    parent.add(gridFigure);
     parent.draw(g);
 
-    assertEquals(0 + 10, figure.modelToViewY(parent, 299.999));
-    assertEquals(-1, figure.modelToViewY(parent, 300));
-    assertEquals(299 + 10, figure.modelToViewY(parent, 0));
+    assertEquals(0, gridFigure.modelToViewY(parent, 299.999));
+    assertEquals(-1, gridFigure.modelToViewY(parent, 300));
+    assertEquals(299, gridFigure.modelToViewY(parent, 0));
   }
 
   /**

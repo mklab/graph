@@ -8,7 +8,6 @@ package org.mklab.ishikura.graph.g2d;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
 
 import org.junit.Test;
 
@@ -77,29 +76,6 @@ public class StandardMeasureTest {
     assertEquals(-1, m.modelToViewIgnoreBound(-1));
     assertEquals(1000, m.modelToViewIgnoreBound(1000));
     assertEquals(-1000, m.modelToViewIgnoreBound(-1000));
-  }
-
-  /**
-   * Test method for
-   * {@link org.mklab.ishikura.graph.g2d.StandardMeasure#viewToModel(int)}
-   */
-  @Test
-  public void testViewToModelThrowsIllegalArgumentException() {
-    final Measure m = new StandardMeasure();
-    m.setViewSize(300);
-    m.setBound(new Bound(0, 300));
-
-    assertViewToModelThrowsIllegalArgumentException(m, -1);
-    assertViewToModelThrowsIllegalArgumentException(m, 301);
-  }
-
-  private void assertViewToModelThrowsIllegalArgumentException(Measure m, int value) {
-    try {
-      m.viewToModel(value);
-    } catch (IllegalArgumentException ex) {
-      return;
-    }
-    fail();
   }
 
   /**

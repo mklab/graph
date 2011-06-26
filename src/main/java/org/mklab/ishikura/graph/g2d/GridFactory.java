@@ -17,6 +17,7 @@ public interface GridFactory {
    * @param start 区間の始まり
    * @param end 区間の終わり
    * @return グリッド
+   * @throws IllegalArgumentException 不正な区間が指定された場合
    */
   Grid create(double start, double end);
 
