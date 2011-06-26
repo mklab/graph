@@ -30,5 +30,7 @@ public interface ColorConstants {
   Color AXIS = Color.BLACK;
   /** グリッドの色です。 */
   Color GRID = Color.BLUE;
+  /** ガイドの線の色です。 */
+  Color GUIDE_LINE = Color.BLACK;
 
 }

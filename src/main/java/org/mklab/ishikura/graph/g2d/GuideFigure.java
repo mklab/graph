@@ -19,7 +19,7 @@ import org.mklab.ishikura.graph.graphics.Graphics;
 public class GuideFigure extends AbstractFigure {
 
   /** ガイドの線色です。 */
-  private Color lineColor = Color.BLACK;
+  private Color lineColor = ColorConstants.GUIDE_LINE;
   /** グリッド部分の図です。座標変換に利用します。 */
   private GridFigure grid;
   /** ガイドのx座標(モデル上)です。 */
