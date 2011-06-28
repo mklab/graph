@@ -12,12 +12,10 @@ import javax.swing.WindowConstants;
 
 import org.mklab.ishikura.graph.figure.Figure;
 import org.mklab.ishikura.graph.function.Function2D;
-import org.mklab.ishikura.graph.function.ListFunction2D;
 import org.mklab.ishikura.graph.g2d.CoordinateSpaceFigure;
 import org.mklab.ishikura.graph.g2d.FunctionFigure;
 import org.mklab.ishikura.graph.g2d.GraphFigure;
 import org.mklab.ishikura.graph.graphics.Color;
-import org.mklab.ishikura.graph.graphics.LineType;
 import org.mklab.ishikura.graph.swing.GraphComponent;
 
 
