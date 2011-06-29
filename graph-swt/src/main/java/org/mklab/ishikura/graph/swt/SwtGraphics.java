@@ -212,7 +212,8 @@ public class SwtGraphics implements Graphics {
   @Override
   public void rotate(double theta) {
     final Transform transform = new Transform(this.g.getDevice());
-    transform.rotate((float)theta);
+    this.g.getTransform(transform);
+    transform.rotate((float)Math.toDegrees(theta));
     this.g.setTransform(transform);
   }
 

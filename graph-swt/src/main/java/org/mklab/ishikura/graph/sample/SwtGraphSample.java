@@ -34,6 +34,8 @@ public class SwtGraphSample {
     graph.setSize(300, 300);
     graph.setScope(0, 100, 0, 100);
     graph.setTitle("Hello Graph"); //$NON-NLS-1$
+    graph.setNameOfX("X");
+    graph.setNameOfY("Y");
     canvas.setGraphFigure(graph);
 
     shell.setSize(500, 500);

@@ -215,7 +215,7 @@ public class AndroidGraphics implements Graphics {
    */
   @Override
   public void rotate(double theta) {
-    this.canvas.rotate((float)theta);
+    this.canvas.rotate((float)Math.toDegrees(theta));
   }
 
 }
