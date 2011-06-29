@@ -13,13 +13,19 @@ import android.view.View.OnTouchListener;
  */
 class GraphViewTouchListener implements OnTouchListener {
 
+  double lastMoveTime;
   double lastDistance;
+  double velocity;
+  double direction;
+  boolean touching = false;
+  public static final int MOMENTUM_SCROLL_REPAINT_RATE = 30;
 
   /**
    * {@inheritDoc}
    */
   @Override
   public boolean onTouch(View v, MotionEvent event) {
+    this.touching = true;
     final GraphView graphView = (GraphView)v;
     final GraphFigure graph = graphView.getGraphFigure();
     switch (event.getAction() & MotionEvent.ACTION_MASK) {
@@ -30,6 +36,8 @@ class GraphViewTouchListener implements OnTouchListener {
           final float dy = event.getHistoricalY(0) - event.getY();
           graph.move((int)dx, -(int)dy);
           graphView.invalidate();
+          this.velocity = Math.hypot(dx, dy) / (event.getEventTime() - this.lastMoveTime) * MOMENTUM_SCROLL_REPAINT_RATE;
+          this.direction = Math.atan2(-dy, dx);
         }
         // pinch to scale
         if (event.getPointerCount() == 2) {
@@ -43,11 +51,34 @@ class GraphViewTouchListener implements OnTouchListener {
           }
           this.lastDistance = distance;
         }
+
+        this.lastMoveTime = event.getEventTime();
         break;
-      case MotionEvent.ACTION_POINTER_UP:
+      case MotionEvent.ACTION_UP:
         this.lastDistance = 0;
+        this.touching = false;
+        momentumScroll(graphView);
+        break;
     }
     return true;
+  }
+
+  void momentumScroll(final GraphView graphView) {
+    if (this.velocity < 1e-2 || this.touching) return;
+    final double dx = this.velocity * Math.cos(this.direction);
+    final double dy = this.velocity * Math.sin(this.direction);
+    final GraphFigure graph = graphView.getGraphFigure();
+    graph.move((int)dx, (int)dy);
+    this.velocity *= 0.95;
+
+    graphView.postDelayed(new Runnable() {
+
+      @Override
+      public void run() {
+        momentumScroll(graphView);
+        graphView.invalidate();
+      }
+    }, MOMENTUM_SCROLL_REPAINT_RATE);
   }
 
 }
