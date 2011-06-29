@@ -19,6 +19,7 @@
 		<module>graph-swing</module>
 		<module>graph-core</module>
 		<module>graph-swt</module>
+		<module>graph-android</module>
 	</modules>
 
 	<build>
