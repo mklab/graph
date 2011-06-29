@@ -24,7 +24,7 @@ public class AndroidGraphics implements Graphics {
   private Canvas canvas;
   private Paint paint;
   private float alpha;
-  private LineType lineType;
+  private LineType lineType = LineType.DEFAULT;
   private float lineWidth;
   private Color color;
 
@@ -39,6 +39,9 @@ public class AndroidGraphics implements Graphics {
     this.paint = new Paint();
 
     setAlpha(1f);
+    setColor(Color.BLACK);
+    this.paint.setTextSize(15f);
+    this.paint.setAntiAlias(true);
   }
 
   /**
@@ -114,7 +117,6 @@ public class AndroidGraphics implements Graphics {
    */
   @Override
   public void drawString(String str, int x, int y) {
-    this.paint.setStyle(Style.STROKE);
     this.canvas.drawText(str, x, y, this.paint);
   }
 

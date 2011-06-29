@@ -26,7 +26,8 @@ public class AndroidGraphSampleActivity extends Activity {
     final GraphFigure graph = new GraphFigure();
     graph.setNameOfX("X軸"); //$NON-NLS-1$
     graph.setNameOfY("Y軸"); //$NON-NLS-1$
-    graph.setScope(0, 5, -2, 2);
+    graph.setTitle("Sample Graph"); //$NON-NLS-1$
+    graph.setScope(-5, 5, -2, 2);
     final FunctionFigure function = graph.getCoordinateSpace().newFunctionFigure();
     function.setFunction(new Function2D() {
 
