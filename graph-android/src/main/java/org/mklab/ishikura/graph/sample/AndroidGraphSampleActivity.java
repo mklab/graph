@@ -24,16 +24,15 @@ public class AndroidGraphSampleActivity extends Activity {
 
     final GraphView graphView = new GraphView(getApplicationContext());
     final GraphFigure graph = new GraphFigure();
-    graph.setNameOfX("X軸");
-    graph.setNameOfY("Y軸");
-    graph.setSize(600, 600);
-    graph.setScope(0, 100, 0, 100);
+    graph.setNameOfX("X軸"); //$NON-NLS-1$
+    graph.setNameOfY("Y軸"); //$NON-NLS-1$
+    graph.setScope(0, 5, -2, 2);
     final FunctionFigure function = graph.getCoordinateSpace().newFunctionFigure();
     function.setFunction(new Function2D() {
 
       @Override
       public double evalY(double x) {
-        return x;
+        return Math.sin(x);
       }
 
     });

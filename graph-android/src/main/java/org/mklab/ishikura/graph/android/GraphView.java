@@ -5,7 +5,6 @@ import org.mklab.ishikura.graph.graphics.Graphics;
 
 import android.content.Context;
 import android.graphics.Canvas;
-import android.view.MotionEvent;
 import android.view.View;
 
 
@@ -27,6 +26,7 @@ public class GraphView extends View {
   public GraphView(Context context) {
     super(context);
     setFocusable(true);
+    setOnTouchListener(new GraphViewTouchListener());
   }
 
   GraphFigure getGraphFigure() {
@@ -55,13 +55,5 @@ public class GraphView extends View {
     this.graphFigure.setHeight(getHeight());
 
     this.graphFigure.draw(g);
-  }
-
-  /**
-   * {@inheritDoc}
-   */
-  @Override
-  public boolean onTouchEvent(MotionEvent event) {
-    return true;
   }
 }
