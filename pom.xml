@@ -18,6 +18,7 @@
 	<modules>
 		<module>graph-swing</module>
 		<module>graph-core</module>
+		<module>graph-swt</module>
 	</modules>
 
 	<build>
@@ -30,5 +31,22 @@
 			</resource>
 		</resources>
 	</build>
+
+	<repositories>
+		<repository>
+			<id>mklab-repository</id>
+			<url>http://www.mk.ces.kyutech.ac.jp/maven</url>
+			<layout>default</layout>
+		</repository>
+	</repositories>
+
+	<distributionManagement>
+		<repository>
+			<id>mklab-repository</id>
+			<name>MKLAB Maven Repository</name>
+			<url>scp://birdcage.mk.ces.kyutech.ac.jp/home/mutsuki/maven</url>
+			<layout>default</layout>
+		</repository>
+	</distributionManagement>
 
 </project>
