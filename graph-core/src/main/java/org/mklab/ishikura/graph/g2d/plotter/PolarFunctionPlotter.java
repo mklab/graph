@@ -36,10 +36,10 @@ class PolarFunctionPlotter implements Plotter {
 
       final double x = r * Math.cos(theta);
       final double y = r * Math.sin(theta);
-      final int viewX = grid.modelToViewX(x);
-      final int viewY = grid.modelToViewY(y);
+      final int viewX = grid.modelToViewXIgnoreBound(x);
+      final int viewY = grid.modelToViewYIgnoreBound(y);
 
-      if (oldViewX != -1 && oldViewY != -1 && viewX != -1 && viewY != -1) {
+      if (oldViewX != -1 && oldViewY != -1) {
         g.drawLine(oldViewX, oldViewY, viewX, viewY);
       }
       oldViewX = viewX;
