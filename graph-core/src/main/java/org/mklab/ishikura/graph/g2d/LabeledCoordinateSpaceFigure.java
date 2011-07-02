@@ -188,4 +188,12 @@ class LabeledCoordinateSpaceFigure extends ContainerFigureImpl implements Coordi
     return this.coordinateSpace.getInfoBox();
   }
 
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public void setBorderColor(Color color) {
+    this.coordinateSpace.setBorderColor(color);
+  }
+
 }

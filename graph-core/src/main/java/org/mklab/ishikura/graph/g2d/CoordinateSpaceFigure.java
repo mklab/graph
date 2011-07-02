@@ -5,6 +5,7 @@ package org.mklab.ishikura.graph.g2d;
 
 import org.mklab.ishikura.graph.figure.ContainerFigure;
 import org.mklab.ishikura.graph.g2d.model.LineModel;
+import org.mklab.ishikura.graph.graphics.Color;
 
 
 /**
@@ -66,5 +67,12 @@ interface CoordinateSpaceFigure extends ContainerFigure {
    * @return 関数情報表示ボックス
    */
   InfoBoxFigure getInfoBox();
+
+  /**
+   * 枠の色を設定します。
+   * 
+   * @param color 枠の色
+   */
+  void setBorderColor(Color color);
 
 }

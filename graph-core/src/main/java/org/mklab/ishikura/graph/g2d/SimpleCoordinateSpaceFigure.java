@@ -38,6 +38,8 @@ class SimpleCoordinateSpaceFigure extends ContainerFigureImpl implements Coordin
 
   /** 目盛り文字の色です。 */
   private Color textColor = ColorConstants.GRADUATION_TEXT;
+  /** 座標空間の枠の色です。 */
+  private Color borderColor = ColorConstants.COORDINATES_BORDER;
   /** 左側の最小スペースです。初回レイアウト時に設定されます。 */
   private int minimumLeftSpace = -1;
 
@@ -163,7 +165,7 @@ class SimpleCoordinateSpaceFigure extends ContainerFigureImpl implements Coordin
   }
 
   private void drawBorder(Graphics g) {
-    g.setColor(ColorConstants.COORDINATES_BORDER);
+    g.setColor(this.borderColor);
     g.drawRect(this.grid.getX(), this.grid.getY(), this.grid.getWidth() - 1, this.grid.getHeight() - 1);
   }
 
@@ -250,5 +252,13 @@ class SimpleCoordinateSpaceFigure extends ContainerFigureImpl implements Coordin
   @Override
   public InfoBoxFigure getInfoBox() {
     return this.lineInfoBox;
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public void setBorderColor(Color color) {
+    this.borderColor = color;
   }
 }

@@ -60,20 +60,24 @@ public class GraphFigure extends ContainerFigureImpl {
       @Override
       public void propertyChange(PropertyChangeEvent evt) {
         final String propertyName = evt.getPropertyName();
+        final Object value = evt.getNewValue();
+
         if (GraphModel.TITLE_PROPERTY_NAME.equals(propertyName)) {
-          setTitle((String)evt.getNewValue());
+          setTitle((String)value);
         } else if (GraphModel.X_AXIS_NAME_PROPERTY_NAME.equals(propertyName)) {
-          setXAxisName((String)evt.getNewValue());
+          setXAxisName((String)value);
         } else if (GraphModel.Y_AXIS_NAME_PROPERTY_NAME.equals(propertyName)) {
-          setYAxisName((String)evt.getNewValue());
+          setYAxisName((String)value);
         } else if (GraphModel.BACKGROUND_COLOR_PROPERTY_NAME.equals(propertyName)) {
-          setBackgroundColor((Color)evt.getNewValue());
+          setBackgroundColor((Color)value);
         } else if (GraphModel.GRID_BACKGROUND_COLOR_PROPERTY_NAME.equals(propertyName)) {
-          getCoordinateSpace().getGrid().setBackgroundColor((Color)evt.getNewValue());
+          getCoordinateSpace().getGrid().setBackgroundColor((Color)value);
+        } else if (GraphModel.GRID_BORDER_COLOR_PROPERTY_NAME.equals(propertyName)) {
+          getCoordinateSpace().setBorderColor((Color)value);
         } else if (GraphModel.INFO_BOX_BACKGROUND_COLOR_PROPERTY_NAME.equals(propertyName)) {
-          getCoordinateSpace().getInfoBox().setBackgroundColor((Color)evt.getNewValue());
+          getCoordinateSpace().getInfoBox().setBackgroundColor((Color)value);
         } else if (GraphModel.FOREGROUND_COLOR_PROPERTY_NAME.equals(propertyName)) {
-          setForegroundColor((Color)evt.getNewValue());
+          setForegroundColor((Color)value);
         }
       }
     });

@@ -24,6 +24,8 @@ public class GraphModel {
   public static final String INFO_BOX_BACKGROUND_COLOR_PROPERTY_NAME = "infoBoxBackgroundColor"; //$NON-NLS-1$
   /** グリッド背景色プロパティの名前です。 */
   public static final String GRID_BACKGROUND_COLOR_PROPERTY_NAME = "gridBackgroundColor"; //$NON-NLS-1$
+  /** グリッドの枠の色のプロパティの名前です。 */
+  public static final String GRID_BORDER_COLOR_PROPERTY_NAME = "gridBorderColor"; //$NON-NLS-1$
   /** 前景色プロパティの名前です。 */
   public static final String FOREGROUND_COLOR_PROPERTY_NAME = "foregroundColor"; //$NON-NLS-1$
   /** 背景色プロパティの名前です。 */
@@ -50,6 +52,8 @@ public class GraphModel {
   private Color foregroundColor = ColorConstants.FOREGROUND;
   /** 格子の背景色です。 */
   private Color gridBackgroundColor = ColorConstants.COORDINATES_BACKGROUND;
+  /** 格子の枠の色です。 */
+  private Color gridBorderColor = ColorConstants.COORDINATES_BORDER;
   /** 情報表示ボックスの背景色です。 */
   private Color infoBoxBackgroundColor = ColorConstants.FUNCTION_INFO_BACKGROUND;
 
@@ -200,6 +204,26 @@ public class GraphModel {
     final Color oldGridBackgroundColor = this.gridBackgroundColor;
     this.gridBackgroundColor = gridBackgroundColor;
     this.propertyChangeSupport.firePropertyChange(GRID_BACKGROUND_COLOR_PROPERTY_NAME, oldGridBackgroundColor, gridBackgroundColor);
+  }
+
+  /**
+   * グラフ格子部分の枠の色を取得します。
+   * 
+   * @return グラフ格子部分の枠の色
+   */
+  public Color getGridBorderColor() {
+    return this.gridBorderColor;
+  }
+
+  /**
+   * グラフ格子部分の枠の色を設定します。
+   * 
+   * @param gridBorderColor グラフ格子部分の枠の色
+   */
+  public void setGridBorderColor(Color gridBorderColor) {
+    final Color oldGridBorderColor = this.gridBorderColor;
+    this.gridBorderColor = gridBorderColor;
+    this.propertyChangeSupport.firePropertyChange(GRID_BORDER_COLOR_PROPERTY_NAME, oldGridBorderColor, gridBorderColor);
   }
 
   /**
