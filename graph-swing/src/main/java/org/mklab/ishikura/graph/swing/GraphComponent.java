@@ -9,6 +9,7 @@ import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Point;
+import java.awt.RenderingHints;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseWheelEvent;
@@ -62,7 +63,9 @@ public class GraphComponent extends JComponent {
     this.graph.setSize(w, h);
     g.clearRect(0, 0, w, h);
 
-    final AwtGraphics graphG = new AwtGraphics((Graphics2D)g);
+    final Graphics2D g2 = (Graphics2D)g;
+    g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+    final AwtGraphics graphG = new AwtGraphics(g2);
     this.graph.draw(graphG);
   }
 
