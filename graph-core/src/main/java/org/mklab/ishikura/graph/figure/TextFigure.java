@@ -27,6 +27,25 @@ public class TextFigure extends AbstractFigure {
   private TextOrientation orientation = TextOrientation.HORIZONTAL;
 
   /**
+   * テキストの色を取得します。
+   * 
+   * @return color
+   */
+  public Color getColor() {
+    return this.color;
+  }
+
+  /**
+   * テキストの色を設定します。
+   * 
+   * @param color color
+   */
+  public void setColor(Color color) {
+    if (color == null) throw new NullPointerException();
+    this.color = color;
+  }
+
+  /**
    * テキストを取得します。
    * 
    * @return テキスト

@@ -42,7 +42,8 @@ public class GraphFigure extends ContainerFigureImpl {
     this.model = createGraphModel();
 
     this.statusBar = new TextFigure();
-    final CoordinateSpaceFigure baseCoordinateSpace = new SimpleCoordinateSpaceFigure(new FunctionInfoBoxFigure(this.model.getDataModel()));
+    final InfoBoxFigure infoBox = new InfoBoxFigure(this.model.getDataModel());
+    final CoordinateSpaceFigure baseCoordinateSpace = new SimpleCoordinateSpaceFigure(infoBox);
     this.coordinateSpace = new LabeledCoordinateSpaceFigure(baseCoordinateSpace);
 
     add(this.statusBar);
@@ -62,17 +63,17 @@ public class GraphFigure extends ContainerFigureImpl {
         if (GraphModel.TITLE_PROPERTY_NAME.equals(propertyName)) {
           setTitle((String)evt.getNewValue());
         } else if (GraphModel.X_AXIS_NAME_PROPERTY_NAME.equals(propertyName)) {
-          setNameOfX((String)evt.getNewValue());
+          setXAxisName((String)evt.getNewValue());
         } else if (GraphModel.Y_AXIS_NAME_PROPERTY_NAME.equals(propertyName)) {
-          setNameOfY((String)evt.getNewValue());
+          setYAxisName((String)evt.getNewValue());
         } else if (GraphModel.BACKGROUND_COLOR_PROPERTY_NAME.equals(propertyName)) {
           setBackgroundColor((Color)evt.getNewValue());
         } else if (GraphModel.GRID_BACKGROUND_COLOR_PROPERTY_NAME.equals(propertyName)) {
-          throw new UnsupportedOperationException("Sorry, but not implemented."); //$NON-NLS-1$
+          getCoordinateSpace().getGrid().setBackgroundColor((Color)evt.getNewValue());
         } else if (GraphModel.INFO_BOX_BACKGROUND_COLOR_PROPERTY_NAME.equals(propertyName)) {
-          throw new UnsupportedOperationException("Sorry, but not implemented."); //$NON-NLS-1$
+          getCoordinateSpace().getInfoBox().setBackgroundColor((Color)evt.getNewValue());
         } else if (GraphModel.FOREGROUND_COLOR_PROPERTY_NAME.equals(propertyName)) {
-          throw new UnsupportedOperationException("Sorry, but not implemented."); //$NON-NLS-1$
+          setForegroundColor((Color)evt.getNewValue());
         }
       }
     });
@@ -91,18 +92,22 @@ public class GraphFigure extends ContainerFigureImpl {
     return m;
   }
 
+  void setForegroundColor(Color foregroundColor) {
+    this.coordinateSpace.setForegroundColor(foregroundColor);
+  }
+
   void setTitle(String title) {
     this.coordinateSpace.setTitle(title);
     invalidate();
   }
 
-  void setNameOfX(String label) {
-    this.coordinateSpace.setNameOfX(label);
+  void setXAxisName(String label) {
+    this.coordinateSpace.setXAxisName(label);
     invalidate();
   }
 
-  void setNameOfY(String label) {
-    this.coordinateSpace.setNameOfY(label);
+  void setYAxisName(String label) {
+    this.coordinateSpace.setYAxisName(label);
     invalidate();
   }
 

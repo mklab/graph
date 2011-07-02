@@ -8,11 +8,14 @@ import org.mklab.ishikura.graph.figure.TextAlignment;
 import org.mklab.ishikura.graph.figure.TextFigure;
 import org.mklab.ishikura.graph.figure.TextOrientation;
 import org.mklab.ishikura.graph.g2d.model.LineModel;
+import org.mklab.ishikura.graph.graphics.Color;
 import org.mklab.ishikura.graph.graphics.Graphics;
 
 
 /**
  * ラベル付きの座標空間の図です。
+ * <p>
+ * コンストラクタで与えられた座標空間を元にし、それに加えx軸、y軸のラベル、グラフのタイトルを描画します。
  * 
  * @author Yuhi Ishikura
  * @version $Revision$, 2010/10/22
@@ -29,7 +32,7 @@ class LabeledCoordinateSpaceFigure extends ContainerFigureImpl implements Coordi
    * 
    * @param coodinateSpace 座標系の図
    */
-  public LabeledCoordinateSpaceFigure(CoordinateSpaceFigure coodinateSpace) {
+  LabeledCoordinateSpaceFigure(CoordinateSpaceFigure coodinateSpace) {
     if (coodinateSpace == null) throw new NullPointerException();
     this.coordinateSpace = coodinateSpace;
 
@@ -49,12 +52,18 @@ class LabeledCoordinateSpaceFigure extends ContainerFigureImpl implements Coordi
     add(this.titleLabel);
   }
 
+  void setForegroundColor(Color foregroundColor) {
+    this.xLabel.setColor(foregroundColor);
+    this.yLabel.setColor(foregroundColor);
+    this.titleLabel.setColor(foregroundColor);
+  }
+
   /**
    * グラフのタイトルを設定します。
    * 
    * @param graphTitle グラフのタイトル
    */
-  public void setTitle(String graphTitle) {
+  void setTitle(String graphTitle) {
     this.titleLabel.setText(graphTitle);
   }
 
@@ -63,7 +72,7 @@ class LabeledCoordinateSpaceFigure extends ContainerFigureImpl implements Coordi
    * 
    * @return グラフのタイトル
    */
-  public String getTitle() {
+  String getTitle() {
     return this.titleLabel.getText();
   }
 
@@ -72,7 +81,7 @@ class LabeledCoordinateSpaceFigure extends ContainerFigureImpl implements Coordi
    * 
    * @param name x軸の名前
    */
-  public void setNameOfX(String name) {
+  void setXAxisName(String name) {
     this.xLabel.setText(name);
   }
 
@@ -81,7 +90,7 @@ class LabeledCoordinateSpaceFigure extends ContainerFigureImpl implements Coordi
    * 
    * @return　x軸の名前
    */
-  public String getNameOfX() {
+  String getNameOfX() {
     return this.xLabel.getText();
   }
 
@@ -90,7 +99,7 @@ class LabeledCoordinateSpaceFigure extends ContainerFigureImpl implements Coordi
    * 
    * @param name y軸の名前
    */
-  public void setNameOfY(String name) {
+  void setYAxisName(String name) {
     this.yLabel.setText(name);
   }
 
@@ -99,7 +108,7 @@ class LabeledCoordinateSpaceFigure extends ContainerFigureImpl implements Coordi
    * 
    * @return　y軸の名前
    */
-  public String getNameOfY() {
+  String getNameOfY() {
     return this.yLabel.getText();
   }
 
@@ -169,6 +178,14 @@ class LabeledCoordinateSpaceFigure extends ContainerFigureImpl implements Coordi
   @Override
   public void removeLine(LineModel lineModel) {
     this.coordinateSpace.removeLine(lineModel);
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public InfoBoxFigure getInfoBox() {
+    return this.coordinateSpace.getInfoBox();
   }
 
 }

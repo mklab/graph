@@ -13,9 +13,9 @@ import org.mklab.ishikura.graph.graphics.Graphics;
 
 
 /**
- * 2次元の座標空間を表すクラスです。
+ * 二次元グラフの最小限の描画を行います。
  * <p>
- * 数学上の値での表示範囲であるscopeを元に座標空間を描画します。 この図以外の2次元の図が座標を参照する場合には必ずこのインスタンスを利用してください。
+ * 関数、グリッド、関数情報ボックス、グリッドの目盛りの描画を行います。
  * 
  * @author Yuhi Ishikura
  * @version $Revision$, 2010/10/16
@@ -32,7 +32,7 @@ class SimpleCoordinateSpaceFigure extends ContainerFigureImpl implements Coordin
   /** ガイドの表示を行う図です。 */
   private GuideFigure guideFigure;
   /** 関数情報表示ボックスです。 */
-  private FunctionInfoBoxFigure lineInfoBox;
+  private InfoBoxFigure lineInfoBox;
   /** グラフ上の値を文字列にするために利用します。 */
   private ValueToStringer valueToStringer;
 
@@ -44,7 +44,7 @@ class SimpleCoordinateSpaceFigure extends ContainerFigureImpl implements Coordin
   /**
    * {@link SimpleCoordinateSpaceFigure}オブジェクトを構築します。
    */
-  SimpleCoordinateSpaceFigure(FunctionInfoBoxFigure functionInfoBoxFigure) {
+  SimpleCoordinateSpaceFigure(InfoBoxFigure functionInfoBoxFigure) {
     this.grid = new GridFigure();
     this.functionsFigure = new FunctionsFigure();
     this.guideFigure = new GuideFigure(this.grid);
@@ -244,4 +244,11 @@ class SimpleCoordinateSpaceFigure extends ContainerFigureImpl implements Coordin
     remove(willRemove);
   }
 
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public InfoBoxFigure getInfoBox() {
+    return this.lineInfoBox;
+  }
 }

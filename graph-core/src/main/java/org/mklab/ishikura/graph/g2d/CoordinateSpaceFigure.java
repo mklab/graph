@@ -60,4 +60,11 @@ interface CoordinateSpaceFigure extends ContainerFigure {
    */
   void removeLine(LineModel lineModel);
 
+  /**
+   * 関数情報表示を行う図を取得します。
+   * 
+   * @return 関数情報表示ボックス
+   */
+  InfoBoxFigure getInfoBox();
+
 }

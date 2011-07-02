@@ -17,7 +17,7 @@ import org.mklab.ishikura.graph.graphics.LineType;
  * @author Yuhi Ishikura
  * @version $Revision$, 2011/06/25
  */
-class FunctionInfoBoxFigure extends ContainerFigureImpl {
+class InfoBoxFigure extends ContainerFigureImpl {
 
   private static final int SAMPLE_LINE_LENGTH = 30;
   private static final int BORDER_PADDING = 3;
@@ -26,11 +26,11 @@ class FunctionInfoBoxFigure extends ContainerFigureImpl {
   private DataModel dataModel;
 
   /**
-   * {@link FunctionInfoBoxFigure}オブジェクトを構築します。
+   * {@link InfoBoxFigure}オブジェクトを構築します。
    * 
    * @param dataModel 関数データモデル
    */
-  FunctionInfoBoxFigure(DataModel dataModel) {
+  InfoBoxFigure(DataModel dataModel) {
     if (dataModel == null) throw new NullPointerException();
     this.dataModel = dataModel;
   }
