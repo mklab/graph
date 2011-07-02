@@ -24,6 +24,8 @@ import org.mklab.ishikura.graph.graphics.LineType;
  */
 public class FunctionFigure extends AbstractFigure {
 
+  /** 関数包含関係チェックの許容誤差です。 */
+  private static final int DELTA = 5;
   /** この図のモデルです。 */
   private LineModel lineModel;
   /** 座標系です。描画時の座標計算に利用します。 */
@@ -61,13 +63,7 @@ public class FunctionFigure extends AbstractFigure {
   public boolean contains(int x, int y) {
     if (super.contains(x, y) == false) return false;
 
-    final double modelX = this.grid.viewToModelX(x);
-    final double actualModelY = this.lineModel.getFunction().evalY(modelX);
-    final int actualViewY = this.grid.modelToViewY(this, actualModelY);
-
-    if (actualViewY == -1) return false;
-
-    return Math.abs(actualViewY - y) < 5;
+    return this.lineModel.getFunction().contains(x, y, DELTA);
   }
 
   /**

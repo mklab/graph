@@ -1,7 +1,7 @@
 package org.mklab.ishikura.graph.sample;
 
 import org.mklab.ishikura.graph.android.GraphView;
-import org.mklab.ishikura.graph.function.Function2D;
+import org.mklab.ishikura.graph.function.ContinuousFunction2D;
 import org.mklab.ishikura.graph.g2d.GraphFigure;
 import org.mklab.ishikura.graph.g2d.model.GraphModel;
 import org.mklab.ishikura.graph.g2d.model.LineModel;
@@ -32,7 +32,7 @@ public class AndroidGraphSampleActivity extends Activity {
     model.setTitle("Sample Graph"); //$NON-NLS-1$
     graph.setScope(-5, 5, -2, 2);
 
-    final LineModel lineModel = new LineModel("y = sin(x)", Color.RED, new Function2D() { //$NON-NLS-1$
+    final LineModel lineModel = new LineModel("y = sin(x)", Color.RED, new ContinuousFunction2D() { //$NON-NLS-1$
 
           @Override
           public double evalY(double x) {

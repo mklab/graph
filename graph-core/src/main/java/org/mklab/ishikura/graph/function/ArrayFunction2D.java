@@ -9,7 +9,7 @@ package org.mklab.ishikura.graph.function;
  * @author Yuhi Ishikura
  * @version $Revision$, 2010/10/22
  */
-public class ArrayFunction2D extends Function2D implements DiscreteFunction2D {
+public class ArrayFunction2D extends DiscreteFunction2D {
 
   private Point2D[] points;
 
@@ -49,48 +49,6 @@ public class ArrayFunction2D extends Function2D implements DiscreteFunction2D {
       points[i] = new Point2D(x[i], y[i]);
     }
     return points;
-  }
-
-  /**
-   * {@inheritDoc}
-   */
-  @Override
-  public double evalY(double x) {
-    final TraversableIterator<Point2D> itr = iterator(x);
-    return calculateContinuousY(x, itr);
-  }
-
-  /**
-   * 連続時間のxから、離散時間前後の座標を用いることで補間し、連続時間のyを計算します。
-   * 
-   * @param x x座標
-   * @return y座標
-   */
-  static double calculateContinuousY(double x, TraversableIterator<Point2D> itr) {
-
-    final Point2D p1 = itr.hasNext() ? itr.next() : null;
-    final Point2D p2 = itr.hasNext() ? itr.next() : null;
-    /* 関数の範囲内 */
-    if (p1 != null && p2 != null) {
-      final double a = (p2.getY() - p1.getY()) / (p2.getX() - p1.getX());
-      return a * (x - p1.getX()) + p1.getY();
-    }
-    /* 関数の範囲外 */
-    if (p1 == null && p2 == null) return Double.NaN;
-
-    if (p2 != null) {
-      /* 関数の左端 */
-      if (p2.getX() == x) return p2.getY(); // TODO デルタを設ける
-      return Double.NaN;
-    }
-    if (p1 != null) {
-      /* 関数の右端 */
-      if (p1.getX() == x) return p1.getY(); // TODO デルタを設ける
-      return Double.NaN;
-    }
-
-    // unreachable
-    throw new RuntimeException();
   }
 
   /**

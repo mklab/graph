@@ -3,7 +3,7 @@
  */
 package org.mklab.ishikura.graph.g2d.plotter;
 
-import org.mklab.ishikura.graph.function.Function2D;
+import org.mklab.ishikura.graph.function.ContinuousFunction2D;
 import org.mklab.ishikura.graph.g2d.GridFigure;
 import org.mklab.ishikura.graph.graphics.Graphics;
 
@@ -16,14 +16,14 @@ import org.mklab.ishikura.graph.graphics.Graphics;
  */
 class ContinuousFunctionPlotter implements Plotter {
 
-  private Function2D function;
+  private ContinuousFunction2D function;
 
   /**
    * {@link ContinuousFunctionPlotter}オブジェクトを構築します。
    * 
    * @param function 関数
    */
-  ContinuousFunctionPlotter(Function2D function) {
+  ContinuousFunctionPlotter(ContinuousFunction2D function) {
     super();
     this.function = function;
   }

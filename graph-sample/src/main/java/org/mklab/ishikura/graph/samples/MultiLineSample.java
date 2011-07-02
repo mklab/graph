@@ -1,5 +1,6 @@
 package org.mklab.ishikura.graph.samples;
 
+import org.mklab.ishikura.graph.function.ContinuousFunction2D;
 import org.mklab.ishikura.graph.function.Function2D;
 import org.mklab.ishikura.graph.g2d.model.GraphModel;
 import org.mklab.ishikura.graph.g2d.model.LineModel;
@@ -27,7 +28,7 @@ public class MultiLineSample extends GraphFigureSample {
   }
 
   private static Function2D createQuadraticFunction() {
-    final Function2D function = new Function2D() {
+    final Function2D function = new ContinuousFunction2D() {
 
       @Override
       public double evalY(double x) {
@@ -38,7 +39,7 @@ public class MultiLineSample extends GraphFigureSample {
   }
 
   private static Function2D createCubicFunction() {
-    final Function2D function = new Function2D() {
+    final Function2D function = new ContinuousFunction2D() {
 
       @Override
       public double evalY(double x) {

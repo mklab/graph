@@ -13,7 +13,7 @@ import java.util.List;
  * @author Yuhi Ishikura
  * @version $Revision$, 2010/10/23
  */
-public class ListFunction2D extends Function2D implements DiscreteFunction2D {
+public class ListFunction2D extends DiscreteFunction2D {
 
   private List<Point2D> points;
   private double maximumX = -Double.MAX_VALUE;
@@ -59,14 +59,6 @@ public class ListFunction2D extends Function2D implements DiscreteFunction2D {
 
     this.points.add(point);
     this.maximumX = point.getX();
-  }
-
-  /**
-   * {@inheritDoc}
-   */
-  @Override
-  public double evalY(double x) {
-    return ArrayFunction2D.calculateContinuousY(x, iterator(x));
   }
 
   /**
