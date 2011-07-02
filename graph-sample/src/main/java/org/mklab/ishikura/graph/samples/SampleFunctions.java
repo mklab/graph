@@ -92,7 +92,7 @@ public interface SampleFunctions {
 
   };
   /** 螺旋です。 */
-  Function2D LOG_ARITHMIC_SPIRAL = new PolarFunction2D() {
+  Function2D LOGARITHMIC_SPIRAL = new PolarFunction2D() {
 
     static final double a = 0.5;
     static final double b = 1;
