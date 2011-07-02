@@ -15,7 +15,7 @@ import org.mklab.ishikura.graph.graphics.LineType;
 /**
  * グラフの格子を表すクラスです。
  * <p>
- * 関数の具体的な値から、グラフ上の座標に変換する責任を担います。
+ * 関数の背景に描画する格子を描画する責任、及び関数の具体的な値から、グラフ上の座標に変換する責任を担います。
  * 
  * @author Yuhi Ishikura
  * @version $Revision$, 2010/10/19

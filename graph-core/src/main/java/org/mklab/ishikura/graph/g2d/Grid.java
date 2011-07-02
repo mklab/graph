@@ -12,6 +12,8 @@ import java.util.List;
 
 /**
  * 単系列のグリッドを表すクラスです。
+ * <p>
+ * このクラスでは、グラフの目盛りを保持します。 目盛りの値は、モデルの座標であり、ビュー上での座標ではありません。
  * 
  * @author Yuhi Ishikura
  * @version $Revision$, 2010/10/19

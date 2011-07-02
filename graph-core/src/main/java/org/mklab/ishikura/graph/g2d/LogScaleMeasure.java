@@ -4,6 +4,8 @@
 package org.mklab.ishikura.graph.g2d;
 
 /**
+ * ログスケールのグラフの{@link Measure}の実装です。
+ * 
  * @author Yuhi Ishikura
  * @version $Revision$, 2011/06/25
  */

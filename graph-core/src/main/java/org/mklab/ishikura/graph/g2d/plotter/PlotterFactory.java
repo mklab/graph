@@ -7,7 +7,7 @@ import org.mklab.ishikura.graph.function.Function2D;
 
 
 /**
- * {@link Plotter}インスタンスを生成します。
+ * {@link Plotter}インスタンスを生成するファクトリーです。
  * 
  * @author Yuhi Ishikura
  * @version $Revision$, 2011/07/01

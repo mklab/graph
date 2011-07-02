@@ -16,7 +16,7 @@ import org.mklab.ishikura.graph.graphics.Graphics;
 public interface Plotter {
 
   /**
-   * 関数を、対象gに描画します。
+   * 関数を描画対象<code>g</code>に描画します。
    * 
    * @param g 描画対象
    * @param grid グリッド

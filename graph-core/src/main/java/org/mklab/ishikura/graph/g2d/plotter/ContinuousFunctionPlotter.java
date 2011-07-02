@@ -9,6 +9,8 @@ import org.mklab.ishikura.graph.graphics.Graphics;
 
 
 /**
+ * 連続時間の関数を描画するクラスです。
+ * 
  * @author Yuhi Ishikura
  * @version $Revision$, 2011/07/01
  */

@@ -4,7 +4,7 @@
 package org.mklab.ishikura.graph.g2d;
 
 /**
- * 対数グラフの場合のグリッドを生成する{@link GridFactory}です。
+ * ログスケールのグラフのグリッドを生成する{@link GridFactory}です。
  * 
  * @author Yuhi Ishikura
  * @version $Revision$, 2011/06/25

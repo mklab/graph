@@ -12,6 +12,8 @@ import org.mklab.ishikura.graph.graphics.Graphics;
 
 
 /**
+ * {@link DiscreteFunction2D}のグラフを描画するクラスです。
+ * 
  * @author Yuhi Ishikura
  * @version $Revision$, 2011/07/01
  */

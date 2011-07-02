@@ -16,6 +16,8 @@ import org.mklab.ishikura.graph.graphics.LineType;
 
 /**
  * 関数の描画を行う図形です。
+ * <p>
+ * 関数の描画に用いる線のスタイルの決定はこのクラスの責任ですが、関数自身の描画は {@link Plotter}に移譲 しています。
  * 
  * @author Yuhi Ishikura
  * @version $Revision$, 2010/10/16

@@ -12,6 +12,8 @@ import org.mklab.ishikura.graph.graphics.LineType;
 
 
 /**
+ * グラフに表示している関数の情報を表示する図です。
+ * 
  * @author Yuhi Ishikura
  * @version $Revision$, 2011/06/25
  */

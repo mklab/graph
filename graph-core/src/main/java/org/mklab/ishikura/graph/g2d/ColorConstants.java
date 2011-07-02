@@ -7,6 +7,8 @@ import org.mklab.ishikura.graph.graphics.Color;
 
 
 /**
+ * グラフでデフォルトで用いる色情報を保持するインターフェースです。
+ * 
  * @author Yuhi Ishikura
  * @version $Revision$, 2011/06/25
  */

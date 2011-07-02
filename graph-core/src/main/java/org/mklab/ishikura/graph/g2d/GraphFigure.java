@@ -12,7 +12,10 @@ import org.mklab.ishikura.graph.graphics.Graphics;
 
 
 /**
- * グラフを表すクラスです。
+ * 二次元グラフを表すクラスです。
+ * <p>
+ * このクラスは、基本的なグラフ機能を備えたクラスです。<br>
+ * グラフのタイトル、x軸、y軸のタイトル、ユーザー通知領域として利用できるステータスバーを提供します。
  * 
  * @author Yuhi Ishikura
  * @version $Revision$, 2010/10/22

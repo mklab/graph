@@ -8,6 +8,8 @@ import org.mklab.ishikura.graph.function.Function2D;
 
 
 /**
+ * デフォルトの{@link PlotterFactory}です。
+ * 
  * @author Yuhi Ishikura
  * @version $Revision$, 2011/07/01
  */

@@ -8,9 +8,10 @@ package org.mklab.ishikura.graph.g2d;
 import java.text.MessageFormat;
 
 
-
 /**
  * 二次元の表示範囲を表すクラスです。
+ * <p>
+ * このクラスでは、数学上での値の範囲を保持します。
  * 
  * @author Yuhi Ishikura
  * @version $Revision$, 2010/10/16

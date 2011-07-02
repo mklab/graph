@@ -4,6 +4,8 @@
 package org.mklab.ishikura.graph.g2d;
 
 /**
+ * 一般的なグラフに用いるグリッドを生成するクラスです。
+ * 
  * @author Yuhi Ishikura
  * @version $Revision$, 2011/06/25
  */

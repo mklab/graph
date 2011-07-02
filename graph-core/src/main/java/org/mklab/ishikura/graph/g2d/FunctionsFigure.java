@@ -9,7 +9,9 @@ import org.mklab.ishikura.graph.graphics.Graphics;
 
 
 /**
- * 複数の関数を表示する図です。
+ * 複数の関数を束ねる図です。
+ * <p>
+ * すべての子の図を、この図と同じサイズにします。
  * 
  * @author Yuhi Ishikura
  * @version $Revision$, 2011/06/25

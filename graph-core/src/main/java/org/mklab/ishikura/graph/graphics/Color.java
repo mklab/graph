@@ -5,6 +5,9 @@
  */
 package org.mklab.ishikura.graph.graphics;
 
+import java.text.MessageFormat;
+
+
 /**
  * RGBによる色を表すクラスです。
  * 
@@ -44,28 +47,7 @@ public class Color {
   }
 
   /**
-   * @return redを返します。
-   */
-  public int getRed() {
-    return this.red;
-  }
-
-  /**
-   * @return greenを返します。
-   */
-  public int getGreen() {
-    return this.green;
-  }
-
-  /**
-   * @return blueを返します。
-   */
-  public int getBlue() {
-    return this.blue;
-  }
-
-  /**
-   * 色要素の値を適切な値に修正します。
+   * 色要素の値を適切な値(0~255)に修正します。
    * 
    * @param value 値
    * @return 修正した値
@@ -74,6 +56,42 @@ public class Color {
     if (value < 0) return 0;
     if (value > 255) return 255;
     return value;
+  }
+
+  /**
+   * 赤成分を取得します。
+   * 
+   * @return 赤成分(0~255)
+   */
+  public int getRed() {
+    return this.red;
+  }
+
+  /**
+   * 緑成分を取得します。
+   * 
+   * @return 緑成分(0~255)
+   */
+  public int getGreen() {
+    return this.green;
+  }
+
+  /**
+   * 青成分を取得します。
+   * 
+   * @return 青成分(0~255)
+   */
+  public int getBlue() {
+    return this.blue;
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  @SuppressWarnings("boxing")
+  @Override
+  public String toString() {
+    return MessageFormat.format("Color [red={0}, green={1}, blue={2}]", this.red, this.green, this.blue); //$NON-NLS-1$
   }
 
 }

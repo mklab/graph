@@ -4,7 +4,7 @@
 package org.mklab.ishikura.graph.g2d;
 
 /**
- * 軸上の値から、ビュー上の値に変換を行うクラスです。
+ * 数学的な値から、ビュー上の値に変換を行うクラスです。
  * 
  * @author Yuhi Ishikura
  * @version $Revision$, 2011/06/25

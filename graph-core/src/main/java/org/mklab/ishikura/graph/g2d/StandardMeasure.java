@@ -6,7 +6,7 @@
 package org.mklab.ishikura.graph.g2d;
 
 /**
- * 軸上の値から、ビュー上の値に変換を行うクラスです。
+ * 一般的なグラフの{@link Measure}実装です。
  * 
  * @author Yuhi Ishikura
  * @version $Revision$, 2010/10/13

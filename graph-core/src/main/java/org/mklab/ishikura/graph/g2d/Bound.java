@@ -9,7 +9,7 @@ import java.text.MessageFormat;
 
 
 /**
- * 値の範囲を表すクラスです。
+ * 数学的な値の範囲を表すクラスです。
  * 
  * @author Yuhi Ishikura
  * @version $Revision$, 2010/10/12
