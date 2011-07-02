@@ -20,6 +20,7 @@
 		<module>graph-core</module>
 		<module>graph-swt</module>
 		<module>graph-android</module>
+		<module>graph-sample</module>
 	</modules>
 
 	<build>

@@ -1,7 +1,7 @@
 /**
  * 
  */
-package org.mklab.ishikura.graph.sample;
+package org.mklab.ishikura.graph.samples;
 
 import java.awt.image.BufferedImage;
 import java.io.File;

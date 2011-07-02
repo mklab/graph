@@ -36,13 +36,22 @@ public class GraphComponent extends JComponent {
    * 新しく生成された<code>GraphComponent</code>オブジェクトを初期化します。
    */
   public GraphComponent() {
-    this.graph = new GraphFigure();
     final MouseAdapter mouseListener = new GraphMouseHandler();
     this.addMouseMotionListener(mouseListener);
     this.addMouseListener(mouseListener);
     this.addMouseWheelListener(mouseListener);
 
     setFont(new Font(Font.MONOSPACED, Font.PLAIN, 15));
+  }
+
+  /**
+   * 表示するグラフを設定します。
+   * 
+   * @param graph 表示するグラフ
+   */
+  public void setGraph(GraphFigure graph) {
+    if (graph == null) throw new NullPointerException();
+    this.graph = graph;
   }
 
   /**
