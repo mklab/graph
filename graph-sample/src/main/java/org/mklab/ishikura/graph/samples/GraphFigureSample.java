@@ -12,7 +12,7 @@ import org.mklab.ishikura.graph.swing.SwingGraphViewer;
  * @author ishikura
  * @version $Revision$, 2011/07/02
  */
-public abstract class GraphFigureSample {
+public abstract class GraphFigureSample implements SampleFunctions {
 
   /**
    * サンプルを起動します。

@@ -10,15 +10,15 @@ import org.mklab.ishikura.graph.graphics.Color;
  * @author ishikura
  * @version $Revision$, 2011/07/02
  */
-public class PolarFunctionSample extends GraphFigureSample {
+public class ParameterFunctionSample extends GraphFigureSample {
 
   /**
    * {@inheritDoc}
    */
   @Override
   protected void initGraphModel(GraphModel model) {
-    model.setTitle("Polar Function Sample"); //$NON-NLS-1$
-    model.addLineModel(new LineModel("sanyo-sen", Color.RED, SANYO)); //$NON-NLS-1$
+    model.setTitle("Parameter Function Sample"); //$NON-NLS-1$
+    model.addLineModel(new LineModel("hypocycloid", Color.RED, HYPOCYCLOID)); //$NON-NLS-1$
   }
 
   /**
@@ -27,7 +27,7 @@ public class PolarFunctionSample extends GraphFigureSample {
   @Override
   protected void initGraphFigure(GraphFigure figure) {
     super.initGraphFigure(figure);
-    figure.setScope(-3.5, 3.5, -3.5, 3.5);
+    figure.setScope(-3, 3.5, -3, 3);
   }
 
   /**
@@ -36,6 +36,7 @@ public class PolarFunctionSample extends GraphFigureSample {
    * @param args プログラム引数
    */
   public static void main(String[] args) {
-    new PolarFunctionSample().launch();
+    new ParameterFunctionSample().launch();
   }
+
 }

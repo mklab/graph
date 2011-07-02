@@ -3,6 +3,9 @@
  */
 package org.mklab.ishikura.graph.function;
 
+import java.util.Iterator;
+
+
 /**
  * 極方程式(<code>r = f(theta)</code>)による関数を表すインターフェースです。
  * 
@@ -18,6 +21,15 @@ public abstract class PolarFunction2D implements Function2D {
    * @return r
    */
   public abstract double evalR(double radian);
+
+  /**
+   * {@link #evalR(double)}で与えるべきthetaを提供します。
+   * 
+   * @return theta
+   */
+  public Iterator<Double> provideTheta() {
+    return Functions.createDoubleIterator(0, 2 * Math.PI, 1000);
+  }
 
   /**
    * {@inheritDoc}

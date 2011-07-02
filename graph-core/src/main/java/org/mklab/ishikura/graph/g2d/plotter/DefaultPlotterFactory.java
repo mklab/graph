@@ -6,6 +6,7 @@ package org.mklab.ishikura.graph.g2d.plotter;
 import org.mklab.ishikura.graph.function.ContinuousFunction2D;
 import org.mklab.ishikura.graph.function.DiscreteFunction2D;
 import org.mklab.ishikura.graph.function.Function2D;
+import org.mklab.ishikura.graph.function.ParameterFunction2D;
 import org.mklab.ishikura.graph.function.PolarFunction2D;
 
 
@@ -25,6 +26,7 @@ public class DefaultPlotterFactory implements PlotterFactory {
     if (function instanceof DiscreteFunction2D) return new DiscreteFunctionPlotter((DiscreteFunction2D)function);
     if (function instanceof ContinuousFunction2D) return new ContinuousFunctionPlotter((ContinuousFunction2D)function);
     if (function instanceof PolarFunction2D) return new PolarFunctionPlotter((PolarFunction2D)function);
+    if (function instanceof ParameterFunction2D) return new ParameterFunctionPlotter((ParameterFunction2D)function);
 
     throw new UnsupportedOperationException();
   }

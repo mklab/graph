@@ -3,6 +3,8 @@
  */
 package org.mklab.ishikura.graph.g2d.plotter;
 
+import java.util.Iterator;
+
 import org.mklab.ishikura.graph.function.PolarFunction2D;
 import org.mklab.ishikura.graph.g2d.GridFigure;
 import org.mklab.ishikura.graph.graphics.Graphics;
@@ -26,16 +28,17 @@ class PolarFunctionPlotter implements Plotter {
    */
   @Override
   public void plot(Graphics g, GridFigure grid) {
-    final int divisionCount = 1000;
-    final double dth = 2 * Math.PI / divisionCount;
     int oldViewX = -1;
     int oldViewY = -1;
-    for (int i = 0; i < divisionCount; i++) {
-      final double theta = dth * i;
+    final Iterator<Double> thetas = this.function.provideTheta();
+    while (thetas.hasNext()) {
+      final double theta = thetas.next().doubleValue();
       final double r = this.function.evalR(theta);
 
       final double x = r * Math.cos(theta);
       final double y = r * Math.sin(theta);
+      if (Double.isNaN(x) || Double.isNaN(y)) continue;
+
       final int viewX = grid.modelToViewXIgnoreBound(x);
       final int viewY = grid.modelToViewYIgnoreBound(y);
 
