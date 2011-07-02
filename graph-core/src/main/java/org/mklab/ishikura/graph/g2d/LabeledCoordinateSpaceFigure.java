@@ -7,6 +7,7 @@ import org.mklab.ishikura.graph.figure.ContainerFigureImpl;
 import org.mklab.ishikura.graph.figure.TextAlignment;
 import org.mklab.ishikura.graph.figure.TextFigure;
 import org.mklab.ishikura.graph.figure.TextOrientation;
+import org.mklab.ishikura.graph.g2d.model.LineModel;
 import org.mklab.ishikura.graph.graphics.Graphics;
 
 
@@ -16,7 +17,7 @@ import org.mklab.ishikura.graph.graphics.Graphics;
  * @author Yuhi Ishikura
  * @version $Revision$, 2010/10/22
  */
-public class LabeledCoordinateSpaceFigure extends ContainerFigureImpl implements CoordinateSpaceFigure {
+class LabeledCoordinateSpaceFigure extends ContainerFigureImpl implements CoordinateSpaceFigure {
 
   private CoordinateSpaceFigure coordinateSpace;
   private TextFigure xLabel;
@@ -46,13 +47,6 @@ public class LabeledCoordinateSpaceFigure extends ContainerFigureImpl implements
     add(this.xLabel);
     add(this.yLabel);
     add(this.titleLabel);
-  }
-
-  /**
-   * {@link LabeledCoordinateSpaceFigure}オブジェクトを構築します。
-   */
-  public LabeledCoordinateSpaceFigure() {
-    this(new SimpleCoordinateSpaceFigure());
   }
 
   /**
@@ -165,15 +159,16 @@ public class LabeledCoordinateSpaceFigure extends ContainerFigureImpl implements
    * {@inheritDoc}
    */
   @Override
-  public FunctionFigure newFunctionFigure() {
-    return this.coordinateSpace.newFunctionFigure();
+  public void addLine(LineModel lineModel) {
+    this.coordinateSpace.addLine(lineModel);
   }
 
   /**
    * {@inheritDoc}
    */
   @Override
-  public void removeFunctionFigure(FunctionFigure figure) {
-    this.coordinateSpace.removeFunctionFigure(figure);
+  public void removeLine(LineModel lineModel) {
+    this.coordinateSpace.removeLine(lineModel);
   }
+
 }

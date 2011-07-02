@@ -10,9 +10,11 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 
 import org.mklab.ishikura.graph.function.Function2D;
-import org.mklab.ishikura.graph.g2d.FunctionFigure;
 import org.mklab.ishikura.graph.g2d.GraphFigure;
 import org.mklab.ishikura.graph.g2d.Scope;
+import org.mklab.ishikura.graph.g2d.model.GraphModel;
+import org.mklab.ishikura.graph.g2d.model.LineModel;
+import org.mklab.ishikura.graph.graphics.Color;
 import org.mklab.ishikura.graph.swing.FigureRasterizer;
 
 
@@ -36,20 +38,20 @@ public class RasterizationSample {
     final GraphFigure graph = new GraphFigure();
     graph.setWidth(300);
     graph.setHeight(300);
-    graph.setTitle("Sample GraphFigure");
-    graph.setNameOfX("Name of X Axis");
-    graph.setNameOfY("Name of Y Axis");
+    graph.getModel().setTitle("Sample GraphFigure");
+    graph.getModel().setXAxisName("Name of X Axis");
+    graph.getModel().setYAxisName("Name of Y Axis");
     graph.setScope(new Scope(0, 10, -1, 1));
 
-    final FunctionFigure f1 = graph.getCoordinateSpace().newFunctionFigure();
-    f1.setLineName("y = x");
-    f1.setFunction(new Function2D() {
+    final GraphModel graphModel = graph.getModel();
+    final LineModel lineModel = new LineModel("y = sin(x)", Color.RED, new Function2D() {
 
       @Override
       public double evalY(double x) {
         return Math.sin(x);
       }
     });
+    graphModel.addLineModel(lineModel);
 
     final BufferedImage image = r.rasterize(graph);
     try {

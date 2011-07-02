@@ -43,6 +43,7 @@ public class ContainerFigureImpl extends AbstractFigure implements ContainerFigu
     } else {
       throw new UnsupportedOperationException();
     }
+    invalidate();
   }
 
   /**
@@ -55,6 +56,7 @@ public class ContainerFigureImpl extends AbstractFigure implements ContainerFigu
     if (this.children.remove(figure) == false) {
       throw new IllegalArgumentException("figure is not contained."); //$NON-NLS-1$
     }
+    invalidate();
   }
 
   /**
@@ -62,6 +64,7 @@ public class ContainerFigureImpl extends AbstractFigure implements ContainerFigu
    */
   public final void removeAll() {
     this.children.clear();
+    invalidate();
   }
 
   /**

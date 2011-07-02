@@ -12,9 +12,10 @@ import javax.swing.WindowConstants;
 
 import org.mklab.ishikura.graph.figure.Figure;
 import org.mklab.ishikura.graph.function.Function2D;
-import org.mklab.ishikura.graph.g2d.CoordinateSpaceFigure;
 import org.mklab.ishikura.graph.g2d.FunctionFigure;
 import org.mklab.ishikura.graph.g2d.GraphFigure;
+import org.mklab.ishikura.graph.g2d.model.GraphModel;
+import org.mklab.ishikura.graph.g2d.model.LineModel;
 import org.mklab.ishikura.graph.graphics.Color;
 import org.mklab.ishikura.graph.swing.GraphComponent;
 
@@ -35,9 +36,6 @@ public class GraphSample {
     final GraphComponent graphComponent = new GraphComponent();
     graphComponent.setPreferredSize(new Dimension(500, 400));
     final GraphFigure graph = graphComponent.getGraph();
-    graph.setTitle("サンプルグラフ");
-    graph.setNameOfX("X軸の名前");
-    graph.setNameOfY("Y軸の名前");
     graphComponent.addMouseListener(new MouseAdapter() {
 
       /**
@@ -52,16 +50,9 @@ public class GraphSample {
         }
       }
     });
-    final CoordinateSpaceFigure coords = graph.getCoordinateSpace();
-    final FunctionFigure function1 = coords.newFunctionFigure();
-    function1.setFunction(createQuadraticFunction());
-    function1.setLineWidth(3);
-    function1.setLineName("y = x^2");
-    final FunctionFigure function2 = coords.newFunctionFigure();
-    function2.setFunction(createCubicFunction());
-    function2.setLineColor(Color.GREEN);
-    function2.setLineWidth(3);
-    function2.setLineName("y = x^3");
+
+    final GraphModel graphModel = graph.getModel();
+    initializeModel(graphModel);
 
     graph.setSize(400, 300);
     graph.setScope(-25, 25, -300, 300);
@@ -71,6 +62,21 @@ public class GraphSample {
     frame.add(graphComponent);
     frame.pack();
     frame.setVisible(true);
+  }
+
+  /**
+   * @param graphModel
+   */
+  private static void initializeModel(final GraphModel graphModel) {
+    graphModel.setTitle("サンプルグラフ");
+    graphModel.setXAxisName("X軸の名前");
+    graphModel.setYAxisName("Y軸の名前");
+    final LineModel lineModel1 = new LineModel("y = x^2", Color.RED, createQuadraticFunction());
+    lineModel1.setLineWidth(3);
+    graphModel.addLineModel(lineModel1);
+    final LineModel lineModel2 = new LineModel("y = x^3", Color.GREEN, createCubicFunction());
+    lineModel2.setLineWidth(3);
+    graphModel.addLineModel(lineModel2);
   }
 
   private static Function2D createQuadraticFunction() {

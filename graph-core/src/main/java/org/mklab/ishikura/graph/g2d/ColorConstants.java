@@ -16,6 +16,8 @@ public interface ColorConstants {
 
   /** グラフ全体の背景色です。 */
   Color BACKGROUND = Color.GRAY;
+  /** グラフのラベルなどの文字の色です。 */
+  Color FOREGROUND = Color.BLACK;
   /** 目盛り文字列の色です。 */
   Color GRADUATION_TEXT = Color.BLACK;
   /** 座標系のボーダーの色です。 */

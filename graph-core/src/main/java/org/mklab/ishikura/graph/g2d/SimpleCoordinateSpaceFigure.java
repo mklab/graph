@@ -5,9 +5,9 @@
  */
 package org.mklab.ishikura.graph.g2d;
 
-import java.text.MessageFormat;
-
 import org.mklab.ishikura.graph.figure.ContainerFigureImpl;
+import org.mklab.ishikura.graph.figure.Figure;
+import org.mklab.ishikura.graph.g2d.model.LineModel;
 import org.mklab.ishikura.graph.graphics.Color;
 import org.mklab.ishikura.graph.graphics.Graphics;
 
@@ -20,7 +20,7 @@ import org.mklab.ishikura.graph.graphics.Graphics;
  * @author Yuhi Ishikura
  * @version $Revision$, 2010/10/16
  */
-public class SimpleCoordinateSpaceFigure extends ContainerFigureImpl implements CoordinateSpaceFigure {
+class SimpleCoordinateSpaceFigure extends ContainerFigureImpl implements CoordinateSpaceFigure {
 
   /** 目盛りと軸の間の余白です。 */
   private static final int GRADUATION_TO_AXIS_PADDING = 5;
@@ -40,17 +40,15 @@ public class SimpleCoordinateSpaceFigure extends ContainerFigureImpl implements 
   private Color textColor = ColorConstants.GRADUATION_TEXT;
   /** 左側の最小スペースです。初回レイアウト時に設定されます。 */
   private int minimumLeftSpace = -1;
-  /** 関数の数です。デフォルト関数名の命名に利用します。 */
-  private int functionCount = 1;
 
   /**
    * {@link SimpleCoordinateSpaceFigure}オブジェクトを構築します。
    */
-  public SimpleCoordinateSpaceFigure() {
+  SimpleCoordinateSpaceFigure(FunctionInfoBoxFigure functionInfoBoxFigure) {
     this.grid = new GridFigure();
     this.functionsFigure = new FunctionsFigure();
     this.guideFigure = new GuideFigure(this.grid);
-    this.lineInfoBox = new FunctionInfoBoxFigure();
+    this.lineInfoBox = functionInfoBoxFigure;
     this.valueToStringer = new ValueToStringerImpl();
 
     add(this.grid);
@@ -215,24 +213,35 @@ public class SimpleCoordinateSpaceFigure extends ContainerFigureImpl implements 
   }
 
   /**
-   * {@inheritDoc}
+   * 線を追加します。
+   * 
+   * @param lineModel 線のモデル
    */
-  @SuppressWarnings("boxing")
   @Override
-  public FunctionFigure newFunctionFigure() {
-    final FunctionFigure figure = new FunctionFigure(this.grid);
-    figure.setLineName(MessageFormat.format("Function {0}", this.functionCount++)); //$NON-NLS-1$
+  public void addLine(LineModel lineModel) {
+    if (lineModel == null) throw new NullPointerException();
+    final FunctionFigure figure = new FunctionFigure(this.grid, lineModel);
     this.functionsFigure.add(figure);
-    this.lineInfoBox.addLineInfo(figure);
-    return figure;
   }
 
   /**
    * {@inheritDoc}
    */
   @Override
-  public void removeFunctionFigure(FunctionFigure figure) {
-    this.functionsFigure.remove(figure);
+  public void removeLine(LineModel lineModel) {
+    Figure willRemove = null;
+    for (Figure figure : getChildren()) {
+      if (figure instanceof FunctionFigure) {
+        final FunctionFigure functionFigure = (FunctionFigure)figure;
+        if (functionFigure.getLineModel() == lineModel) {
+          willRemove = functionFigure;
+          break;
+        }
+      }
+    }
+    if (willRemove == null) throw new IllegalArgumentException("Specified lineModel was not contained in this figure."); //$NON-NLS-1$
+
+    remove(willRemove);
   }
 
 }

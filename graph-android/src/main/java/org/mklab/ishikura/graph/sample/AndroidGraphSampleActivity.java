@@ -2,8 +2,10 @@ package org.mklab.ishikura.graph.sample;
 
 import org.mklab.ishikura.graph.android.GraphView;
 import org.mklab.ishikura.graph.function.Function2D;
-import org.mklab.ishikura.graph.g2d.FunctionFigure;
 import org.mklab.ishikura.graph.g2d.GraphFigure;
+import org.mklab.ishikura.graph.g2d.model.GraphModel;
+import org.mklab.ishikura.graph.g2d.model.LineModel;
+import org.mklab.ishikura.graph.graphics.Color;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -24,21 +26,23 @@ public class AndroidGraphSampleActivity extends Activity {
 
     final GraphView graphView = new GraphView(getApplicationContext());
     final GraphFigure graph = new GraphFigure();
-    graph.setNameOfX("X軸"); //$NON-NLS-1$
-    graph.setNameOfY("Y軸"); //$NON-NLS-1$
-    graph.setTitle("Sample Graph"); //$NON-NLS-1$
+    final GraphModel model = graph.getModel();
+    model.setXAxisName("X軸"); //$NON-NLS-1$
+    model.setYAxisName("Y軸"); //$NON-NLS-1$
+    model.setTitle("Sample Graph"); //$NON-NLS-1$
     graph.setScope(-5, 5, -2, 2);
-    final FunctionFigure function = graph.getCoordinateSpace().newFunctionFigure();
-    function.setFunction(new Function2D() {
 
-      @Override
-      public double evalY(double x) {
-        return Math.sin(x);
-      }
+    final LineModel lineModel = new LineModel("y = sin(x)", Color.RED, new Function2D() { //$NON-NLS-1$
 
-    });
+          @Override
+          public double evalY(double x) {
+            return Math.sin(x);
+          }
+
+        });
+    model.addLineModel(lineModel);
+
     graphView.setGraphFigure(graph);
     setContentView(graphView);
   }
-
 }

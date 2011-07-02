@@ -3,11 +3,17 @@
  */
 package org.mklab.ishikura.graph.g2d;
 
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
+
 import org.mklab.ishikura.graph.figure.ContainerFigureImpl;
 import org.mklab.ishikura.graph.figure.Figures;
 import org.mklab.ishikura.graph.figure.Point;
 import org.mklab.ishikura.graph.figure.TextFigure;
-import org.mklab.ishikura.graph.function.Function2D;
+import org.mklab.ishikura.graph.g2d.model.DataModelListener;
+import org.mklab.ishikura.graph.g2d.model.GraphModel;
+import org.mklab.ishikura.graph.g2d.model.LineModel;
+import org.mklab.ishikura.graph.graphics.Color;
 import org.mklab.ishikura.graph.graphics.Graphics;
 
 
@@ -26,13 +32,17 @@ public class GraphFigure extends ContainerFigureImpl {
   private TextFigure statusBar;
   /** 座標系の図です。 */
   private LabeledCoordinateSpaceFigure coordinateSpace;
+  /** グラフのモデルです。 */
+  private GraphModel model;
 
   /**
    * {@link GraphFigure}オブジェクトを構築します。
    */
   public GraphFigure() {
+    this.model = createGraphModel();
+
     this.statusBar = new TextFigure();
-    final CoordinateSpaceFigure baseCoordinateSpace = new SimpleCoordinateSpaceFigure();
+    final CoordinateSpaceFigure baseCoordinateSpace = new SimpleCoordinateSpaceFigure(new FunctionInfoBoxFigure(this.model.getDataModel()));
     this.coordinateSpace = new LabeledCoordinateSpaceFigure(baseCoordinateSpace);
 
     add(this.statusBar);
@@ -40,6 +50,69 @@ public class GraphFigure extends ContainerFigureImpl {
 
     setBackgroundColor(ColorConstants.BACKGROUND);
     this.coordinateSpace.getGrid().setBackgroundColor(ColorConstants.COORDINATES_BACKGROUND);
+  }
+
+  private GraphModel createGraphModel() {
+    final GraphModel m = new GraphModel();
+    m.addPropertyChangeListener(new PropertyChangeListener() {
+
+      @Override
+      public void propertyChange(PropertyChangeEvent evt) {
+        final String propertyName = evt.getPropertyName();
+        if (GraphModel.TITLE_PROPERTY_NAME.equals(propertyName)) {
+          setTitle((String)evt.getNewValue());
+        } else if (GraphModel.X_AXIS_NAME_PROPERTY_NAME.equals(propertyName)) {
+          setNameOfX((String)evt.getNewValue());
+        } else if (GraphModel.Y_AXIS_NAME_PROPERTY_NAME.equals(propertyName)) {
+          setNameOfY((String)evt.getNewValue());
+        } else if (GraphModel.BACKGROUND_COLOR_PROPERTY_NAME.equals(propertyName)) {
+          setBackgroundColor((Color)evt.getNewValue());
+        } else if (GraphModel.GRID_BACKGROUND_COLOR_PROPERTY_NAME.equals(propertyName)) {
+          throw new UnsupportedOperationException("Sorry, but not implemented."); //$NON-NLS-1$
+        } else if (GraphModel.INFO_BOX_BACKGROUND_COLOR_PROPERTY_NAME.equals(propertyName)) {
+          throw new UnsupportedOperationException("Sorry, but not implemented."); //$NON-NLS-1$
+        } else if (GraphModel.FOREGROUND_COLOR_PROPERTY_NAME.equals(propertyName)) {
+          throw new UnsupportedOperationException("Sorry, but not implemented."); //$NON-NLS-1$
+        }
+      }
+    });
+    m.getDataModel().addDataModelListener(new DataModelListener() {
+
+      @Override
+      public void lineModelRemoved(LineModel lineModel) {
+        getCoordinateSpace().removeLine(lineModel);
+      }
+
+      @Override
+      public void lineModelAdded(LineModel lineModel) {
+        getCoordinateSpace().addLine(lineModel);
+      }
+    });
+    return m;
+  }
+
+  void setTitle(String title) {
+    this.coordinateSpace.setTitle(title);
+    invalidate();
+  }
+
+  void setNameOfX(String label) {
+    this.coordinateSpace.setNameOfX(label);
+    invalidate();
+  }
+
+  void setNameOfY(String label) {
+    this.coordinateSpace.setNameOfY(label);
+    invalidate();
+  }
+
+  /**
+   * グラフモデルを取得します。
+   * 
+   * @return グラフモデル
+   */
+  public GraphModel getModel() {
+    return this.model;
   }
 
   /**
@@ -54,18 +127,6 @@ public class GraphFigure extends ContainerFigureImpl {
     this.statusBar.setBounds(0, getHeight() - statusBarHeight, getWidth(), statusBarHeight);
 
     validateChildren(g);
-  }
-
-  /**
-   * 関数を設定します。
-   * 
-   * @param functions 関数
-   */
-  public void setFunctions(Function2D[] functions) {
-    for (Function2D f : functions) {
-      final FunctionFigure fig = this.coordinateSpace.newFunctionFigure();
-      fig.setFunction(f);
-    }
   }
 
   /**
@@ -96,33 +157,6 @@ public class GraphFigure extends ContainerFigureImpl {
    */
   public CoordinateSpaceFigure getCoordinateSpace() {
     return this.coordinateSpace;
-  }
-
-  /**
-   * グラフタイトルを設定します。
-   * 
-   * @param graphTitle グラフのタイトル
-   */
-  public void setTitle(String graphTitle) {
-    this.coordinateSpace.setTitle(graphTitle);
-  }
-
-  /**
-   * X軸の名前を設定します。
-   * 
-   * @param name x軸の名前
-   */
-  public void setNameOfX(String name) {
-    this.coordinateSpace.setNameOfX(name);
-  }
-
-  /**
-   * Y軸の名前を設定します。
-   * 
-   * @param name y軸の名前
-   */
-  public void setNameOfY(String name) {
-    this.coordinateSpace.setNameOfY(name);
   }
 
   /**

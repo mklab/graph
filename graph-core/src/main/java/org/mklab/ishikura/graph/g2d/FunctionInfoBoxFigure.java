@@ -3,9 +3,9 @@
  */
 package org.mklab.ishikura.graph.g2d;
 
-import org.mklab.ishikura.graph.figure.AbstractFigure;
 import org.mklab.ishikura.graph.figure.ContainerFigureImpl;
-import org.mklab.ishikura.graph.figure.Figure;
+import org.mklab.ishikura.graph.g2d.model.DataModel;
+import org.mklab.ishikura.graph.g2d.model.LineModel;
 import org.mklab.ishikura.graph.graphics.Color;
 import org.mklab.ishikura.graph.graphics.Graphics;
 import org.mklab.ishikura.graph.graphics.LineType;
@@ -19,13 +19,20 @@ import org.mklab.ishikura.graph.graphics.LineType;
  */
 class FunctionInfoBoxFigure extends ContainerFigureImpl {
 
+  private static final int SAMPLE_LINE_LENGTH = 30;
+  private static final int BORDER_PADDING = 3;
+  private static final int ROW_PADDING = 10;
+
+  private DataModel dataModel;
+
   /**
-   * 与えられた関数の図を元に、線情報を追加します。
+   * {@link FunctionInfoBoxFigure}オブジェクトを構築します。
    * 
-   * @param functionFigure 関数図
+   * @param dataModel 関数データモデル
    */
-  void addLineInfo(FunctionFigure functionFigure) {
-    add(new LineInfoFigure(functionFigure));
+  FunctionInfoBoxFigure(DataModel dataModel) {
+    if (dataModel == null) throw new NullPointerException();
+    this.dataModel = dataModel;
   }
 
   /**
@@ -33,17 +40,18 @@ class FunctionInfoBoxFigure extends ContainerFigureImpl {
    */
   @Override
   protected final void layout(Graphics g) {
-    validateChildren(g);
     int maximumWidth = 0;
-    int y = 0;
-    for (Figure figure : getChildren()) {
-      if (maximumWidth < figure.getWidth()) maximumWidth = figure.getWidth();
-      figure.setX(0);
-      figure.setY(y);
 
-      y += figure.getHeight();
+    int bodyHeight = 0;
+    for (LineModel lineModel : this.dataModel) {
+      final int labelWidth = g.computeTextWidth(lineModel.getLabel());
+      if (maximumWidth < labelWidth) maximumWidth = labelWidth;
+      bodyHeight += g.getTextHeight() + ROW_PADDING;
     }
-    setSize(maximumWidth, y);
+
+    final int width = BORDER_PADDING + SAMPLE_LINE_LENGTH + ROW_PADDING + maximumWidth + BORDER_PADDING;
+    final int height = BORDER_PADDING + bodyHeight + BORDER_PADDING;
+    setSize(width, height);
   }
 
   /**
@@ -51,68 +59,50 @@ class FunctionInfoBoxFigure extends ContainerFigureImpl {
    */
   @Override
   protected void handleDraw(Graphics g) {
+    drawInfoBox(g);
+    drawLineInfoContents(g);
+  }
+
+  private void drawLineInfoContents(Graphics g) {
+    final int textHeight = g.getTextHeight();
+    int rowY = BORDER_PADDING;
+    for (LineModel lineModel : this.dataModel) {
+      final Color oldColor = g.getColor();
+      final LineType oldType = g.getLineType();
+      final float oldLineWidth = g.getLineWidth();
+
+      g.setColor(lineModel.getLineColor());
+      g.setLineType(lineModel.getLineType());
+      g.setLineWidth(lineModel.getLineWidth());
+      final int lineY = rowY + textHeight / 2;
+      g.drawLine(BORDER_PADDING, lineY, BORDER_PADDING + SAMPLE_LINE_LENGTH, lineY);
+      g.setLineWidth(oldLineWidth);
+      g.setColor(oldColor);
+      g.setLineType(oldType);
+
+      g.drawString(lineModel.getLabel(), BORDER_PADDING + SAMPLE_LINE_LENGTH + ROW_PADDING, rowY + g.getTextAscent() + BORDER_PADDING);
+
+      rowY += textHeight + ROW_PADDING;
+    }
+  }
+
+  private void drawInfoBox(Graphics g) {
     Color oldColor = g.getColor();
 
-    float oldAlpha = g.getAlpha();
-    g.setAlpha(0.8f);
-    g.setColor(ColorConstants.FUNCTION_INFO_BACKGROUND);
-    g.fillRect(0, 0, getWidth(), getHeight());
-    g.setAlpha(oldAlpha);
+    drawInfoBoxBackground(g);
 
     g.setColor(ColorConstants.FUNCTION_INFO_BORDER);
     // 上端、右端は、親の図とわざとかぶらせる
     g.drawRect(0, -1, getWidth(), getHeight() - 1);
 
     g.setColor(oldColor);
-
-    super.handleDraw(g);
   }
 
-  static class LineInfoFigure extends AbstractFigure {
-
-    private static final int SAMPLE_LINE_LENGTH = 30;
-    private static final int BORDER_PADDING = 3;
-    private static final int PADDING = 10;
-    private FunctionFigure function;
-
-    /**
-     * {@link FunctionInfoBoxFigure}オブジェクトを構築します。
-     * 
-     * @param function 関数
-     */
-    LineInfoFigure(FunctionFigure function) {
-      if (function == null) throw new NullPointerException();
-      this.function = function;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    protected void layout(Graphics g) {
-      final int width = BORDER_PADDING + SAMPLE_LINE_LENGTH + PADDING + g.computeTextWidth(this.function.getLineName()) + BORDER_PADDING;
-      final int height = BORDER_PADDING + g.getTextHeight() + BORDER_PADDING;
-      setSize(width, height);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    protected void handleDraw(Graphics g) {
-      final Color oldColor = g.getColor();
-      final LineType oldType = g.getLineType();
-      final float oldLineWidth = g.getLineWidth();
-
-      g.setColor(this.function.getLineColor());
-      g.setLineType(this.function.getLineType());
-      g.setLineWidth(this.function.getLineWidth());
-      g.drawLine(BORDER_PADDING, getHeight() / 2, BORDER_PADDING + SAMPLE_LINE_LENGTH, getHeight() / 2);
-      g.setLineWidth(oldLineWidth);
-      g.setColor(oldColor);
-      g.setLineType(oldType);
-
-      g.drawString(this.function.getLineName(), BORDER_PADDING + SAMPLE_LINE_LENGTH + PADDING, g.getTextAscent() + BORDER_PADDING);
-    }
+  private void drawInfoBoxBackground(Graphics g) {
+    float oldAlpha = g.getAlpha();
+    g.setAlpha(0.8f);
+    g.setColor(ColorConstants.FUNCTION_INFO_BACKGROUND);
+    g.fillRect(0, 0, getWidth(), getHeight());
+    g.setAlpha(oldAlpha);
   }
 }

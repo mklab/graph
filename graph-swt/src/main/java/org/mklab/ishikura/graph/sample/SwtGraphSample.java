@@ -6,6 +6,9 @@ import org.eclipse.swt.widgets.Shell;
 import org.mklab.ishikura.graph.function.Function2D;
 import org.mklab.ishikura.graph.g2d.FunctionFigure;
 import org.mklab.ishikura.graph.g2d.GraphFigure;
+import org.mklab.ishikura.graph.g2d.model.GraphModel;
+import org.mklab.ishikura.graph.g2d.model.LineModel;
+import org.mklab.ishikura.graph.graphics.Color;
 import org.mklab.ishikura.graph.swt.GraphCanvas;
 
 
@@ -23,19 +26,21 @@ public class SwtGraphSample {
     final GraphCanvas canvas = new GraphCanvas(shell);
 
     final GraphFigure graph = new GraphFigure();
-    final FunctionFigure function = graph.getCoordinateSpace().newFunctionFigure();
-    function.setFunction(new Function2D() {
+    final GraphModel model = graph.getModel();
+    final LineModel lineModel = new LineModel("y = 2x", Color.RED, new Function2D() {
 
       @Override
       public double evalY(double x) {
         return 2 * x;
       }
     });
+    model.addLineModel(lineModel);
+    model.setTitle("Hello Graph"); //$NON-NLS-1$
+    model.setXAxisName("X");
+    model.setYAxisName("Y");
+
     graph.setSize(300, 300);
     graph.setScope(0, 100, 0, 100);
-    graph.setTitle("Hello Graph"); //$NON-NLS-1$
-    graph.setNameOfX("X");
-    graph.setNameOfY("Y");
     canvas.setGraphFigure(graph);
 
     shell.setSize(500, 500);
