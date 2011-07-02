@@ -18,7 +18,7 @@ public class PolarFunctionSample extends GraphFigureSample {
   @Override
   protected void initGraphModel(GraphModel model) {
     model.setTitle("Polar Function Sample"); //$NON-NLS-1$
-    model.addLineModel(new LineModel("sanyo-sen", Color.RED, SANYO)); //$NON-NLS-1$
+    model.addLineModel(new LineModel("sanyo-sen", Color.RED, LOG_ARITHMIC_SPIRAL)); //$NON-NLS-1$
   }
 
   /**

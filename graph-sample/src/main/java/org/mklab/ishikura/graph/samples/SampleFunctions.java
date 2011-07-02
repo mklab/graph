@@ -91,5 +91,22 @@ public interface SampleFunctions {
     }
 
   };
+  /** 螺旋です。 */
+  Function2D LOG_ARITHMIC_SPIRAL = new PolarFunction2D() {
+
+    static final double a = 0.5;
+    static final double b = 1;
+
+    @Override
+    public double evalR(double radian) {
+      return b * Math.exp(a * radian);
+    }
+
+    @Override
+    public Iterator<Double> provideTheta() {
+      return Functions.createDoubleIterator(0, 10 * Math.PI, 1000);
+    }
+
+  };
 
 }
