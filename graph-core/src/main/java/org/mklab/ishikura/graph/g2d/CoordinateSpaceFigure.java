@@ -7,7 +7,6 @@ package org.mklab.ishikura.graph.g2d;
 
 import org.mklab.ishikura.graph.figure.ContainerFigureImpl;
 import org.mklab.ishikura.graph.figure.Figure;
-import org.mklab.ishikura.graph.figure.Figures;
 import org.mklab.ishikura.graph.g2d.model.LineModel;
 import org.mklab.ishikura.graph.graphics.Color;
 import org.mklab.ishikura.graph.graphics.Graphics;
@@ -192,7 +191,7 @@ class CoordinateSpaceFigure extends ContainerFigureImpl implements HasCoordinate
    */
   @Override
   public void scaleScope(final int x, final int y, double ratio) {
-    this.grid.scaleScope(x - this.grid.getX(), y - this.grid.getY(), ratio);
+    Util.scaleScope(this, this.grid, x, y, ratio);
     invalidate();
   }
 
@@ -201,7 +200,7 @@ class CoordinateSpaceFigure extends ContainerFigureImpl implements HasCoordinate
    */
   @Override
   public double viewToModelX(int x) {
-    return Figures.viewToModelX(this, this.grid, x);
+    return Util.viewToModelX(this, this.grid, x);
   }
 
   /**
@@ -209,7 +208,7 @@ class CoordinateSpaceFigure extends ContainerFigureImpl implements HasCoordinate
    */
   @Override
   public double viewToModelY(int y) {
-    return Figures.viewToModelY(this, this.grid, y);
+    return Util.viewToModelY(this, this.grid, y);
   }
 
   /**

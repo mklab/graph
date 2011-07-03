@@ -3,9 +3,6 @@
  */
 package org.mklab.ishikura.graph.figure;
 
-import org.mklab.ishikura.graph.g2d.HasCoordinateSpace;
-
-
 /**
  * 図関連のユーティリティを提供するクラスです。
  * 
@@ -53,31 +50,4 @@ public final class Figures {
     return new Point(p.x + fromPoint.x - toPoint.x, p.y + fromPoint.y - toPoint.y);
   }
 
-  /**
-   * <code>from</code>上の座標<code>xOnFrom</code>をモデル上の座標に変換します。
-   * 
-   * @param <E> 図の型
-   * @param from 座標<code>xOnFrom</code>を測定した図形
-   * @param to モデル上の座標にする図形
-   * @param xOnFrom 座標
-   * @return x座標
-   */
-  public static <E extends Figure & HasCoordinateSpace> double viewToModelX(E from, E to, int xOnFrom) {
-    final Point pointOnTo = Figures.convertPoint(from, to, new Point(xOnFrom, 0));
-    return to.viewToModelX(pointOnTo.x);
-  }
-
-  /**
-   * <code>from</code>上の座標<code>yOnFrom</code>をモデル上の座標に変換します。
-   * 
-   * @param <E> 図の型
-   * @param from 座標<code>yOnFrom</code>を測定した図形
-   * @param to モデル上の座標にする図形
-   * @param yOnFrom 座標
-   * @return y座標
-   */
-  public static <E extends Figure & HasCoordinateSpace> double viewToModelY(E from, E to, int yOnFrom) {
-    final Point pointOnTo = Figures.convertPoint(from, to, new Point(0, yOnFrom));
-    return to.viewToModelY(pointOnTo.y);
-  }
 }

@@ -177,7 +177,7 @@ public class GraphFigure extends ContainerFigureImpl implements HasCoordinateSpa
    */
   @Override
   public void scaleScope(final int x, final int y, double ratio) {
-    this.baseGraphFigure.scaleScope(x - this.baseGraphFigure.getX(), y - this.baseGraphFigure.getY(), ratio);
+    Util.scaleScope(this, this.baseGraphFigure.getCoordinateSpace().getGrid(), x, y, ratio);
     invalidate();
   }
 
@@ -186,7 +186,7 @@ public class GraphFigure extends ContainerFigureImpl implements HasCoordinateSpa
    */
   @Override
   public double viewToModelX(int x) {
-    return Figures.viewToModelX(this, this.baseGraphFigure.getCoordinateSpace().getGrid(), x);
+    return Util.viewToModelX(this, this.baseGraphFigure.getCoordinateSpace().getGrid(), x);
   }
 
   /**
@@ -194,7 +194,7 @@ public class GraphFigure extends ContainerFigureImpl implements HasCoordinateSpa
    */
   @Override
   public double viewToModelY(int y) {
-    return Figures.viewToModelY(this, this.baseGraphFigure.getCoordinateSpace().getGrid(), y);
+    return Util.viewToModelY(this, this.baseGraphFigure.getCoordinateSpace().getGrid(), y);
   }
 
   /**

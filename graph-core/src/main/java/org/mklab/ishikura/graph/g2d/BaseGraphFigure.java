@@ -4,7 +4,6 @@
 package org.mklab.ishikura.graph.g2d;
 
 import org.mklab.ishikura.graph.figure.ContainerFigureImpl;
-import org.mklab.ishikura.graph.figure.Figures;
 import org.mklab.ishikura.graph.figure.TextAlignment;
 import org.mklab.ishikura.graph.figure.TextFigure;
 import org.mklab.ishikura.graph.figure.TextOrientation;
@@ -157,7 +156,8 @@ class BaseGraphFigure extends ContainerFigureImpl implements HasCoordinateSpace 
    */
   @Override
   public void scaleScope(int x, int y, double ratio) {
-    this.coordinateSpace.scaleScope(x - this.coordinateSpace.getX(), y - this.coordinateSpace.getY(), ratio);
+    Util.scaleScope(this, this.coordinateSpace.getGrid(), x, y, ratio);
+    invalidate();
   }
 
   /**
@@ -165,7 +165,7 @@ class BaseGraphFigure extends ContainerFigureImpl implements HasCoordinateSpace 
    */
   @Override
   public double viewToModelX(int x) {
-    return Figures.viewToModelX(this, this.coordinateSpace.getGrid(), x);
+    return Util.viewToModelX(this, this.coordinateSpace.getGrid(), x);
   }
 
   /**
@@ -173,7 +173,7 @@ class BaseGraphFigure extends ContainerFigureImpl implements HasCoordinateSpace 
    */
   @Override
   public double viewToModelY(int y) {
-    return Figures.viewToModelY(this, this.coordinateSpace.getGrid(), y);
+    return Util.viewToModelY(this, this.coordinateSpace.getGrid(), y);
   }
 
   /**

@@ -89,8 +89,8 @@ public class GridFigure extends AbstractFigure implements HasCoordinateSpace {
    */
   @Override
   public void scaleScope(final int x, final int y, double ratio) {
-    final double modelX = this.measureX.viewToModel(x);
-    final double modelY = this.measureY.viewToModel(y);
+    final double modelX = viewToModelX(x);
+    final double modelY = viewToModelY(y);
 
     if (modelX == Double.NaN || modelY == Double.NaN) throw new InvalidScopeException();
 
