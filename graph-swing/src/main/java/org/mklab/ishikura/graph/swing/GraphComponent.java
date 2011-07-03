@@ -127,7 +127,7 @@ public class GraphComponent extends JComponent {
       final int dy = this.lastClickPoint.y - point.y;
       this.lastClickPoint = point;
 
-      getGraph().move(dx, -dy);
+      getGraph().moveScope(dx, -dy);
       GraphComponent.this.repaint();
     }
 
@@ -140,7 +140,7 @@ public class GraphComponent extends JComponent {
 
       final boolean isExpanding = e.getWheelRotation() < 0;
 
-      getGraph().scale(p.x, p.y, isExpanding ? 1.2 : 0.8);
+      getGraph().scaleScope(p.x, p.y, isExpanding ? 1.2 : 0.8);
       GraphComponent.this.repaint();
     }
   }

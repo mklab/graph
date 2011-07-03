@@ -6,6 +6,7 @@ import org.eclipse.swt.events.MouseMoveListener;
 import org.eclipse.swt.events.MouseWheelListener;
 import org.eclipse.swt.graphics.Point;
 import org.mklab.ishikura.graph.g2d.GraphFigure;
+import org.mklab.ishikura.graph.g2d.HasCoordinateSpace;
 
 
 /**
@@ -45,8 +46,8 @@ class GraphCanvasMouseListener implements MouseListener, MouseMoveListener, Mous
     final Point currentMousePoint = new Point(e.x, e.y);
     final int dx = this.lastMousePoint.x - currentMousePoint.x;
     final int dy = this.lastMousePoint.y - currentMousePoint.y;
-    final GraphFigure graph = this.graphCanvas.getGraphFigure();
-    graph.move(dx, -dy);
+    final HasCoordinateSpace graph = this.graphCanvas.getGraphFigure();
+    graph.moveScope(dx, -dy);
     this.graphCanvas.redraw();
 
     this.lastMousePoint = currentMousePoint;
@@ -103,10 +104,10 @@ class GraphCanvasMouseListener implements MouseListener, MouseMoveListener, Mous
   @Override
   public void mouseScrolled(MouseEvent e) {
     if (isFigureSet() == false) return;
-    final GraphFigure graph = this.graphCanvas.getGraphFigure();
+    final HasCoordinateSpace graph = this.graphCanvas.getGraphFigure();
 
     final boolean zooming = e.count > 0;
-    graph.scale(e.x, e.y, zooming ? 1.2 : 0.8);
+    graph.scaleScope(e.x, e.y, zooming ? 1.2 : 0.8);
     this.graphCanvas.redraw();
   }
 

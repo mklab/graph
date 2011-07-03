@@ -1,6 +1,6 @@
 package org.mklab.ishikura.graph.android;
 
-import org.mklab.ishikura.graph.g2d.GraphFigure;
+import org.mklab.ishikura.graph.g2d.HasCoordinateSpace;
 
 import android.view.MotionEvent;
 import android.view.View;
@@ -27,14 +27,14 @@ class GraphViewTouchListener implements OnTouchListener {
   public boolean onTouch(View v, MotionEvent event) {
     this.touching = true;
     final GraphView graphView = (GraphView)v;
-    final GraphFigure graph = graphView.getGraphFigure();
+    final HasCoordinateSpace graph = graphView.getGraphFigure();
     switch (event.getAction() & MotionEvent.ACTION_MASK) {
       case MotionEvent.ACTION_MOVE:
         // move scope
         if (event.getHistorySize() > 0) {
           final float dx = event.getHistoricalX(0) - event.getX();
           final float dy = event.getHistoricalY(0) - event.getY();
-          graph.move((int)dx, -(int)dy);
+          graph.moveScope((int)dx, -(int)dy);
           graphView.invalidate();
           this.velocity = Math.hypot(dx, dy) / (event.getEventTime() - this.lastMoveTime) * MOMENTUM_SCROLL_REPAINT_RATE;
           this.direction = Math.atan2(-dy, dx);
@@ -46,7 +46,7 @@ class GraphViewTouchListener implements OnTouchListener {
           if (this.lastDistance != 0) {
             final int midX = (int)((event.getX() + event.getX(1)) / 2);
             final int midY = (int)((event.getY() + event.getY(1)) / 2);
-            graph.scale(midX, midY, ratio);
+            graph.scaleScope(midX, midY, ratio);
             graphView.invalidate();
           }
           this.lastDistance = distance;
@@ -67,8 +67,8 @@ class GraphViewTouchListener implements OnTouchListener {
     if (this.velocity < 1e-2 || this.touching) return;
     final double dx = this.velocity * Math.cos(this.direction);
     final double dy = this.velocity * Math.sin(this.direction);
-    final GraphFigure graph = graphView.getGraphFigure();
-    graph.move((int)dx, (int)dy);
+    final HasCoordinateSpace graph = graphView.getGraphFigure();
+    graph.moveScope((int)dx, (int)dy);
     this.velocity *= 0.95;
 
     graphView.postDelayed(new Runnable() {

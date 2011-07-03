@@ -4,10 +4,10 @@
 package org.mklab.ishikura.graph.g2d;
 
 import org.mklab.ishikura.graph.figure.ContainerFigureImpl;
+import org.mklab.ishikura.graph.figure.Figures;
 import org.mklab.ishikura.graph.figure.TextAlignment;
 import org.mklab.ishikura.graph.figure.TextFigure;
 import org.mklab.ishikura.graph.figure.TextOrientation;
-import org.mklab.ishikura.graph.g2d.model.LineModel;
 import org.mklab.ishikura.graph.graphics.Color;
 import org.mklab.ishikura.graph.graphics.Graphics;
 
@@ -20,7 +20,7 @@ import org.mklab.ishikura.graph.graphics.Graphics;
  * @author Yuhi Ishikura
  * @version $Revision$, 2010/10/22
  */
-class LabeledCoordinateSpaceFigure extends ContainerFigureImpl implements CoordinateSpaceFigure {
+class BaseGraphFigure extends ContainerFigureImpl implements HasCoordinateSpace {
 
   private CoordinateSpaceFigure coordinateSpace;
   private TextFigure xLabel;
@@ -28,11 +28,11 @@ class LabeledCoordinateSpaceFigure extends ContainerFigureImpl implements Coordi
   private TextFigure titleLabel;
 
   /**
-   * {@link LabeledCoordinateSpaceFigure}オブジェクトを構築します。
+   * {@link BaseGraphFigure}オブジェクトを構築します。
    * 
    * @param coodinateSpace 座標系の図
    */
-  LabeledCoordinateSpaceFigure(CoordinateSpaceFigure coodinateSpace) {
+  BaseGraphFigure(CoordinateSpaceFigure coodinateSpace) {
     if (coodinateSpace == null) throw new NullPointerException();
     this.coordinateSpace = coodinateSpace;
 
@@ -50,6 +50,15 @@ class LabeledCoordinateSpaceFigure extends ContainerFigureImpl implements Coordi
     add(this.xLabel);
     add(this.yLabel);
     add(this.titleLabel);
+  }
+
+  /**
+   * coordinateSpaceを取得します。
+   * 
+   * @return coordinateSpace
+   */
+  CoordinateSpaceFigure getCoordinateSpace() {
+    return this.coordinateSpace;
   }
 
   void setForegroundColor(Color foregroundColor) {
@@ -90,7 +99,7 @@ class LabeledCoordinateSpaceFigure extends ContainerFigureImpl implements Coordi
    * 
    * @return　x軸の名前
    */
-  String getNameOfX() {
+  String getXAxisName() {
     return this.xLabel.getText();
   }
 
@@ -108,7 +117,7 @@ class LabeledCoordinateSpaceFigure extends ContainerFigureImpl implements Coordi
    * 
    * @return　y軸の名前
    */
-  String getNameOfY() {
+  String getYAxisName() {
     return this.yLabel.getText();
   }
 
@@ -119,25 +128,20 @@ class LabeledCoordinateSpaceFigure extends ContainerFigureImpl implements Coordi
   protected void layout(Graphics g) {
     final int textHeight = g.getTextHeight();
 
-    final int left = textHeight;
     final int titleBottomSpace = 10;
-    final int top = textHeight + titleBottomSpace;
-    final int bottom = textHeight;
+    final int titleLabelHeight = textHeight + titleBottomSpace;
+    final int xLabelHeight = textHeight;
 
-    this.coordinateSpace.setBounds(left, top, getWidth() - textHeight, getHeight() - bottom - top);
-    this.titleLabel.setBounds(left, 0, this.coordinateSpace.getWidth(), top);
-    this.xLabel.setBounds(left, top + this.coordinateSpace.getHeight(), this.coordinateSpace.getWidth(), bottom);
-    this.yLabel.setBounds(0, 0, left, this.coordinateSpace.getHeight());
+    this.coordinateSpace.setBounds(textHeight, titleLabelHeight, getWidth() - textHeight, getHeight() - xLabelHeight - titleLabelHeight);
+    this.coordinateSpace.validate(g);
+
+    final int horizontalLabelX = textHeight + this.coordinateSpace.getGrid().getX();
+    final int horizontalLabelWidth = this.coordinateSpace.getGrid().getWidth();
+    this.titleLabel.setBounds(horizontalLabelX, 0, horizontalLabelWidth, titleLabelHeight);
+    this.xLabel.setBounds(horizontalLabelX, titleLabelHeight + this.coordinateSpace.getHeight(), horizontalLabelWidth, textHeight);
+    this.yLabel.setBounds(0, 0, textHeight, this.coordinateSpace.getHeight());
 
     validateChildren(g);
-  }
-
-  /**
-   * {@inheritDoc}
-   */
-  @Override
-  public GridFigure getGrid() {
-    return this.coordinateSpace.getGrid();
   }
 
   /**
@@ -160,40 +164,24 @@ class LabeledCoordinateSpaceFigure extends ContainerFigureImpl implements Coordi
    * {@inheritDoc}
    */
   @Override
+  public double viewToModelX(int x) {
+    return Figures.viewToModelX(this, this.coordinateSpace.getGrid(), x);
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public double viewToModelY(int y) {
+    return Figures.viewToModelY(this, this.coordinateSpace.getGrid(), y);
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  @Override
   public void setScope(Scope scope) {
     this.coordinateSpace.setScope(scope);
-  }
-
-  /**
-   * {@inheritDoc}
-   */
-  @Override
-  public void addLine(LineModel lineModel) {
-    this.coordinateSpace.addLine(lineModel);
-  }
-
-  /**
-   * {@inheritDoc}
-   */
-  @Override
-  public void removeLine(LineModel lineModel) {
-    this.coordinateSpace.removeLine(lineModel);
-  }
-
-  /**
-   * {@inheritDoc}
-   */
-  @Override
-  public InfoBoxFigure getInfoBox() {
-    return this.coordinateSpace.getInfoBox();
-  }
-
-  /**
-   * {@inheritDoc}
-   */
-  @Override
-  public void setBorderColor(Color color) {
-    this.coordinateSpace.setBorderColor(color);
   }
 
 }

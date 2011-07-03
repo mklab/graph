@@ -26,12 +26,12 @@ import org.mklab.ishikura.graph.graphics.Graphics;
  * @author Yuhi Ishikura
  * @version $Revision$, 2010/10/22
  */
-public class GraphFigure extends ContainerFigureImpl {
+public class GraphFigure extends ContainerFigureImpl implements HasCoordinateSpace {
 
   /** ステータス描画を行う図です。 */
   private TextFigure statusBar;
   /** 座標系の図です。 */
-  private LabeledCoordinateSpaceFigure coordinateSpace;
+  private BaseGraphFigure baseGraphFigure;
   /** グラフのモデルです。 */
   private GraphModel model;
 
@@ -43,14 +43,28 @@ public class GraphFigure extends ContainerFigureImpl {
 
     this.statusBar = new TextFigure();
     final InfoBoxFigure infoBox = new InfoBoxFigure(this.model.getDataModel());
-    final CoordinateSpaceFigure baseCoordinateSpace = new SimpleCoordinateSpaceFigure(infoBox);
-    this.coordinateSpace = new LabeledCoordinateSpaceFigure(baseCoordinateSpace);
+    final CoordinateSpaceFigure baseCoordinateSpace = new CoordinateSpaceFigure(infoBox);
+    this.baseGraphFigure = new BaseGraphFigure(baseCoordinateSpace);
 
     add(this.statusBar);
-    add(this.coordinateSpace);
+    add(this.baseGraphFigure);
 
     setBackgroundColor(ColorConstants.BACKGROUND);
-    this.coordinateSpace.getGrid().setBackgroundColor(ColorConstants.COORDINATES_BACKGROUND);
+    this.baseGraphFigure.getCoordinateSpace().getGrid().setBackgroundColor(ColorConstants.COORDINATES_BACKGROUND);
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  protected void layout(Graphics g) {
+    final int statusBarHeight = g.getTextHeight();
+    final int rightSpace = 10;
+
+    this.baseGraphFigure.setBounds(0, 0, getWidth() - rightSpace, getHeight() - statusBarHeight);
+    this.statusBar.setBounds(0, getHeight() - statusBarHeight, getWidth(), statusBarHeight);
+
+    validateChildren(g);
   }
 
   private GraphModel createGraphModel() {
@@ -96,22 +110,26 @@ public class GraphFigure extends ContainerFigureImpl {
     return m;
   }
 
+  CoordinateSpaceFigure getCoordinateSpace() {
+    return this.baseGraphFigure.getCoordinateSpace();
+  }
+
   void setForegroundColor(Color foregroundColor) {
-    this.coordinateSpace.setForegroundColor(foregroundColor);
+    this.baseGraphFigure.setForegroundColor(foregroundColor);
   }
 
   void setTitle(String title) {
-    this.coordinateSpace.setTitle(title);
+    this.baseGraphFigure.setTitle(title);
     invalidate();
   }
 
   void setXAxisName(String label) {
-    this.coordinateSpace.setXAxisName(label);
+    this.baseGraphFigure.setXAxisName(label);
     invalidate();
   }
 
   void setYAxisName(String label) {
-    this.coordinateSpace.setYAxisName(label);
+    this.baseGraphFigure.setYAxisName(label);
     invalidate();
   }
 
@@ -125,20 +143,6 @@ public class GraphFigure extends ContainerFigureImpl {
   }
 
   /**
-   * {@inheritDoc}
-   */
-  @Override
-  protected void layout(Graphics g) {
-    final int statusBarHeight = g.getTextHeight();
-    final int rightSpace = 10;
-
-    this.coordinateSpace.setBounds(0, 0, getWidth() - rightSpace, getHeight() - statusBarHeight);
-    this.statusBar.setBounds(0, getHeight() - statusBarHeight, getWidth(), statusBarHeight);
-
-    validateChildren(g);
-  }
-
-  /**
    * 表示範囲を設定します。
    * 
    * @param startX 開始x値
@@ -147,7 +151,7 @@ public class GraphFigure extends ContainerFigureImpl {
    * @param endY 終了y値
    */
   public void setScope(double startX, double endX, double startY, double endY) {
-    this.coordinateSpace.setScope(new Scope(startX, endX, startY, endY));
+    this.baseGraphFigure.getCoordinateSpace().setScope(new Scope(startX, endX, startY, endY));
   }
 
   /**
@@ -160,75 +164,37 @@ public class GraphFigure extends ContainerFigureImpl {
   }
 
   /**
-   * 座標空間を取得します。
-   * 
-   * @return 座標空間
+   * {@inheritDoc}
    */
-  public CoordinateSpaceFigure getCoordinateSpace() {
-    return this.coordinateSpace;
-  }
-
-  /**
-   * 表示位置を移動します。
-   * 
-   * @param dx x方向の移動量
-   * @param dy y方向の移動量
-   */
-  public void move(final int dx, final int dy) {
-    this.coordinateSpace.moveScope(dx, dy);
+  @Override
+  public void moveScope(final int dx, final int dy) {
+    this.baseGraphFigure.moveScope(dx, dy);
     invalidate();
   }
 
   /**
-   * 与えられた座標を中心として拡大を行います。
-   * 
-   * @param x 中心とするx座標
-   * @param y 中心とするy座標
-   * @param ratio 拡大率
+   * {@inheritDoc}
    */
-  public void scale(final int x, final int y, double ratio) {
-    this.coordinateSpace.scaleScope(x - this.coordinateSpace.getX(), y - this.coordinateSpace.getY(), ratio);
+  @Override
+  public void scaleScope(final int x, final int y, double ratio) {
+    this.baseGraphFigure.scaleScope(x - this.baseGraphFigure.getX(), y - this.baseGraphFigure.getY(), ratio);
     invalidate();
   }
 
   /**
-   * 表示範囲を設定します。
-   * 
-   * @param scope 表示範囲
+   * {@inheritDoc}
    */
-  public void setScope(Scope scope) {
-    this.coordinateSpace.setScope(scope);
-    invalidate();
-  }
-
-  /**
-   * ビューのx座標からモデルの座標へ変換します。
-   * 
-   * @param x x座標
-   * @return モデルのx座標
-   */
+  @Override
   public double viewToModelX(int x) {
-    final Point pointOnThisFigure = new Point(x, 0);
-    final Point pointOnGrid = Figures.convertPoint(this, getGrid(), pointOnThisFigure);
-    final int xOnGrid = pointOnGrid.x;
-
-    final double viewX = getGrid().viewToModelX(xOnGrid);
-    return viewX;
+    return Figures.viewToModelX(this, this.baseGraphFigure.getCoordinateSpace().getGrid(), x);
   }
 
   /**
-   * ビューのy座標からモデルの座標へ変換します。
-   * 
-   * @param y y座標
-   * @return モデルのy座標
+   * {@inheritDoc}
    */
+  @Override
   public double viewToModelY(int y) {
-    final Point pointOnThisFigure = new Point(0, y);
-    final Point pointOnGrid = Figures.convertPoint(this, getGrid(), pointOnThisFigure);
-    final int yOnGrid = pointOnGrid.y;
-
-    final double viewY = getGrid().viewToModelY(yOnGrid);
-    return viewY;
+    return Figures.viewToModelY(this, this.baseGraphFigure.getCoordinateSpace().getGrid(), y);
   }
 
   /**
@@ -239,18 +205,18 @@ public class GraphFigure extends ContainerFigureImpl {
    * @return 含まれていればtrue,そうでなければfalse
    */
   public boolean containsInCoordinateSpace(int x, int y) {
-    final GridFigure grid = getGrid();
-    final Point pointOnGrid = Figures.convertPoint(this, grid, new Point(x, y));
-    return grid.contains(pointOnGrid.x, pointOnGrid.y);
+    final GridFigure gridFigure = this.baseGraphFigure.getCoordinateSpace().getGrid();
+    final Point pointOnGrid = Figures.convertPoint(this, gridFigure, new Point(x, y));
+
+    return gridFigure.contains(pointOnGrid.x, pointOnGrid.y);
   }
 
   /**
-   * グリッドを取得します。
-   * 
-   * @return グリッド
+   * {@inheritDoc}
    */
-  private GridFigure getGrid() {
-    return this.coordinateSpace.getGrid();
+  @Override
+  public void setScope(Scope scope) {
+    this.baseGraphFigure.setScope(scope);
   }
 
 }

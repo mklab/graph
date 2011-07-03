@@ -20,7 +20,7 @@ import org.mklab.ishikura.graph.graphics.LineType;
  * @author Yuhi Ishikura
  * @version $Revision$, 2010/10/19
  */
-public class GridFigure extends AbstractFigure {
+public class GridFigure extends AbstractFigure implements HasCoordinateSpace {
 
   /** 数学上(モデル上)での値の範囲です。 */
   private Scope scope;
@@ -52,10 +52,9 @@ public class GridFigure extends AbstractFigure {
   }
 
   /**
-   * 表示範囲を設定します。
-   * 
-   * @param scope 表示範囲
+   * {@inheritDoc}
    */
+  @Override
   public void setScope(Scope scope) {
     if (scope == null) throw new NullPointerException();
     this.measureX.setBound(scope.getX());
@@ -75,11 +74,9 @@ public class GridFigure extends AbstractFigure {
   }
 
   /**
-   * 表示位置を移動します。
-   * 
-   * @param dx x方向の移動量
-   * @param dy y方向の移動量
+   * {@inheritDoc}
    */
+  @Override
   public void moveScope(final int dx, final int dy) {
     final double modelDx = dx * this.measureX.getViewToModelRatio();
     final double modelDy = dy * this.measureY.getViewToModelRatio();
@@ -88,12 +85,9 @@ public class GridFigure extends AbstractFigure {
   }
 
   /**
-   * 与えられた座標を中心として拡大を行います。
-   * 
-   * @param x 中心とするx座標
-   * @param y 中心とするy座標
-   * @param ratio 拡大率
+   * {@inheritDoc}
    */
+  @Override
   public void scaleScope(final int x, final int y, double ratio) {
     final double modelX = this.measureX.viewToModel(x);
     final double modelY = this.measureY.viewToModel(y);
@@ -227,11 +221,9 @@ public class GridFigure extends AbstractFigure {
   }
 
   /**
-   * ビューのx座標からモデルの座標へ変換します。
-   * 
-   * @param x x座標
-   * @return モデルのx座標
+   * {@inheritDoc}
    */
+  @Override
   public double viewToModelX(int x) {
     final double modelValue = this.measureX.viewToModel(x);
     if (Double.isNaN(modelValue)) throw new InvalidScopeException();
@@ -239,11 +231,9 @@ public class GridFigure extends AbstractFigure {
   }
 
   /**
-   * ビュー上のy座標からモデルの座標へ変換します。
-   * 
-   * @param y y座標
-   * @return モデルのy座標
+   * {@inheritDoc}
    */
+  @Override
   public double viewToModelY(int y) {
     final double modelValue = this.measureY.viewToModel(getHeight() - y - 1);
     if (Double.isNaN(modelValue)) throw new InvalidScopeException();

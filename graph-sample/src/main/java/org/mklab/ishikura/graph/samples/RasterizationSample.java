@@ -11,7 +11,6 @@ import javax.imageio.ImageIO;
 
 import org.mklab.ishikura.graph.function.ContinuousFunction2D;
 import org.mklab.ishikura.graph.g2d.GraphFigure;
-import org.mklab.ishikura.graph.g2d.Scope;
 import org.mklab.ishikura.graph.g2d.model.GraphModel;
 import org.mklab.ishikura.graph.g2d.model.LineModel;
 import org.mklab.ishikura.graph.graphics.Color;
@@ -41,7 +40,7 @@ public class RasterizationSample {
     graph.getModel().setTitle("Sample GraphFigure");
     graph.getModel().setXAxisName("Name of X Axis");
     graph.getModel().setYAxisName("Name of Y Axis");
-    graph.setScope(new Scope(0, 10, -1, 1));
+    graph.setScope(0, 10, -1, 1);
 
     final GraphModel graphModel = graph.getModel();
     final LineModel lineModel = new LineModel("y = sin(x)", Color.RED, new ContinuousFunction2D() {
