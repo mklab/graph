@@ -58,7 +58,7 @@ public abstract class AbstractFigure implements Figure {
   /**
    * 図の妥当性が損なわれたことを通知します。
    */
-  protected final void invalidate() {
+  public final void invalidate() {
     this.valid = false;
   }
 

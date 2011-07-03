@@ -29,6 +29,25 @@ public class DataModel implements Iterable<LineModel> {
   }
 
   /**
+   * 線の数を取得します。
+   * 
+   * @return 線の数
+   */
+  public int getLineCount() {
+    return this.lineModels.size();
+  }
+
+  /**
+   * ラインモデルを取得します。
+   * 
+   * @param index インデックス
+   * @return ラインモデル
+   */
+  public LineModel getLineModel(int index) {
+    return this.lineModels.get(index);
+  }
+
+  /**
    * {@link LineModel}を追加します。
    * 
    * @param lineModel 線のモデル
@@ -37,6 +56,16 @@ public class DataModel implements Iterable<LineModel> {
     if (this.lineModels.contains(lineModel)) throw new IllegalArgumentException();
     this.lineModels.add(lineModel);
     fireLineModelAdded(lineModel);
+  }
+
+  /**
+   * ラインモデルを取得します。
+   * 
+   * @param index インデックス
+   */
+  public void removeLineModel(int index) {
+    LineModel removed = this.lineModels.remove(index);
+    fireLineModelRemoved(removed);
   }
 
   /**

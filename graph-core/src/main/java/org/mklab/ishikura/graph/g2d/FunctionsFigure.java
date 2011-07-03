@@ -3,8 +3,12 @@
  */
 package org.mklab.ishikura.graph.g2d;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.mklab.ishikura.graph.figure.ContainerFigureImpl;
 import org.mklab.ishikura.graph.figure.Figure;
+import org.mklab.ishikura.graph.g2d.model.LineModel;
 import org.mklab.ishikura.graph.graphics.Graphics;
 
 
@@ -18,6 +22,8 @@ import org.mklab.ishikura.graph.graphics.Graphics;
  */
 final class FunctionsFigure extends ContainerFigureImpl {
 
+  Map<LineModel, FunctionFigure> map = new HashMap<LineModel, FunctionFigure>();
+
   /**
    * {@inheritDoc}
    */
@@ -28,6 +34,19 @@ final class FunctionsFigure extends ContainerFigureImpl {
     }
 
     validateChildren(g);
+  }
+
+  void addLine(LineModel lineModel, FunctionFigure figure) {
+    add(figure);
+    this.map.put(lineModel, figure);
+    invalidate();
+  }
+
+  void removeLine(LineModel lineModel) {
+    final FunctionFigure figure = this.map.get(lineModel);
+    remove(figure);
+    this.map.remove(lineModel);
+    invalidate();
   }
 
 }

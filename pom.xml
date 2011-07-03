@@ -21,6 +21,7 @@
 		<module>graph-swt</module>
 		<module>graph-android</module>
 		<module>graph-sample</module>
+		<module>graph-jcas</module>
 	</modules>
 
 	<build>

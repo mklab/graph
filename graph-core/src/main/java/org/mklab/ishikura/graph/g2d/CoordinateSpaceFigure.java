@@ -6,7 +6,6 @@
 package org.mklab.ishikura.graph.g2d;
 
 import org.mklab.ishikura.graph.figure.ContainerFigureImpl;
-import org.mklab.ishikura.graph.figure.Figure;
 import org.mklab.ishikura.graph.g2d.model.LineModel;
 import org.mklab.ishikura.graph.graphics.Color;
 import org.mklab.ishikura.graph.graphics.Graphics;
@@ -237,7 +236,10 @@ class CoordinateSpaceFigure extends ContainerFigureImpl implements HasCoordinate
   public void addLine(LineModel lineModel) {
     if (lineModel == null) throw new NullPointerException();
     final FunctionFigure figure = new FunctionFigure(this.grid, lineModel);
-    this.functionsFigure.add(figure);
+    this.functionsFigure.addLine(lineModel, figure);
+
+    this.lineInfoBox.invalidate();
+    invalidate();
   }
 
   /**
@@ -246,19 +248,9 @@ class CoordinateSpaceFigure extends ContainerFigureImpl implements HasCoordinate
    * @param lineModel 線のモデル
    */
   public void removeLine(LineModel lineModel) {
-    Figure willRemove = null;
-    for (Figure figure : getChildren()) {
-      if (figure instanceof FunctionFigure) {
-        final FunctionFigure functionFigure = (FunctionFigure)figure;
-        if (functionFigure.getLineModel() == lineModel) {
-          willRemove = functionFigure;
-          break;
-        }
-      }
-    }
-    if (willRemove == null) throw new IllegalArgumentException("Specified lineModel was not contained in this figure."); //$NON-NLS-1$
-
-    remove(willRemove);
+    this.functionsFigure.removeLine(lineModel);
+    this.lineInfoBox.invalidate();
+    invalidate();
   }
 
   /**
