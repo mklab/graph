@@ -15,6 +15,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseWheelEvent;
 
 import javax.swing.JComponent;
+import javax.swing.SwingUtilities;
 
 import org.mklab.ishikura.graph.g2d.GraphFigure;
 
@@ -84,14 +85,14 @@ public class GraphComponent extends JComponent {
    */
   final class GraphMouseHandler extends MouseAdapter {
 
-    private Point lastClickPoint;
+    private Point pressedPoint;
 
     /**
      * {@inheritDoc}
      */
     @Override
     public void mousePressed(MouseEvent e) {
-      this.lastClickPoint = e.getPoint();
+      this.pressedPoint = e.getPoint();
     }
 
     /**
@@ -120,14 +121,31 @@ public class GraphComponent extends JComponent {
      */
     @Override
     public void mouseDragged(MouseEvent e) {
-      if (this.lastClickPoint == null) return;
+      if (this.pressedPoint == null) return;
+      if (SwingUtilities.isRightMouseButton(e)) return;
 
       final Point point = e.getPoint();
-      final int dx = this.lastClickPoint.x - point.x;
-      final int dy = this.lastClickPoint.y - point.y;
-      this.lastClickPoint = point;
+      final int dx = this.pressedPoint.x - point.x;
+      final int dy = this.pressedPoint.y - point.y;
+      this.pressedPoint = point;
 
       getGraph().moveScope(dx, -dy);
+      GraphComponent.this.repaint();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void mouseReleased(MouseEvent e) {
+      if (SwingUtilities.isRightMouseButton(e) == false) return;
+
+      final Point releasedPoint = e.getPoint();
+      final double x1 = getGraph().viewToModelX(releasedPoint.x);
+      final double y1 = getGraph().viewToModelY(releasedPoint.y);
+      final double x2 = getGraph().viewToModelX(this.pressedPoint.x);
+      final double y2 = getGraph().viewToModelY(this.pressedPoint.y);
+      getGraph().setScope(Math.min(x1, x2), Math.max(x1, x2), Math.min(y1, y2), Math.max(y1, y2));
       GraphComponent.this.repaint();
     }
 

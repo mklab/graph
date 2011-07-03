@@ -16,6 +16,8 @@ import org.mklab.ishikura.graph.g2d.HasCoordinateSpace;
 class GraphCanvasMouseListener implements MouseListener, MouseMoveListener, MouseWheelListener {
 
   private boolean pressed = false;
+  private boolean rightButton = false;
+  private Point pressedPoint;
   private Point lastMousePoint;
   private GraphCanvas graphCanvas;
 
@@ -35,7 +37,9 @@ class GraphCanvasMouseListener implements MouseListener, MouseMoveListener, Mous
   @Override
   public void mouseMove(MouseEvent e) {
     updateStatusArea(e);
-    moveScope(e);
+    if (this.rightButton == false) {
+      moveScope(e);
+    }
     this.graphCanvas.redraw();
   }
 
@@ -80,18 +84,31 @@ class GraphCanvasMouseListener implements MouseListener, MouseMoveListener, Mous
    */
   @Override
   public void mouseDown(MouseEvent e) {
+    this.rightButton = e.button == 3;
     this.pressed = true;
     this.lastMousePoint = new Point(e.x, e.y);
+    this.pressedPoint = this.lastMousePoint;
   }
 
   /**
    * {@inheritDoc}
    */
-  @SuppressWarnings("unused")
   @Override
   public void mouseUp(MouseEvent e) {
+    if (this.rightButton) {
+      changeScope(new Point(e.x, e.y));
+    }
     this.pressed = false;
     this.lastMousePoint = null;
+  }
+
+  private void changeScope(final Point releasedPoint) {
+    final double x1 = this.graphCanvas.getGraphFigure().viewToModelX(releasedPoint.x);
+    final double y1 = this.graphCanvas.getGraphFigure().viewToModelY(releasedPoint.y);
+    final double x2 = this.graphCanvas.getGraphFigure().viewToModelX(this.pressedPoint.x);
+    final double y2 = this.graphCanvas.getGraphFigure().viewToModelY(this.pressedPoint.y);
+    this.graphCanvas.getGraphFigure().setScope(Math.min(x1, x2), Math.max(x1, x2), Math.min(y1, y2), Math.max(y1, y2));
+    this.graphCanvas.redraw();
   }
 
   private boolean isFigureSet() {
