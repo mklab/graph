@@ -121,9 +121,13 @@ public class StandardGridFactoryTest {
    */
   @Test
   public void testCreate() {
-    assertGridEquals(grid(-0.2, 0, 0.2), gridFactory.create(-0.3379, 0.3647));
-    assertGridEquals(grid(-100000, 0, 100000), gridFactory.create(-154077.167222, 156115.562485));
-    assertGridEquals(grid(-0.6, -0.4, -0.2, 0), gridFactory.create(-0.681267, 0.165232));
+    assertGridEquals(grid(-0.4, -0.2, 0, 0.2, 0.4), gridFactory.create(-0.3, 0.3));
+    assertGridEquals(grid(-0.2, -0.1, 0, 0.1, 0.2), gridFactory.create(-0.2, 0.2));
+
+    // 精度的に厳しいもの
+    assertGridEquals(grid(-0.4, -0.2, 0, 0.2, 0.4), gridFactory.create(-0.3379, 0.3647));
+    assertGridEquals(grid(-200000, -100000, 0, 100000, 200000), gridFactory.create(-154077.167222, 156115.562485));
+    assertGridEquals(grid(-0.8, -0.6, -0.4, -0.2, 0, 0.2), gridFactory.create(-0.681267, 0.165232));
   }
 
 }

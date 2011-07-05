@@ -24,8 +24,8 @@ class StandardGridFactory implements GridFactory {
     double n = (int)(start / interval) * interval;
     n = fix(n);
 
-    if (n < start) n = fix(n + interval);
-    while (n < end) {
+    if (n > start) n = fix(n - interval);
+    while (n < fix(end + interval)) {
       grid.add(n);
       n = fix(n + interval);
     }

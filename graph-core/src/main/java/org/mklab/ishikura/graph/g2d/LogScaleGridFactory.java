@@ -20,12 +20,14 @@ public class LogScaleGridFactory implements GridFactory {
     if (start <= 0) throw new IllegalArgumentException("Log scale not support zero or negative value."); //$NON-NLS-1$
 
     final double logStart = Math.log10(start);
-    final double logEnd = Math.log10(end);
     int n = (int)Math.ceil(logStart);
     Grid grid = new Grid();
-    while (n <= logEnd) {
-      grid.add(Math.pow(10, n));
+    if (Math.pow(10, n) > start) n--;
+    while (true) {
+      final double g = Math.pow(10, n);
+      grid.add(g);
       n++;
+      if (g >= end) break;
     }
     return grid;
   }

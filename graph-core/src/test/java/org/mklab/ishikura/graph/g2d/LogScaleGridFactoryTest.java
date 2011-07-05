@@ -39,8 +39,8 @@ public class LogScaleGridFactoryTest {
     assertGridEquals(grid(1e-1, 1e0, 1e1, 1e2), factory.create(1e-1, 1e2));
     assertGridEquals(grid(1e-2, 1e-1, 1e0, 1e1, 1e2), factory.create(1e-2, 1e2));
 
-    assertGridEquals(grid(1e0, 1e1), factory.create(1e0, 2e1));
-    assertGridEquals(grid(1e1), factory.create(2e0, 2e1));
-    assertGridEquals(grid(1e0, 1e1), factory.create(0.5e0, 2e1));
+    assertGridEquals(grid(1e0, 1e1, 1e2), factory.create(1e0, 2e1));
+    assertGridEquals(grid(1e0, 1e1, 1e2), factory.create(2e0, 2e1));
+    assertGridEquals(grid(1e-1, 1e0, 1e1, 1e2), factory.create(0.5e0, 2e1));
   }
 }

@@ -13,6 +13,9 @@ public interface GridFactory {
 
   /**
    * グリッドを生成します。
+   * <p>
+   * グリッドの開始は、区間の始まり以前であり、
+   * グリッドの終了は、区間の終了以降となります。
    * 
    * @param start 区間の始まり
    * @param end 区間の終わり
