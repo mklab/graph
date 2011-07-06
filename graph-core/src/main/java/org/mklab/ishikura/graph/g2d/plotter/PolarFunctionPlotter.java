@@ -37,7 +37,7 @@ class PolarFunctionPlotter implements Plotter {
 
       final double x = r * Math.cos(theta);
       final double y = r * Math.sin(theta);
-      if (Double.isNaN(x) || Double.isNaN(y)) continue;
+      if (Plotters.isValidNumber(x) == false || Plotters.isValidNumber(y) == false) continue;
 
       final int viewX = grid.modelToViewXIgnoreBound(x);
       final int viewY = grid.modelToViewYIgnoreBound(y);

@@ -38,6 +38,8 @@ class ContinuousFunctionPlotter implements Plotter {
     for (int viewX = 0; viewX < width; viewX++) {
       final double modelX = grid.viewToModelX(viewX);
       final double modelY = this.function.evalY(modelX);
+      if (Plotters.isValidNumber(modelY) == false) continue;
+
       final int viewY = grid.modelToViewYIgnoreBound(modelY);
       if (lastViewY != -1) g.drawLine(viewX - 1, lastViewY, viewX, viewY);
       lastViewY = viewY;

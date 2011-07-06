@@ -43,6 +43,8 @@ class DiscreteFunctionPlotter implements Plotter {
     Point2D lastPoint = itr.next();
     while (itr.hasNext()) {
       final Point2D currentPoint = itr.next();
+      if (Plotters.isValidNumber(currentPoint.getX()) == false || Plotters.isValidNumber(currentPoint.getY()) == false) continue;
+
       int x1 = grid.modelToViewXIgnoreBound(lastPoint.getX());
       int y1 = grid.modelToViewYIgnoreBound(lastPoint.getY());
       int x2 = grid.modelToViewXIgnoreBound(currentPoint.getX());

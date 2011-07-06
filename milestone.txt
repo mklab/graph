@@ -4,6 +4,9 @@
 1.1 表示改善
 	o 座標からの関数取得精度向上
 	o マイナーグリッド表示
+	o Plotterの-Infinity,NaN,Infinity処理
+	* Graphics#drawPolyline
+	* Graphics#store,restore
 1.2 内部設計改善
 	* JavaDocの充実
 	* グラフの拡張のためのAPI提供

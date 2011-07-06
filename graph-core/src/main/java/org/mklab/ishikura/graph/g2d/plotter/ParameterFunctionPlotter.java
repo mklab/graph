@@ -43,6 +43,8 @@ public class ParameterFunctionPlotter implements Plotter {
       final double t = tSeries.next().doubleValue();
       final double modelX = this.function.evalX(t);
       final double modelY = this.function.evalY(t);
+      if (Plotters.isValidNumber(modelX) == false || Plotters.isValidNumber(modelY) == false) continue;
+
       final int viewX = grid.modelToViewXIgnoreBound(modelX);
       final int viewY = grid.modelToViewYIgnoreBound(modelY);
       if (oldViewX != -1 && oldViewY != -1) {
