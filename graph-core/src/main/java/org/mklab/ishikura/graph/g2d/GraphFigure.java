@@ -88,6 +88,14 @@ public class GraphFigure extends ContainerFigureImpl implements HasCoordinateSpa
           getCoordinateSpace().getGrid().setBackgroundColor((Color)value);
         } else if (GraphModel.GRID_BORDER_COLOR_PROPERTY_NAME.equals(propertyName)) {
           getCoordinateSpace().setBorderColor((Color)value);
+        } else if (GraphModel.GRID_COLOR_PROPERTY_NAME.equals(propertyName)) {
+          getCoordinateSpace().getGrid().setGridColor((Color)evt.getNewValue());
+        } else if (GraphModel.MINOR_GRID_COLOR_PROPERTY_NAME.equals(propertyName)) {
+          getCoordinateSpace().getGrid().setMinorGridColor((Color)evt.getNewValue());
+        } else if (GraphModel.GRID_ENABLED_PROPERTY_NAME.equals(propertyName)) {
+          getCoordinateSpace().getGrid().setGridEnabled(((Boolean)evt.getNewValue()).booleanValue());
+        } else if (GraphModel.MINOR_GRID_ENABLED_PROPERTY_NAME.equals(propertyName)) {
+          getCoordinateSpace().getGrid().setMinorGridEnabled(((Boolean)evt.getNewValue()).booleanValue());
         } else if (GraphModel.INFO_BOX_BACKGROUND_COLOR_PROPERTY_NAME.equals(propertyName)) {
           getCoordinateSpace().getInfoBox().setBackgroundColor((Color)value);
         } else if (GraphModel.FOREGROUND_COLOR_PROPERTY_NAME.equals(propertyName)) {
@@ -112,6 +120,10 @@ public class GraphFigure extends ContainerFigureImpl implements HasCoordinateSpa
 
   CoordinateSpaceFigure getCoordinateSpace() {
     return this.baseGraphFigure.getCoordinateSpace();
+  }
+
+  BaseGraphFigure getBaseGraphFigure() {
+    return this.baseGraphFigure;
   }
 
   void setForegroundColor(Color foregroundColor) {

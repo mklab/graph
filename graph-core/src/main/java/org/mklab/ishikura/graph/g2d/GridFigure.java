@@ -45,6 +45,8 @@ public final class GridFigure extends AbstractFigure implements HasCoordinateSpa
   private Color gridColor = ColorConstants.GRID;
   /** マイナーグリッドの描画に用いる色です。 */
   private Color minorGridColor = ColorConstants.MINOR_GRID;
+  /** グリッドの描画を有効にするかどうかを示します。 */
+  private boolean gridEnabled = true;
   /** マイナーグリッドの描画を有効にするかどうかを示します。 */
   private boolean minorGridEnabled = true;
 
@@ -192,6 +194,24 @@ public final class GridFigure extends AbstractFigure implements HasCoordinateSpa
   public void setMinorGridColor(Color minorGridColor) {
     if (minorGridColor == null) throw new NullPointerException();
     this.minorGridColor = minorGridColor;
+  }
+
+  /**
+   * グリッドの描画が有効であるかを取得します。
+   * 
+   * @return グリッドの描画が有効であるかどうか
+   */
+  public boolean isGridEnabled() {
+    return this.gridEnabled;
+  }
+
+  /**
+   * グリッドの描画の有効/無効を設定します。
+   * 
+   * @param gridEnabled {@code true}ならば有効、{@code false}ならば無効
+   */
+  public void setGridEnabled(boolean gridEnabled) {
+    this.gridEnabled = gridEnabled;
   }
 
   /**
@@ -349,10 +369,14 @@ public final class GridFigure extends AbstractFigure implements HasCoordinateSpa
   private void drawGridsForX(Graphics g) {
     if (this.gridX == null) throw new NullPointerException("x grid was not set."); //$NON-NLS-1$
 
-    g.setColor(this.gridColor);
-    drawVerticalLines(g, this.gridX);
-    g.setColor(this.minorGridColor);
-    drawVerticalLines(g, computeMinorLines(this.gridX));
+    if (isMinorGridEnabled()) {
+      g.setColor(this.minorGridColor);
+      drawVerticalLines(g, computeMinorLines(this.gridX));
+    }
+    if (isGridEnabled()) {
+      g.setColor(this.gridColor);
+      drawVerticalLines(g, this.gridX);
+    }
   }
 
   /**
@@ -363,10 +387,14 @@ public final class GridFigure extends AbstractFigure implements HasCoordinateSpa
   private void drawGridsForY(Graphics g) {
     if (this.gridY == null) throw new NullPointerException("y grid was not set."); //$NON-NLS-1$
 
-    g.setColor(this.gridColor);
-    drawHorizontalLines(g, this.gridY);
-    g.setColor(this.minorGridColor);
-    drawHorizontalLines(g, computeMinorLines(this.gridY));
+    if (isMinorGridEnabled()) {
+      g.setColor(this.minorGridColor);
+      drawHorizontalLines(g, computeMinorLines(this.gridY));
+    }
+    if (isGridEnabled()) {
+      g.setColor(this.gridColor);
+      drawHorizontalLines(g, this.gridY);
+    }
   }
 
   /**

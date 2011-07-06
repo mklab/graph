@@ -26,6 +26,14 @@ public class GraphModel {
   public static final String GRID_BACKGROUND_COLOR_PROPERTY_NAME = "gridBackgroundColor"; //$NON-NLS-1$
   /** グリッドの枠の色のプロパティの名前です。 */
   public static final String GRID_BORDER_COLOR_PROPERTY_NAME = "gridBorderColor"; //$NON-NLS-1$
+  /** グリッド線の描画の有効/無効のプロパティの名前です。 */
+  public static final String GRID_ENABLED_PROPERTY_NAME = "gridEnabled"; //$NON-NLS-1$
+  /** マイナーグリッド線の描画の有効/無効のプロパティの名前です。 */
+  public static final String MINOR_GRID_ENABLED_PROPERTY_NAME = "minorGridEnabled"; //$NON-NLS-1$
+  /** マイナーグリッド線の色のプロパティの名前です。 */
+  public static final String MINOR_GRID_COLOR_PROPERTY_NAME = "minorGridColor"; //$NON-NLS-1$
+  /** グリッド線の色のプロパティの名前です。 */
+  public static final String GRID_COLOR_PROPERTY_NAME = "gridColor"; //$NON-NLS-1$
   /** 前景色プロパティの名前です。 */
   public static final String FOREGROUND_COLOR_PROPERTY_NAME = "foregroundColor"; //$NON-NLS-1$
   /** 背景色プロパティの名前です。 */
@@ -50,10 +58,18 @@ public class GraphModel {
   private Color backgroundColor = ColorConstants.BACKGROUND;
   /** グラフのタイトル、x軸、y軸のラベルの色です。 */
   private Color foregroundColor = ColorConstants.FOREGROUND;
-  /** 格子の背景色です。 */
+  /** グラフ領域の背景色です。 */
   private Color gridBackgroundColor = ColorConstants.COORDINATES_BACKGROUND;
-  /** 格子の枠の色です。 */
+  /** グラフ領域の枠の色です。 */
   private Color gridBorderColor = ColorConstants.COORDINATES_BORDER;
+  /** グリッド線の色です。 */
+  private Color gridColor = ColorConstants.GRID;
+  /** マイナーグリッド線の色です。 */
+  private Color minorGridColor = ColorConstants.GRID;
+  /** グリッドを描画するかどうかを保持します。 */
+  private boolean gridEnabled = true;
+  /** マイナーグリッドを描画するかどうかを保持します。 */
+  private boolean minorGridEnabled = true;
   /** 情報表示ボックスの背景色です。 */
   private Color infoBoxBackgroundColor = ColorConstants.FUNCTION_INFO_BACKGROUND;
 
@@ -131,7 +147,7 @@ public class GraphModel {
    * 
    * @return y軸の名前
    */
-  public String getyAxisName() {
+  public String getYAxisName() {
     return this.yAxisName;
   }
 
@@ -224,6 +240,86 @@ public class GraphModel {
     final Color oldGridBorderColor = this.gridBorderColor;
     this.gridBorderColor = gridBorderColor;
     this.propertyChangeSupport.firePropertyChange(GRID_BORDER_COLOR_PROPERTY_NAME, oldGridBorderColor, gridBorderColor);
+  }
+
+  /**
+   * グリッド線の色を取得します。
+   * 
+   * @return グリッド線の色
+   */
+  public Color getGridColor() {
+    return this.gridColor;
+  }
+
+  /**
+   * グリッド線の色を設定します。
+   * 
+   * @param gridColor グリッド線の色
+   */
+  public void setGridColor(Color gridColor) {
+    final Color oldGridColor = this.gridColor;
+    this.gridColor = gridColor;
+    this.propertyChangeSupport.firePropertyChange(GRID_COLOR_PROPERTY_NAME, oldGridColor, gridColor);
+  }
+
+  /**
+   * マイナーグリッド線の色を取得します。
+   * 
+   * @return マイナーグリッド線の色
+   */
+  public Color getMinorGridColor() {
+    return this.minorGridColor;
+  }
+
+  /**
+   * マイナーグリッド線の色を設定します。
+   * 
+   * @param minorGridColor マイナーグリッド線の色
+   */
+  public void setMinorGridColor(Color minorGridColor) {
+    final Color oldMinorGridColor = this.minorGridColor;
+    this.minorGridColor = minorGridColor;
+    this.propertyChangeSupport.firePropertyChange(MINOR_GRID_COLOR_PROPERTY_NAME, oldMinorGridColor, minorGridColor);
+  }
+
+  /**
+   * グリッド線の描画が有効であるかどうか調べます。
+   * 
+   * @return グリッド線の描画が有効であるかどうか。{@code true}ならば有効、{@code false}ならば無効です。
+   */
+  public boolean isGridEnabled() {
+    return this.gridEnabled;
+  }
+
+  /**
+   * グリッド線の描画の有効・無効を設定します。
+   * 
+   * @param gridEnabled {@code true}ならば有効、{@code false}ならば無効
+   */
+  public void setGridEnabled(boolean gridEnabled) {
+    final boolean oldGridEnabled = this.gridEnabled;
+    this.gridEnabled = gridEnabled;
+    this.propertyChangeSupport.firePropertyChange(GRID_ENABLED_PROPERTY_NAME, oldGridEnabled, gridEnabled);
+  }
+
+  /**
+   * マイナーグリッド線の描画が有効であるかどうか調べます。
+   * 
+   * @return マイナーグリッド線の描画が有効であるかどうか。{@code true}ならば有効、{@code false}ならば無効です。
+   */
+  public boolean isMinorGridEnabled() {
+    return this.minorGridEnabled;
+  }
+
+  /**
+   * マイナーグリッド線の描画の有効・無効を設定します。
+   * 
+   * @param minorGridEnabled {@code true}ならば有効、{@code false}ならば無効
+   */
+  public void setMinorGridEnabled(boolean minorGridEnabled) {
+    final boolean oldMinorGridEnabled = this.minorGridEnabled;
+    this.minorGridEnabled = minorGridEnabled;
+    this.propertyChangeSupport.firePropertyChange(MINOR_GRID_ENABLED_PROPERTY_NAME, oldMinorGridEnabled, minorGridEnabled);
   }
 
   /**

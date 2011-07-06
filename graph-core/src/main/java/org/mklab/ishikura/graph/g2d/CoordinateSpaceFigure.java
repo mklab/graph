@@ -144,7 +144,6 @@ class CoordinateSpaceFigure extends ContainerFigureImpl implements HasCoordinate
   private void drawGraduationsForX(Graphics g) {
     for (final Double modelX : this.grid.getGridX()) {
       final int viewX = this.grid.modelToViewX(modelX.doubleValue());
-
       if (viewX == -1) continue;
       final String graduation = toGraduationText(modelX.doubleValue());
       final int graduationWidth = g.computeTextWidth(graduation);
@@ -160,7 +159,7 @@ class CoordinateSpaceFigure extends ContainerFigureImpl implements HasCoordinate
   private void drawGraduationsForY(Graphics g) {
     for (final Double modelY : this.grid.getGridY()) {
       int viewY = this.grid.modelToViewY(modelY.doubleValue());
-      if (viewY == -1) break;
+      if (viewY == -1) continue;
       final String graduation = toGraduationText(modelY.doubleValue());
       final int graduationWidth = g.computeTextWidth(graduation);
 
@@ -215,7 +214,7 @@ class CoordinateSpaceFigure extends ContainerFigureImpl implements HasCoordinate
    * 
    * @return グリッド
    */
-  public GridFigure getGrid() {
+  GridFigure getGrid() {
     return this.grid;
   }
 
@@ -233,7 +232,7 @@ class CoordinateSpaceFigure extends ContainerFigureImpl implements HasCoordinate
    * 
    * @param lineModel 線のモデル
    */
-  public void addLine(LineModel lineModel) {
+  void addLine(LineModel lineModel) {
     if (lineModel == null) throw new NullPointerException();
     final FunctionFigure figure = new FunctionFigure(this.grid, lineModel);
     this.functionsFigure.addLine(lineModel, figure);
@@ -247,7 +246,7 @@ class CoordinateSpaceFigure extends ContainerFigureImpl implements HasCoordinate
    * 
    * @param lineModel 線のモデル
    */
-  public void removeLine(LineModel lineModel) {
+  void removeLine(LineModel lineModel) {
     this.functionsFigure.removeLine(lineModel);
     this.lineInfoBox.invalidate();
     invalidate();
@@ -258,7 +257,7 @@ class CoordinateSpaceFigure extends ContainerFigureImpl implements HasCoordinate
    * 
    * @return 関数情報表示ボックス
    */
-  public InfoBoxFigure getInfoBox() {
+  InfoBoxFigure getInfoBox() {
     return this.lineInfoBox;
   }
 
@@ -267,8 +266,17 @@ class CoordinateSpaceFigure extends ContainerFigureImpl implements HasCoordinate
    * 
    * @param color 枠の色
    */
-  public void setBorderColor(Color color) {
+  void setBorderColor(Color color) {
     this.borderColor = color;
+  }
+
+  /**
+   * 枠の色を取得します。
+   * 
+   * @param color 枠の色
+   */
+  Color getBorderColor() {
+    return this.borderColor;
   }
 
 }

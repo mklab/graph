@@ -66,6 +66,18 @@ class BaseGraphFigure extends ContainerFigureImpl implements HasCoordinateSpace 
     this.titleLabel.setColor(foregroundColor);
   }
 
+  TextFigure getXLabel() {
+    return this.xLabel;
+  }
+
+  TextFigure getYLabel() {
+    return this.yLabel;
+  }
+
+  TextFigure getTitleLabel() {
+    return this.titleLabel;
+  }
+
   /**
    * グラフのタイトルを設定します。
    * 
