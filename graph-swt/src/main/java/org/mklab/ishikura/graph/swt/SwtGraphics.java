@@ -151,6 +151,14 @@ public class SwtGraphics implements Graphics {
    * {@inheritDoc}
    */
   @Override
+  public void drawPolyline(int[] pointArray) {
+    this.g.drawPolyline(pointArray);
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  @Override
   public int computeTextWidth(String text) {
     return this.g.stringExtent(text).x;
   }

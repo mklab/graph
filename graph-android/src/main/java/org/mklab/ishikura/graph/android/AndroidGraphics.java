@@ -159,6 +159,18 @@ public class AndroidGraphics implements Graphics {
    * {@inheritDoc}
    */
   @Override
+  public void drawPolyline(int[] pointArray) {
+    float[] pointArrayFloat = new float[pointArray.length];
+    for (int i = 0; i < pointArrayFloat.length; i++) {
+      pointArrayFloat[i] = pointArray[i];
+    }
+    this.canvas.drawPoints(pointArrayFloat, this.paint);
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  @Override
   public int computeTextWidth(String text) {
     return (int)this.paint.measureText(text);
   }

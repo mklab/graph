@@ -137,6 +137,21 @@ public class AwtGraphics implements Graphics {
    * {@inheritDoc}
    */
   @Override
+  public void drawPolyline(int[] pointArray) {
+    final int pointCount = pointArray.length / 2;
+    final int[] xPoints = new int[pointCount];
+    final int[] yPoints = new int[pointCount];
+    for (int i = 0; i < pointCount; i++) {
+      xPoints[i] = pointArray[2 * i];
+      yPoints[i] = pointArray[2 * i + 1];
+    }
+    this.g.drawPolyline(xPoints, yPoints, pointCount);
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  @Override
   public void clipRect(int x, int y, int width, int height) {
     this.g.clipRect(x, y, width, height);
   }

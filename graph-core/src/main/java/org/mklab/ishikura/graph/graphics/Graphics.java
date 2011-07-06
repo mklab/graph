@@ -168,4 +168,11 @@ public interface Graphics {
    * @param theta 回転量
    */
   void rotate(double theta);
+
+  /**
+   * 折れ線を描画します。
+   * 
+   * @param pointArray x1,y1,x2,y2,...
+   */
+  void drawPolyline(int[] pointArray);
 }

@@ -16,7 +16,7 @@ import org.mklab.ishikura.graph.graphics.Graphics;
  * @author Yuhi Ishikura
  * @version $Revision$, 2011/07/02
  */
-public class ParameterFunctionPlotter implements Plotter {
+class ParameterFunctionPlotter implements Plotter {
 
   ParameterFunction2D function;
 

@@ -75,6 +75,14 @@ public class NullGraphics implements Graphics {
   }
 
   /**
+   * {@inheritDoc}
+   */
+  @Override
+  public void drawPolyline(int[] pointArray) {
+    // do nothing
+  }
+
+  /**
    * @see org.mklab.ishikura.graph.graphics.Graphics#computeTextWidth(java.lang.String)
    */
   @Override

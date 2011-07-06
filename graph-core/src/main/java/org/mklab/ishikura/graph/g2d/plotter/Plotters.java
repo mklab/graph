@@ -15,7 +15,7 @@ final class Plotters {
     // do nothing
   }
 
-  public static boolean isValidNumber(double d) {
+  static boolean isValidNumber(double d) {
     return Double.isInfinite(d) == false && Double.isNaN(d) == false;
   }
 

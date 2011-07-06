@@ -5,6 +5,7 @@ import org.mklab.ishikura.graph.function.Function2D;
 import org.mklab.ishikura.graph.g2d.model.GraphModel;
 import org.mklab.ishikura.graph.g2d.model.LineModel;
 import org.mklab.ishikura.graph.graphics.Color;
+import org.mklab.ishikura.graph.graphics.LineType;
 
 
 /**
@@ -22,6 +23,7 @@ public class MultiLineSample extends GraphFigureSample {
     graphModel.setXAxisName("x"); //$NON-NLS-1$
     graphModel.setYAxisName("y"); //$NON-NLS-1$
     final LineModel lineModel1 = new LineModel("y = x^2", Color.RED, createQuadraticFunction()); //$NON-NLS-1$
+    lineModel1.setLineType(LineType.DOT);
     graphModel.addLineModel(lineModel1);
     final LineModel lineModel2 = new LineModel("y = x^3", Color.GREEN, createCubicFunction()); //$NON-NLS-1$
     graphModel.addLineModel(lineModel2);
