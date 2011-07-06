@@ -3,8 +3,7 @@
 	o SWT, Swing, Androidで動作可能なグラフビュー作成
 1.1 表示改善
 	o 座標からの関数取得精度向上
-	* マイナーグリッド表示
-	* Graphics#save,restore追加
+	o マイナーグリッド表示
 1.2 内部設計改善
 	* JavaDocの充実
 	* グラフの拡張のためのAPI提供
