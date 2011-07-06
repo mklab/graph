@@ -4,12 +4,12 @@
 	<parent>
 		<artifactId>graph</artifactId>
 		<groupId>org.mklab.ishikura</groupId>
-		<version>1.0.0-SNAPSHOT</version>
+		<version>1.0.0</version>
 	</parent>
 	<groupId>org.mklab.ishikura</groupId>
 	<artifactId>graph-android</artifactId>
 	<packaging>apk</packaging>
-	<version>1.0.0-SNAPSHOT</version>
+	<version>1.0.0</version>
 
 	<build>
 		<plugins>
@@ -46,7 +46,7 @@
 		<dependency>
 			<groupId>org.mklab.ishikura</groupId>
 			<artifactId>graph-core</artifactId>
-			<version>1.0.0-SNAPSHOT</version>
+			<version>1.0.0</version>
 			<type>jar</type>
 			<scope>compile</scope>
 		</dependency>
