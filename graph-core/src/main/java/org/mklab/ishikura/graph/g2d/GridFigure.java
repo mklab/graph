@@ -3,6 +3,9 @@
  */
 package org.mklab.ishikura.graph.g2d;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.mklab.ishikura.graph.figure.AbstractFigure;
 import org.mklab.ishikura.graph.figure.Figure;
 import org.mklab.ishikura.graph.figure.Figures;
@@ -20,7 +23,7 @@ import org.mklab.ishikura.graph.graphics.LineType;
  * @author Yuhi Ishikura
  * @version $Revision$, 2010/10/19
  */
-public class GridFigure extends AbstractFigure implements HasCoordinateSpace {
+public final class GridFigure extends AbstractFigure implements HasCoordinateSpace {
 
   /** 数学上(モデル上)での値の範囲です。 */
   private Scope scope;
@@ -40,6 +43,10 @@ public class GridFigure extends AbstractFigure implements HasCoordinateSpace {
   private Color axisColor = ColorConstants.AXIS;
   /** グリッドの色です。 */
   private Color gridColor = ColorConstants.GRID;
+  /** マイナーグリッドの描画に用いる色です。 */
+  private Color minorGridColor = ColorConstants.MINOR_GRID;
+  /** マイナーグリッドの描画を有効にするかどうかを示します。 */
+  private boolean minorGridEnabled = true;
 
   /**
    * {@link GridFigure}オブジェクトを構築します。
@@ -145,7 +152,64 @@ public class GridFigure extends AbstractFigure implements HasCoordinateSpace {
    * @param axisColor 軸の色
    */
   public void setAxisColor(Color axisColor) {
+    if (axisColor == null) throw new NullPointerException();
     this.axisColor = axisColor;
+  }
+
+  /**
+   * グリッド描画色を取得します。
+   * 
+   * @return グリッド描画色
+   */
+  public Color getGridColor() {
+    return this.gridColor;
+  }
+
+  /**
+   * グリッド描画色を設定します。
+   * 
+   * @param gridColor グリッドの色
+   */
+  public void setGridColor(Color gridColor) {
+    if (gridColor == null) throw new NullPointerException();
+    this.gridColor = gridColor;
+  }
+
+  /**
+   * マイナーグリッド描画色を取得します。
+   * 
+   * @return マイナーグリッド描画色
+   */
+  public Color getMinorGridColor() {
+    return this.minorGridColor;
+  }
+
+  /**
+   * マイナーグリッド描画色を設定します。
+   * 
+   * @param minorGridColor マイナーグリッドの色
+   */
+  public void setMinorGridColor(Color minorGridColor) {
+    if (minorGridColor == null) throw new NullPointerException();
+    this.minorGridColor = minorGridColor;
+  }
+
+  /**
+   * マイナーグリッドの描画が有効であるかを取得します。
+   * 
+   * @return マイナーグリッドの描画が有効であるかどうか
+   */
+  public boolean isMinorGridEnabled() {
+    return this.minorGridEnabled;
+  }
+
+  /**
+   * マイナーグリッドの描画の有効/無効を設定します。
+   * 
+   * @param minorGridEnabled {@code true}ならば有効、{@code false}ならば無効
+   */
+  public void setMinorGridEnabled(boolean minorGridEnabled) {
+    this.minorGridEnabled = minorGridEnabled;
   }
 
   /**
@@ -248,12 +312,14 @@ public class GridFigure extends AbstractFigure implements HasCoordinateSpace {
     assertScopeIsSet();
 
     final Color oldColor = g.getColor();
+
+    // grid
+    drawGrid(g);
+
     // zero lines
     g.setColor(getAxisColor());
     drawZeroLines(g);
 
-    // grid
-    drawGrid(g);
     g.setColor(oldColor);
   }
 
@@ -261,20 +327,56 @@ public class GridFigure extends AbstractFigure implements HasCoordinateSpace {
     if (this.scope == null) throw new IllegalStateException("Scope not set."); //$NON-NLS-1$
   }
 
+  /**
+   * グリッドを描画します。
+   * 
+   * @param g 描画対象
+   */
   private void drawGrid(Graphics g) {
-    g.setColor(this.gridColor);
     g.setLineType(LineType.DOT);
 
-    drawGridsX(g);
-    drawGridsY(g);
+    drawGridsForX(g);
+    drawGridsForY(g);
 
     g.setLineType(LineType.DEFAULT);
   }
 
-  private void drawGridsX(Graphics g) {
+  /**
+   * x軸のグリッドを描画します。
+   * 
+   * @param g 描画対象
+   */
+  private void drawGridsForX(Graphics g) {
     if (this.gridX == null) throw new NullPointerException("x grid was not set."); //$NON-NLS-1$
 
-    for (final Double modelX : this.gridX) {
+    g.setColor(this.gridColor);
+    drawVerticalLines(g, this.gridX);
+    g.setColor(this.minorGridColor);
+    drawVerticalLines(g, computeMinorLines(this.gridX));
+  }
+
+  /**
+   * y軸のグリッドを描画します。
+   * 
+   * @param g 描画対象
+   */
+  private void drawGridsForY(Graphics g) {
+    if (this.gridY == null) throw new NullPointerException("y grid was not set."); //$NON-NLS-1$
+
+    g.setColor(this.gridColor);
+    drawHorizontalLines(g, this.gridY);
+    g.setColor(this.minorGridColor);
+    drawHorizontalLines(g, computeMinorLines(this.gridY));
+  }
+
+  /**
+   * 鉛直方向の直線を描画します。
+   * 
+   * @param g 描画対象
+   * @param xValues 直線のx座標群
+   */
+  private void drawVerticalLines(Graphics g, Iterable<Double> xValues) {
+    for (final Double modelX : xValues) {
       int viewX = modelToViewX(modelX.doubleValue());
       if (viewX == -1) continue;
 
@@ -282,15 +384,42 @@ public class GridFigure extends AbstractFigure implements HasCoordinateSpace {
     }
   }
 
-  private void drawGridsY(Graphics g) {
-    if (this.gridY == null) throw new NullPointerException("y grid was not set."); //$NON-NLS-1$
-
-    for (final Double modelY : this.gridY) {
+  /**
+   * 水平方向の直線を描画します。
+   * 
+   * @param g 描画対象
+   * @param yValues 直線のy座標群
+   */
+  private void drawHorizontalLines(Graphics g, Iterable<Double> yValues) {
+    for (final Double modelY : yValues) {
       int viewY = modelToViewY(modelY.doubleValue());
       if (viewY == -1) continue;
 
       g.drawLine(0, viewY, getWidth() - 1, viewY);
     }
+  }
+
+  /**
+   * 与えられたグリッドをさらに分割するマイナーグリッドを生成します。
+   * 
+   * @param grid 元にするグリッド
+   * @return グリッドをさらに分割したマイナーグリッド
+   */
+  private Iterable<Double> computeMinorLines(Grid grid) {
+    final List<Double> minorLines = new ArrayList<Double>();
+    Double previous = null;
+    for (Double d : grid) {
+      if (previous == null) {
+        previous = d;
+        continue;
+      }
+      final double minorLineInterval = (d.doubleValue() - previous.doubleValue()) / 10;
+      for (int i = 1; i < 10; i++) {
+        minorLines.add(Double.valueOf(previous.doubleValue() + minorLineInterval * i));
+      }
+      previous = d;
+    }
+    return minorLines;
   }
 
   /**

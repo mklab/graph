@@ -34,6 +34,8 @@ public interface ColorConstants {
   Color AXIS = Color.BLACK;
   /** グリッドの色です。 */
   Color GRID = Color.BLUE;
+  /** マイナーグリッドの色です。 */
+  Color MINOR_GRID = new Color(192, 192, 255);
   /** ガイドの線の色です。 */
   Color GUIDE_LINE = Color.BLACK;
 
