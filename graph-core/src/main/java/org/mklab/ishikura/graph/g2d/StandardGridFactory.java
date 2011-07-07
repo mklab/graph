@@ -16,7 +16,7 @@ class StandardGridFactory implements GridFactory {
    */
   @Override
   public Grid create(double start, double end) {
-    if (start > end) throw new IllegalArgumentException(start + " > " + end); //$NON-NLS-1$
+    if (start >= end) throw new IllegalArgumentException(start + " >= " + end); //$NON-NLS-1$
 
     double interval = fix(getGridInterval(end - start));
     final Grid grid = new Grid();
