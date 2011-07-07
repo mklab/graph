@@ -100,6 +100,34 @@ public class PolylineRendererTest {
     assertArrayEquals(new int[] {-3, -3, 3, 3}, r.createPointArray());
   }
 
+  /**
+   * Test method for
+   * {@link org.mklab.ishikura.graph.g2d.plotter.PolylineRenderer#filterBySaturator(int, int)}
+   * .
+   */
+  @Test
+  public void testFilterBySaturator() {
+    final int width = 10;
+    final PolylineRenderer r = create(width);
+    r.setSaturationEnabled(true);
+    r.setSaturator(5);
+
+    assertEquals(9, r.filterBySaturator(9, width));
+    assertEquals(10, r.filterBySaturator(10, width));
+    assertEquals(0, r.filterBySaturator(0, width));
+
+    assertEquals(-5, r.filterBySaturator(-5, width));
+    assertEquals(-5, r.filterBySaturator(-5, width));
+    assertEquals(-5, r.filterBySaturator(-5, width));
+
+    assertEquals(width + 5, r.filterBySaturator(width + 5, width));
+    assertEquals(width + 5, r.filterBySaturator(width + 6, width));
+    assertEquals(width + 5, r.filterBySaturator(width + 7, width));
+
+    r.setSaturationEnabled(false);
+    assertEquals(width + 7, r.filterBySaturator(width + 7, width));
+  }
+
   private PolylineRenderer create(final int width) {
     final GridFigure grid = new GridFigure();
     grid.setSize(width, width);

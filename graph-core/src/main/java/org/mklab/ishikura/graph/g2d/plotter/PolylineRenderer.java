@@ -18,20 +18,41 @@ import org.mklab.ishikura.graph.graphics.Graphics;
  * @author Yuhi Ishikura
  * @version $Revision$, 2011/07/07
  */
-class PolylineRenderer {
+public class PolylineRenderer {
 
-  List<int[]> pointsToDraw = new ArrayList<int[]>();
-  GridFigure grid;
+  /** グリッド外に点が飛び出た場合に、値をこの値に押さえつけます。 */
+  private int saturator = 1000;
+  /** 飽和を有効にするかどうかを保持します。 */
+  private boolean saturationEnabled = true;
 
-  int[] pointArray;
-  int size;
-  boolean firstAppend;
+  /** 複数の折れ線の構成点のリストです。 */
+  private List<int[]> pointsToDraw = new ArrayList<int[]>();
+  /** 描画対象のグリッドです。 */
+  private GridFigure grid;
 
-  boolean previousIsOutOfGridBound;
-  int previousX;
-  int previousY;
+  /** 現在記述中の折れ線の構成点(x1,y1,x2,y2,...)の保存領域です。 */
+  private int[] pointArray;
+  /**
+   * {@link #pointArray}中の構成点の数です。{@link #pointArray}はx,y,x,yで保存されているため、
+   * {@link #pointArray}の配列のサイズにするには2倍する必要があります。
+   */
+  private int size;
+  /** 現在記述中の折れ線の一回目の {@link #appendPoint(int, int)}の場合trueになります。 */
+  private boolean firstAppend;
 
-  PolylineRenderer(GridFigure grid) {
+  /** 前回グリッドの外の点だったかどうかを保持します。 */
+  private boolean previousIsOutOfGridBound;
+  /** 前回のx座標です。 */
+  private int previousX;
+  /** 前回のy座標です。 */
+  private int previousY;
+
+  /**
+   * {@link PolylineRenderer}オブジェクトを構築します。
+   * 
+   * @param grid 描画対象のグリッド
+   */
+  public PolylineRenderer(GridFigure grid) {
     if (grid == null) throw new NullPointerException();
     this.grid = grid;
 
@@ -43,6 +64,29 @@ class PolylineRenderer {
     this.pointArray = null;
     this.previousIsOutOfGridBound = false;
     this.firstAppend = true;
+  }
+
+  /**
+   * グリッド外に点が飛び出た場合に、値をこの値に押さえつけます。
+   * <p>
+   * 例えば、この値が100で、グリッドが100x100の場合に、 <code>
+   * (x,y)=(-1000,1000)</code>が指定された場合には、<code>(-100,100)</code>に、
+   * <code>(1000,1000)</code>が指定された場合には、<code>(200,200)</code>なります。
+   * 
+   * @param saturator 飽和の値
+   */
+  public void setSaturator(int saturator) {
+    if (saturator < 0) throw new IllegalArgumentException();
+    this.saturator = saturator;
+  }
+
+  /**
+   * 飽和の有効/無効を設定します。
+   * 
+   * @param saturationEnabled 有効にするならば{@code true}、無効にするならば{@code false}
+   */
+  public void setSaturationEnabled(boolean saturationEnabled) {
+    this.saturationEnabled = saturationEnabled;
   }
 
   /**
@@ -58,13 +102,9 @@ class PolylineRenderer {
    * @param x x座標
    * @param y y座標
    */
-  void appendPoint(int x, int y) {
-    // 折れ線記憶域の準備
+  public void appendPoint(int x, int y) {
     readyPointArray();
-    if (2 * this.size >= this.pointArray.length) {
-      extentPointArraySize();
-    }
-    // 点の追加
+
     final boolean currentIsOutOfGridBound = isOutOfGridBound(x, y);
     final boolean outToIn = this.previousIsOutOfGridBound && currentIsOutOfGridBound == false;
     final boolean inToOut = this.previousIsOutOfGridBound == false && currentIsOutOfGridBound;
@@ -84,9 +124,19 @@ class PolylineRenderer {
   }
 
   private void appendPointImpl(int x, int y) {
-    this.pointArray[2 * this.size] = x;
-    this.pointArray[2 * this.size + 1] = y;
+    if (2 * this.size + 1 >= this.pointArray.length) {
+      extentPointArraySize();
+    }
+    this.pointArray[2 * this.size] = filterBySaturator(x, this.grid.getWidth());
+    this.pointArray[2 * this.size + 1] = filterBySaturator(y, this.grid.getHeight());
     this.size++;
+  }
+
+  int filterBySaturator(final int value, final int width) {
+    if (this.saturationEnabled == false) return value;
+    if (value < -this.saturator) return -this.saturator;
+    if (value > width + this.saturator) return width + this.saturator;
+    return value;
   }
 
   private boolean isOutOfGridBound(int x, int y) {
@@ -124,13 +174,6 @@ class PolylineRenderer {
     initialize();
   }
 
-  void draw(Graphics g) {
-    if (this.size > 0) flush();
-    for (final int[] points : this.pointsToDraw) {
-      g.drawPolyline(points);
-    }
-  }
-
   /**
    * 現在の折れ線を配列x1,y1,x2,y2...で取得します。
    * <p>
@@ -143,6 +186,18 @@ class PolylineRenderer {
     int[] i = new int[2 * this.size];
     System.arraycopy(this.pointArray, 0, i, 0, 2 * this.size);
     return i;
+  }
+
+  /**
+   * 折れ線を描画します。
+   * 
+   * @param g 描画対象
+   */
+  public void draw(Graphics g) {
+    if (this.size > 0) flush();
+    for (final int[] points : this.pointsToDraw) {
+      g.drawPolyline(points);
+    }
   }
 
 }
