@@ -18,7 +18,9 @@ class StandardGridFactory implements GridFactory {
   public Grid create(double start, double end) {
     if (start >= end) throw new IllegalArgumentException(start + " >= " + end); //$NON-NLS-1$
 
-    double interval = fix(getGridInterval(end - start));
+    final double interval = fix(getGridInterval(end - start));
+    if (Math.abs(interval) < 1e-16) return new Grid();
+
     final Grid grid = new Grid();
 
     double n = (int)(start / interval) * interval;
