@@ -5,11 +5,13 @@
 	o 座標からの関数取得精度向上
 	o マイナーグリッド表示
 	o Plotterの-Infinity,NaN,Infinity処理
-	* Graphics#drawPolyline
-	* Graphics#store,restore
+	o Graphics#drawPolyline
+	o Graphics#store,restore
 1.2 内部設計改善
 	* JavaDocの充実
 	* グラフの拡張のためのAPI提供
+	* リアルタイム描画サポート
+	(計算時間がかかる関数でも定期的に描画できるような仕組みを作る)
 1.3 Jamoxとの連携1
 	* [Jamox]モデル関連APIの提供
 	* 「ビルトイングラフブロック」として提供
