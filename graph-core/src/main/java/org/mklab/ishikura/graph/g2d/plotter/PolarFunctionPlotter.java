@@ -28,8 +28,7 @@ class PolarFunctionPlotter implements Plotter {
    */
   @Override
   public void plot(Graphics g, GridFigure grid) {
-    int oldViewX = -1;
-    int oldViewY = -1;
+    final PolylineRenderer polyRenderer = new PolylineRenderer(grid);
     final Iterator<Double> thetas = this.function.provideTheta();
     while (thetas.hasNext()) {
       final double theta = thetas.next().doubleValue();
@@ -42,12 +41,9 @@ class PolarFunctionPlotter implements Plotter {
       final int viewX = grid.modelToViewXIgnoreBound(x);
       final int viewY = grid.modelToViewYIgnoreBound(y);
 
-      if (oldViewX != -1 && oldViewY != -1) {
-        g.drawLine(oldViewX, oldViewY, viewX, viewY);
-      }
-      oldViewX = viewX;
-      oldViewY = viewY;
+      polyRenderer.appendPoint(viewX, viewY);
     }
+    polyRenderer.draw(g);
   }
 
 }

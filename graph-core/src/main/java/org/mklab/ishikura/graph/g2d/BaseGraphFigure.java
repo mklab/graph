@@ -161,6 +161,7 @@ class BaseGraphFigure extends ContainerFigureImpl implements HasCoordinateSpace 
   @Override
   public void moveScope(int dx, int dy) {
     this.coordinateSpace.moveScope(dx, dy);
+    invalidate();
   }
 
   /**
@@ -168,7 +169,7 @@ class BaseGraphFigure extends ContainerFigureImpl implements HasCoordinateSpace 
    */
   @Override
   public void scaleScope(int x, int y, double ratio) {
-    Util.scaleScope(this, this.coordinateSpace.getGrid(), x, y, ratio);
+    Util.scaleScope(this, this.coordinateSpace, x, y, ratio);
     invalidate();
   }
 
@@ -194,6 +195,7 @@ class BaseGraphFigure extends ContainerFigureImpl implements HasCoordinateSpace 
   @Override
   public void setScope(Scope scope) {
     this.coordinateSpace.setScope(scope);
+    invalidate();
   }
 
 }

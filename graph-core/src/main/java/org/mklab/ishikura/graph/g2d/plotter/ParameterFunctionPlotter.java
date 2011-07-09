@@ -36,9 +36,8 @@ class ParameterFunctionPlotter implements Plotter {
   @Override
   public void plot(Graphics g, GridFigure grid) {
     final Iterator<Double> tSeries = this.function.provideParameter();
+    final PolylineRenderer polyRenderer = new PolylineRenderer(grid);
 
-    int oldViewX = -1;
-    int oldViewY = -1;
     while (tSeries.hasNext()) {
       final double t = tSeries.next().doubleValue();
       final double modelX = this.function.evalX(t);
@@ -47,12 +46,9 @@ class ParameterFunctionPlotter implements Plotter {
 
       final int viewX = grid.modelToViewXIgnoreBound(modelX);
       final int viewY = grid.modelToViewYIgnoreBound(modelY);
-      if (oldViewX != -1 && oldViewY != -1) {
-        g.drawLine(oldViewX, oldViewY, viewX, viewY);
-      }
-      oldViewX = viewX;
-      oldViewY = viewY;
+      polyRenderer.appendPoint(viewX, viewY);
     }
+    polyRenderer.draw(g);
   }
 
 }

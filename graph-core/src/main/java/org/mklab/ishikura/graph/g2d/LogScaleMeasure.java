@@ -16,6 +16,7 @@ final class LogScaleMeasure extends AbstractMeasure {
    */
   @Override
   protected void checkBound(@SuppressWarnings("hiding") Bound bound) {
+    super.checkBound(bound);
     if (bound.getStart() <= 0) throw new IllegalArgumentException("Log scale graph not support zero or negative value."); //$NON-NLS-1$
   }
 

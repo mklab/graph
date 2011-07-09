@@ -4,6 +4,7 @@ import org.mklab.ishikura.graph.g2d.GraphFigure;
 import org.mklab.ishikura.graph.g2d.model.GraphModel;
 import org.mklab.ishikura.graph.g2d.model.LineModel;
 import org.mklab.ishikura.graph.graphics.Color;
+import org.mklab.ishikura.graph.graphics.LineType;
 
 
 /**
@@ -18,7 +19,9 @@ public class ParameterFunctionSample extends GraphFigureSample {
   @Override
   protected void initGraphModel(GraphModel model) {
     model.setTitle("Parameter Function Sample"); //$NON-NLS-1$
-    model.addLineModel(new LineModel("hypocycloid", Color.RED, HYPOCYCLOID)); //$NON-NLS-1$
+    final LineModel lineModel = new LineModel("hypocycloid", Color.RED, HYPOCYCLOID); //$NON-NLS-1$
+    lineModel.setLineType(LineType.DOT);
+    model.addLineModel(lineModel);
   }
 
   /**

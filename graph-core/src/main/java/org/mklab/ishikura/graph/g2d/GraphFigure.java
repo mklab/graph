@@ -189,7 +189,7 @@ public class GraphFigure extends ContainerFigureImpl implements HasCoordinateSpa
    */
   @Override
   public void scaleScope(final int x, final int y, double ratio) {
-    Util.scaleScope(this, this.baseGraphFigure.getCoordinateSpace().getGrid(), x, y, ratio);
+    Util.scaleScope(this, this.baseGraphFigure, x, y, ratio);
     invalidate();
   }
 

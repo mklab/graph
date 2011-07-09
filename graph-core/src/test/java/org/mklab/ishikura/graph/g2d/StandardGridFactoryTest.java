@@ -128,6 +128,8 @@ public class StandardGridFactoryTest {
     assertGridEquals(grid(-0.4, -0.2, 0, 0.2, 0.4), gridFactory.create(-0.3379, 0.3647));
     assertGridEquals(grid(-200000, -100000, 0, 100000, 200000), gridFactory.create(-154077.167222, 156115.562485));
     assertGridEquals(grid(-0.8, -0.6, -0.4, -0.2, 0, 0.2), gridFactory.create(-0.681267, 0.165232));
+    assertGridEquals(grid(), gridFactory.create(-2e-16, -1e-16));
+    assertGridEquals(grid(), gridFactory.create(1e-16, 2e-16));
   }
 
 }
