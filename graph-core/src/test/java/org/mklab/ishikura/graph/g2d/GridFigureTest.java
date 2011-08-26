@@ -3,13 +3,14 @@
  */
 package org.mklab.ishikura.graph.g2d;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 import org.mklab.abgr.Graphics;
+import org.mklab.abgr.NullGraphics;
 import org.mklab.ishikura.graph.figure.ContainerFigureImpl;
-import org.mklab.ishikura.graph.g2d.GridFigure;
-import org.mklab.ishikura.graph.g2d.Scope;
 
 
 /**
