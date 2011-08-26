@@ -6,13 +6,13 @@ package org.mklab.ishikura.graph.g2d;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.mklab.abgr.Color;
+import org.mklab.abgr.Graphics;
+import org.mklab.abgr.LineType;
 import org.mklab.ishikura.graph.figure.AbstractFigure;
 import org.mklab.ishikura.graph.figure.Figure;
 import org.mklab.ishikura.graph.figure.Figures;
 import org.mklab.ishikura.graph.figure.Point;
-import org.mklab.ishikura.graph.graphics.Color;
-import org.mklab.ishikura.graph.graphics.Graphics;
-import org.mklab.ishikura.graph.graphics.LineType;
 
 
 /**

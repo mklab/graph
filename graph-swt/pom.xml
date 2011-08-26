@@ -18,76 +18,16 @@
 			<type>jar</type>
 			<scope>compile</scope>
 		</dependency>
+		<dependency>
+			<groupId>org.mklab</groupId>
+			<artifactId>abstract-graphics-swt</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+			<type>jar</type>
+			<scope>compile</scope>
+		</dependency>
 	</dependencies>
 	<properties>
 		<swtVersion>3.5.2</swtVersion>
 	</properties>
 
-	<!-- Profiles for SWT dependencies -->
-	<profiles>
-		<profile>
-			<id>Windows_x86</id>
-			<activation>
-				<os>
-					<family>Windows</family>
-					<arch>x86</arch>
-				</os>
-			</activation>
-			<dependencies>
-				<dependency>
-					<groupId>org.eclipse</groupId>
-					<artifactId>swt-win32</artifactId>
-					<version>${swtVersion}</version>
-				</dependency>
-			</dependencies>
-		</profile>
-		<profile>
-			<id>Windows_x86_64</id>
-			<activation>
-				<os>
-					<family>Windows</family>
-					<arch>amd64</arch>
-				</os>
-			</activation>
-			<dependencies>
-				<dependency>
-					<groupId>org.eclipse</groupId>
-					<artifactId>swt-win32_64</artifactId>
-					<version>${swtVersion}</version>
-				</dependency>
-			</dependencies>
-		</profile>
-		<profile>
-			<id>Linux</id>
-			<activation>
-				<os>
-					<family>unix</family>
-					<arch>i386</arch>
-				</os>
-			</activation>
-			<dependencies>
-				<dependency>
-					<groupId>org.eclipse</groupId>
-					<artifactId>swt-gtk</artifactId>
-					<version>${swtVersion}</version>
-				</dependency>
-			</dependencies>
-		</profile>
-		<profile>
-			<id>Linux_64</id>
-			<activation>
-				<os>
-					<family>unix</family>
-					<arch>amd64</arch>
-				</os>
-			</activation>
-			<dependencies>
-				<dependency>
-					<groupId>org.eclipse</groupId>
-					<artifactId>swt-gtk_64</artifactId>
-					<version>${swtVersion}</version>
-				</dependency>
-			</dependencies>
-		</profile>
-	</profiles>
 </project>

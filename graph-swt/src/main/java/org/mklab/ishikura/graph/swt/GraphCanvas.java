@@ -9,8 +9,9 @@ import org.eclipse.swt.graphics.GC;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.widgets.Canvas;
 import org.eclipse.swt.widgets.Composite;
+import org.mklab.abgr.Graphics;
+import org.mklab.abgr.swt.SwtGraphics;
 import org.mklab.ishikura.graph.g2d.GraphFigure;
-import org.mklab.ishikura.graph.graphics.Graphics;
 
 
 /**

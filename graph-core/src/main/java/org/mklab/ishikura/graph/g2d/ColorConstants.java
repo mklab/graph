@@ -3,7 +3,7 @@
  */
 package org.mklab.ishikura.graph.g2d;
 
-import org.mklab.ishikura.graph.graphics.Color;
+import org.mklab.abgr.Color;
 
 
 /**

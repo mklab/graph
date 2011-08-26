@@ -17,6 +17,7 @@ import java.awt.event.MouseWheelEvent;
 import javax.swing.JComponent;
 import javax.swing.SwingUtilities;
 
+import org.mklab.abgr.awt.AwtGraphics;
 import org.mklab.ishikura.graph.g2d.GraphFigure;
 
 

@@ -6,6 +6,8 @@ package org.mklab.ishikura.graph.g2d;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
+import org.mklab.abgr.Color;
+import org.mklab.abgr.Graphics;
 import org.mklab.ishikura.graph.figure.ContainerFigureImpl;
 import org.mklab.ishikura.graph.figure.Figures;
 import org.mklab.ishikura.graph.figure.Point;
@@ -13,8 +15,6 @@ import org.mklab.ishikura.graph.figure.TextFigure;
 import org.mklab.ishikura.graph.g2d.model.DataModelListener;
 import org.mklab.ishikura.graph.g2d.model.GraphModel;
 import org.mklab.ishikura.graph.g2d.model.LineModel;
-import org.mklab.ishikura.graph.graphics.Color;
-import org.mklab.ishikura.graph.graphics.Graphics;
 
 
 /**

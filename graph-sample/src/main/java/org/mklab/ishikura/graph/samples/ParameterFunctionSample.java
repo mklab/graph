@@ -1,10 +1,10 @@
 package org.mklab.ishikura.graph.samples;
 
+import org.mklab.abgr.Color;
+import org.mklab.abgr.LineType;
 import org.mklab.ishikura.graph.g2d.GraphFigure;
 import org.mklab.ishikura.graph.g2d.model.GraphModel;
 import org.mklab.ishikura.graph.g2d.model.LineModel;
-import org.mklab.ishikura.graph.graphics.Color;
-import org.mklab.ishikura.graph.graphics.LineType;
 
 
 /**

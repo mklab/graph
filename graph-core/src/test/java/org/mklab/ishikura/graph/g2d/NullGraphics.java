@@ -1,8 +1,8 @@
 package org.mklab.ishikura.graph.g2d;
 
-import org.mklab.ishikura.graph.graphics.Color;
-import org.mklab.ishikura.graph.graphics.Graphics;
-import org.mklab.ishikura.graph.graphics.LineType;
+import org.mklab.abgr.Color;
+import org.mklab.abgr.Graphics;
+import org.mklab.abgr.LineType;
 
 
 /**
@@ -15,7 +15,7 @@ import org.mklab.ishikura.graph.graphics.LineType;
 public class NullGraphics implements Graphics {
 
   /**
-   * @see org.mklab.ishikura.graph.graphics.Graphics#setLineType(org.mklab.ishikura.graph.graphics.LineType)
+   * @see org.mklab.abgr.Graphics#setLineType(org.mklab.abgr.LineType)
    */
   @Override
   public void setLineType(LineType type) {
@@ -23,7 +23,7 @@ public class NullGraphics implements Graphics {
   }
 
   /**
-   * @see org.mklab.ishikura.graph.graphics.Graphics#getLineType()
+   * @see org.mklab.abgr.Graphics#getLineType()
    */
   @Override
   public LineType getLineType() {
@@ -31,7 +31,7 @@ public class NullGraphics implements Graphics {
   }
 
   /**
-   * @see org.mklab.ishikura.graph.graphics.Graphics#drawLine(int, int, int,
+   * @see org.mklab.abgr.Graphics#drawLine(int, int, int,
    *      int)
    */
   @Override
@@ -40,7 +40,7 @@ public class NullGraphics implements Graphics {
   }
 
   /**
-   * @see org.mklab.ishikura.graph.graphics.Graphics#drawString(java.lang.String,
+   * @see org.mklab.abgr.Graphics#drawString(java.lang.String,
    *      int, int)
    */
   @Override
@@ -49,7 +49,7 @@ public class NullGraphics implements Graphics {
   }
 
   /**
-   * @see org.mklab.ishikura.graph.graphics.Graphics#setColor(org.mklab.ishikura.graph.graphics.Color)
+   * @see org.mklab.abgr.Graphics#setColor(org.mklab.abgr.Color)
    */
   @Override
   public void setColor(Color c) {
@@ -57,7 +57,7 @@ public class NullGraphics implements Graphics {
   }
 
   /**
-   * @see org.mklab.ishikura.graph.graphics.Graphics#fillRect(int, int, int,
+   * @see org.mklab.abgr.Graphics#fillRect(int, int, int,
    *      int)
    */
   @Override
@@ -66,7 +66,7 @@ public class NullGraphics implements Graphics {
   }
 
   /**
-   * @see org.mklab.ishikura.graph.graphics.Graphics#drawRect(int, int, int,
+   * @see org.mklab.abgr.Graphics#drawRect(int, int, int,
    *      int)
    */
   @Override
@@ -83,7 +83,7 @@ public class NullGraphics implements Graphics {
   }
 
   /**
-   * @see org.mklab.ishikura.graph.graphics.Graphics#computeTextWidth(java.lang.String)
+   * @see org.mklab.abgr.Graphics#computeTextWidth(java.lang.String)
    */
   @Override
   public int computeTextWidth(String text) {
@@ -91,7 +91,7 @@ public class NullGraphics implements Graphics {
   }
 
   /**
-   * @see org.mklab.ishikura.graph.graphics.Graphics#getTextHeight()
+   * @see org.mklab.abgr.Graphics#getTextHeight()
    */
   @Override
   public int getTextHeight() {
@@ -99,7 +99,7 @@ public class NullGraphics implements Graphics {
   }
 
   /**
-   * @see org.mklab.ishikura.graph.graphics.Graphics#clipRect(int, int, int,
+   * @see org.mklab.abgr.Graphics#clipRect(int, int, int,
    *      int)
    */
   @Override
@@ -108,7 +108,7 @@ public class NullGraphics implements Graphics {
   }
 
   /**
-   * @see org.mklab.ishikura.graph.graphics.Graphics#clearClip()
+   * @see org.mklab.abgr.Graphics#clearClip()
    */
   @Override
   public void clearClip() {
@@ -116,7 +116,7 @@ public class NullGraphics implements Graphics {
   }
 
   /**
-   * @see org.mklab.ishikura.graph.graphics.Graphics#translate(int, int)
+   * @see org.mklab.abgr.Graphics#translate(int, int)
    */
   @Override
   public void translate(int dx, int dy) {
@@ -124,7 +124,7 @@ public class NullGraphics implements Graphics {
   }
 
   /**
-   * @see org.mklab.ishikura.graph.graphics.Graphics#rotate(double)
+   * @see org.mklab.abgr.Graphics#rotate(double)
    */
   @Override
   public void rotate(double theta) {
@@ -132,7 +132,7 @@ public class NullGraphics implements Graphics {
   }
 
   /**
-   * @see org.mklab.ishikura.graph.graphics.Graphics#getTextAscent()
+   * @see org.mklab.abgr.Graphics#getTextAscent()
    */
   @Override
   public int getTextAscent() {
@@ -140,7 +140,7 @@ public class NullGraphics implements Graphics {
   }
 
   /**
-   * @see org.mklab.ishikura.graph.graphics.Graphics#getTextDescent()
+   * @see org.mklab.abgr.Graphics#getTextDescent()
    */
   @Override
   public int getTextDescent() {
@@ -148,7 +148,7 @@ public class NullGraphics implements Graphics {
   }
 
   /**
-   * @see org.mklab.ishikura.graph.graphics.Graphics#getColor()
+   * @see org.mklab.abgr.Graphics#getColor()
    */
   @Override
   public Color getColor() {
@@ -156,7 +156,7 @@ public class NullGraphics implements Graphics {
   }
 
   /**
-   * @see org.mklab.ishikura.graph.graphics.Graphics#setLineWidth(float)
+   * @see org.mklab.abgr.Graphics#setLineWidth(float)
    */
   @Override
   public void setLineWidth(float width) {
@@ -164,7 +164,7 @@ public class NullGraphics implements Graphics {
   }
 
   /**
-   * @see org.mklab.ishikura.graph.graphics.Graphics#getLineWidth()
+   * @see org.mklab.abgr.Graphics#getLineWidth()
    */
   @Override
   public float getLineWidth() {

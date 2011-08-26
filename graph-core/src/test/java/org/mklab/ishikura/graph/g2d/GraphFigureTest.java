@@ -3,8 +3,8 @@ package org.mklab.ishikura.graph.g2d;
 import static org.junit.Assert.*;
 
 import org.junit.Test;
+import org.mklab.abgr.Color;
 import org.mklab.ishikura.graph.g2d.model.GraphModel;
-import org.mklab.ishikura.graph.graphics.Color;
 
 
 /**

@@ -5,7 +5,7 @@
  */
 package org.mklab.ishikura.graph.figure;
 
-import org.mklab.ishikura.graph.graphics.Graphics;
+import org.mklab.abgr.Graphics;
 
 
 /**

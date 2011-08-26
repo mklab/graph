@@ -6,8 +6,8 @@ package org.mklab.ishikura.graph.g2d.model;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 
+import org.mklab.abgr.Color;
 import org.mklab.ishikura.graph.g2d.ColorConstants;
-import org.mklab.ishikura.graph.graphics.Color;
 
 
 /**

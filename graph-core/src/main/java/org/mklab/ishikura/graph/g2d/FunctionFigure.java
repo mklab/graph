@@ -5,13 +5,13 @@
  */
 package org.mklab.ishikura.graph.g2d;
 
+import org.mklab.abgr.Color;
+import org.mklab.abgr.Graphics;
+import org.mklab.abgr.LineType;
 import org.mklab.ishikura.graph.figure.AbstractFigure;
 import org.mklab.ishikura.graph.g2d.model.LineModel;
 import org.mklab.ishikura.graph.g2d.plotter.DefaultPlotterFactory;
 import org.mklab.ishikura.graph.g2d.plotter.Plotter;
-import org.mklab.ishikura.graph.graphics.Color;
-import org.mklab.ishikura.graph.graphics.Graphics;
-import org.mklab.ishikura.graph.graphics.LineType;
 
 
 /**

@@ -1,8 +1,9 @@
 package org.mklab.ishikura.graph.android;
 
+import org.mklab.abgr.Graphics;
+import org.mklab.abgr.android.AndroidGraphics;
 import org.mklab.ishikura.graph.g2d.GraphFigure;
 import org.mklab.ishikura.graph.g2d.HasCoordinateSpace;
-import org.mklab.ishikura.graph.graphics.Graphics;
 
 import android.content.Context;
 import android.graphics.Canvas;

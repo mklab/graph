@@ -7,8 +7,8 @@ package org.mklab.ishikura.graph.figure;
 
 import java.text.MessageFormat;
 
-import org.mklab.ishikura.graph.graphics.Color;
-import org.mklab.ishikura.graph.graphics.Graphics;
+import org.mklab.abgr.Color;
+import org.mklab.abgr.Graphics;
 
 
 /**

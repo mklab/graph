@@ -9,11 +9,11 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
+import org.mklab.abgr.Color;
 import org.mklab.ishikura.graph.function.ContinuousFunction2D;
 import org.mklab.ishikura.graph.g2d.GraphFigure;
 import org.mklab.ishikura.graph.g2d.model.GraphModel;
 import org.mklab.ishikura.graph.g2d.model.LineModel;
-import org.mklab.ishikura.graph.graphics.Color;
 import org.mklab.ishikura.graph.swing.FigureRasterizer;
 
 

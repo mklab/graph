@@ -5,9 +5,9 @@ package org.mklab.ishikura.graph.g2d.plotter;
 
 import java.util.Iterator;
 
+import org.mklab.abgr.Graphics;
 import org.mklab.ishikura.graph.function.PolarFunction2D;
 import org.mklab.ishikura.graph.g2d.GridFigure;
-import org.mklab.ishikura.graph.graphics.Graphics;
 
 
 /**

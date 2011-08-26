@@ -8,7 +8,7 @@ package org.mklab.ishikura.graph.figure;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.mklab.ishikura.graph.graphics.Graphics;
+import org.mklab.abgr.Graphics;
 
 
 /**

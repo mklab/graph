@@ -3,12 +3,12 @@
  */
 package org.mklab.ishikura.graph.g2d.plotter;
 
+import org.mklab.abgr.Graphics;
 import org.mklab.ishikura.graph.function.DiscreteFunction2D;
 import org.mklab.ishikura.graph.function.Point2D;
 import org.mklab.ishikura.graph.function.TraversableIterator;
 import org.mklab.ishikura.graph.g2d.GridFigure;
 import org.mklab.ishikura.graph.g2d.Scope;
-import org.mklab.ishikura.graph.graphics.Graphics;
 
 
 /**

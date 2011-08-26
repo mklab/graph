@@ -6,10 +6,10 @@ package org.mklab.ishikura.graph.g2d;
 import static org.junit.Assert.*;
 
 import org.junit.Test;
+import org.mklab.abgr.Graphics;
 import org.mklab.ishikura.graph.figure.ContainerFigureImpl;
 import org.mklab.ishikura.graph.g2d.GridFigure;
 import org.mklab.ishikura.graph.g2d.Scope;
-import org.mklab.ishikura.graph.graphics.Graphics;
 
 
 /**
@@ -20,7 +20,7 @@ public class GridFigureTest {
 
   /**
    * Test method for
-   * {@link org.mklab.ishikura.graph.g2d.GridFigure#layout(org.mklab.ishikura.graph.graphics.Graphics)}
+   * {@link org.mklab.ishikura.graph.g2d.GridFigure#layout(org.mklab.abgr.Graphics)}
    * .
    */
   @Test

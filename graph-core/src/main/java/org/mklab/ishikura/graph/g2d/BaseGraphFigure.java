@@ -3,12 +3,12 @@
  */
 package org.mklab.ishikura.graph.g2d;
 
+import org.mklab.abgr.Color;
+import org.mklab.abgr.Graphics;
 import org.mklab.ishikura.graph.figure.ContainerFigureImpl;
 import org.mklab.ishikura.graph.figure.TextAlignment;
 import org.mklab.ishikura.graph.figure.TextFigure;
 import org.mklab.ishikura.graph.figure.TextOrientation;
-import org.mklab.ishikura.graph.graphics.Color;
-import org.mklab.ishikura.graph.graphics.Graphics;
 
 
 /**

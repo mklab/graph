@@ -3,8 +3,8 @@
  */
 package org.mklab.ishikura.graph.g2d.plotter;
 
+import org.mklab.abgr.Graphics;
 import org.mklab.ishikura.graph.g2d.GridFigure;
-import org.mklab.ishikura.graph.graphics.Graphics;
 
 
 /**

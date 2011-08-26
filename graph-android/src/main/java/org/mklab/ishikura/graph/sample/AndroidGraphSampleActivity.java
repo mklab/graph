@@ -1,11 +1,11 @@
 package org.mklab.ishikura.graph.sample;
 
+import org.mklab.abgr.Color;
 import org.mklab.ishikura.graph.android.GraphView;
 import org.mklab.ishikura.graph.function.ContinuousFunction2D;
 import org.mklab.ishikura.graph.g2d.GraphFigure;
 import org.mklab.ishikura.graph.g2d.model.GraphModel;
 import org.mklab.ishikura.graph.g2d.model.LineModel;
-import org.mklab.ishikura.graph.graphics.Color;
 
 import android.app.Activity;
 import android.os.Bundle;

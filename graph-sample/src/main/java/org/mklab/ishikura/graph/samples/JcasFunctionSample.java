@@ -10,11 +10,11 @@ import javax.swing.JFrame;
 import javax.swing.JTextField;
 import javax.swing.WindowConstants;
 
+import org.mklab.abgr.Color;
 import org.mklab.ishikura.graph.function.ContinuousFunction2D;
 import org.mklab.ishikura.graph.g2d.GraphFigure;
 import org.mklab.ishikura.graph.g2d.model.DataModel;
 import org.mklab.ishikura.graph.g2d.model.LineModel;
-import org.mklab.ishikura.graph.graphics.Color;
 import org.mklab.ishikura.graph.jcas.JcasContinuousFunction2D;
 import org.mklab.ishikura.graph.swing.GraphComponent;
 

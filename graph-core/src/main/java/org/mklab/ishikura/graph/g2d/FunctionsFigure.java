@@ -6,10 +6,10 @@ package org.mklab.ishikura.graph.g2d;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.mklab.abgr.Graphics;
 import org.mklab.ishikura.graph.figure.ContainerFigureImpl;
 import org.mklab.ishikura.graph.figure.Figure;
 import org.mklab.ishikura.graph.g2d.model.LineModel;
-import org.mklab.ishikura.graph.graphics.Graphics;
 
 
 /**
