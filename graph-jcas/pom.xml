@@ -6,9 +6,7 @@
 		<groupId>org.mklab.ishikura</groupId>
 		<version>1.0.0</version>
 	</parent>
-	<groupId>org.mklab.ishikura</groupId>
 	<artifactId>graph-jcas</artifactId>
-	<version>1.0.0</version>
 	<dependencies>
 		<dependency>
 			<groupId>org.mklab.ishikura</groupId>
