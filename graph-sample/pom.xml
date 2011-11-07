@@ -3,25 +3,25 @@
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
 		<artifactId>graph</artifactId>
-		<groupId>org.mklab.ishikura</groupId>
+		<groupId>org.mklab</groupId>
 		<version>1.2.0-SNAPSHOT</version>
 	</parent>
 	<artifactId>graph-sample</artifactId>
 	<dependencies>
 		<dependency>
-			<groupId>org.mklab.ishikura</groupId>
+			<groupId>${project.groupId}</groupId>
 			<artifactId>graph-swing</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>org.mklab.ishikura</groupId>
+			<groupId>${project.groupId}</groupId>
 			<artifactId>graph-swt</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>org.mklab.ishikura</groupId>
+			<groupId>${project.groupId}</groupId>
 			<artifactId>graph-jcas</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>org.mklab.ishikura</groupId>
+			<groupId>${project.groupId}</groupId>
 			<artifactId>graph-core</artifactId>
 		</dependency>
 	</dependencies>

@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
 	package="org.mklab.ishikura.graph">
 	<application android:icon="@drawable/icon" android:label="@string/app_name">
-		<activity android:label="@string/app_name" android:name=".sample.AndroidGraphSampleActivity">
+		<activity android:label="@string/app_name" android:name="org.mklab.graph.sample.AndroidGraphSampleActivity">
 			<intent-filter>
 				<action android:name="android.intent.action.MAIN"></action>
 				<category android:name="android.intent.category.LAUNCHER"></category>
