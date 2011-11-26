@@ -88,10 +88,9 @@ class CoordinateSpaceFigure extends ContainerFigureImpl implements HasCoordinate
    * x軸の目盛り描画領域の余白を計算します。
    * 
    * @param g 文字幅取得に利用するグラフィックス
-   * @param gridForYAxis y軸の目盛り
    * @return y軸の目盛り描画領域の余白
    */
-  private int computePaddingOfXAxisGraduation(Graphics g) {
+  private static int computePaddingOfXAxisGraduation(Graphics g) {
     return g.getTextHeight() + GRADUATION_TO_AXIS_PADDING;
   }
 
@@ -272,8 +271,6 @@ class CoordinateSpaceFigure extends ContainerFigureImpl implements HasCoordinate
 
   /**
    * 枠の色を取得します。
-   * 
-   * @param color 枠の色
    */
   Color getBorderColor() {
     return this.borderColor;

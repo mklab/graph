@@ -51,8 +51,7 @@ public class ListTraversableIterator<E> implements TraversableIterator<E> {
    * 
    * @param elements 要素
    * @param offset 配列中の、要素とみなす部分の開始位置です。
-   * @param length 配列中の、要素とみなす部分の長さです。
-   */
+  */
   ListTraversableIterator(List<E> elements, int offset) {
     this(elements, offset, elements.size() - offset);
   }

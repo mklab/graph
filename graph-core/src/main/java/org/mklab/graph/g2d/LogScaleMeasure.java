@@ -32,7 +32,7 @@ final class LogScaleMeasure extends AbstractMeasure {
     return (int)((logModelValue - logModelStart) * this.viewSize / (logModelEnd - logModelStart));
   }
 
-  private double log10(double d) {
+  private static double log10(double d) {
     if (d < 0) return -Math.log10(-d);
     if (d == 0) return 0;
 

@@ -29,16 +29,21 @@ public abstract class GraphFigureSample implements SampleFunctions {
   /**
    * グラフ図を生成します。
    * 
-   * @param figure 図
+   * @param model 図
    */
   protected abstract void initGraphModel(GraphModel model);
 
+  /**
+   * グラフを初期化します。
+   * 
+   * @param figure グラフ
+   */
   protected void initGraphFigure(final GraphFigure figure) {
     figure.setScope(0, 100, 0, 100);
     figure.setSize(500, 500);
   }
 
-  private final GraphViewer createGraphViewer() {
+  private final static GraphViewer createGraphViewer() {
     return new SwingGraphViewer();
   }
 

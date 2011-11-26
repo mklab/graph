@@ -433,7 +433,7 @@ public final class GridFigure extends AbstractFigure implements HasCoordinateSpa
    * @param grid 元にするグリッド
    * @return グリッドをさらに分割したマイナーグリッド
    */
-  private Iterable<Double> computeMinorLines(Grid grid) {
+  private static Iterable<Double> computeMinorLines(Grid grid) {
     final List<Double> minorLines = new ArrayList<Double>();
     Double previous = null;
     for (Double d : grid) {
