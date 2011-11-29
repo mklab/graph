@@ -62,6 +62,7 @@
 		<module>graph-android</module>
 		<module>graph-sample</module>
 		<module>graph-jcas</module>
+		<module>graph-control</module>
 	</modules>
 
 	<build>

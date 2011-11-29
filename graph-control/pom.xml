@@ -1,0 +1,27 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<artifactId>graph</artifactId>
+		<groupId>org.mklab</groupId>
+		<version>1.2.0-SNAPSHOT</version>
+		<relativePath>..</relativePath>
+	</parent>
+	<artifactId>graph-control</artifactId>
+
+	<dependencies>
+		<dependency>
+			<groupId>org.mklab</groupId>
+			<artifactId>wheels</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
+	</dependencies>
+
+	<repositories>
+		<repository>
+			<id>mklab-repository</id>
+			<url>http://www.mk.ces.kyutech.ac.jp/maven</url>
+			<layout>default</layout>
+		</repository>
+	</repositories>
+</project>
