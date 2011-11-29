@@ -38,10 +38,14 @@ public class GraphModel {
   public static final String FOREGROUND_COLOR_PROPERTY_NAME = "foregroundColor"; //$NON-NLS-1$
   /** 背景色プロパティの名前です。 */
   public static final String BACKGROUND_COLOR_PROPERTY_NAME = "backgroundColor"; //$NON-NLS-1$
-  /** y軸名プロパティの名前です。 */
-  public static final String Y_AXIS_NAME_PROPERTY_NAME = "yAxisName"; //$NON-NLS-1$
   /** x軸名プロパティの名前です。 */
   public static final String X_AXIS_NAME_PROPERTY_NAME = "xAxisName"; //$NON-NLS-1$
+  /** y軸名プロパティの名前です。 */
+  public static final String Y_AXIS_NAME_PROPERTY_NAME = "yAxisName"; //$NON-NLS-1$
+  /** x軸方向のグリッド種別のプロパティ名です。 */
+  public static final String GRID_TYPE_X_PROPERTY_NAME = "gridTypeX"; //$NON-NLS-1$
+  /** y軸方向のグリッド種別のプロパティ名です。 */
+  public static final String GRID_TYPE_Y_PROPERTY_NAME = "gridTypeY"; //$NON-NLS-1$
   /** タイトルプロパティの名前です。 */
   public static final String TITLE_PROPERTY_NAME = "title"; //$NON-NLS-1$
 
@@ -49,6 +53,10 @@ public class GraphModel {
   private String title = null;
   /** x軸の名前です。 */
   private String xAxisName = null;
+  /** x軸方向のグリッドの種類です。 */
+  private GridType gridTypeX = GridType.DEFAULT;
+  /** y軸方向のグリッドの種類です。 */
+  private GridType gridTypeY = GridType.LOG;
   /** y軸の名前です。 */
   private String yAxisName = null;
   /** 線のモデルのリストです。 */
@@ -143,6 +151,27 @@ public class GraphModel {
   }
 
   /**
+   * x軸のグリッドの種類を取得します。
+   * 
+   * @return x軸のグリッドの種類
+   */
+  public GridType getGridTypeX() {
+    return this.gridTypeX;
+  }
+
+  /**
+   * x軸のグリッドの種類を設定します。
+   * 
+   * @param gridTypeX x軸のグリッドの種類
+   */
+  public void setGridTypeX(GridType gridTypeX) {
+    if (gridTypeX == null) throw new NullPointerException();
+    final GridType old = this.gridTypeX;
+    this.gridTypeX = gridTypeX;
+    this.propertyChangeSupport.firePropertyChange(GRID_TYPE_X_PROPERTY_NAME, old, gridTypeX);
+  }
+
+  /**
    * y軸の名前を取得します。
    * 
    * @return y軸の名前
@@ -160,6 +189,27 @@ public class GraphModel {
     final String oldYAxisName = this.yAxisName;
     this.yAxisName = yAxisName;
     this.propertyChangeSupport.firePropertyChange(Y_AXIS_NAME_PROPERTY_NAME, oldYAxisName, yAxisName);
+  }
+
+  /**
+   * y軸のグリッドの種類を取得します。
+   * 
+   * @return y軸のグリッドの種類
+   */
+  public GridType getGridTypeY() {
+    return this.gridTypeY;
+  }
+
+  /**
+   * y軸のグリッドの種類を設定します。
+   * 
+   * @param gridTypeY y軸のグリッドの種類
+   */
+  public void setGridTypeY(GridType gridTypeY) {
+    if (gridTypeY == null) throw new NullPointerException();
+    final GridType old = this.gridTypeY;
+    this.gridTypeY = gridTypeY;
+    this.propertyChangeSupport.firePropertyChange(GRID_TYPE_Y_PROPERTY_NAME, old, gridTypeY);
   }
 
   /**

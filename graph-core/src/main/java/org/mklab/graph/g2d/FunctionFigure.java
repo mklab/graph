@@ -9,8 +9,12 @@ import org.mklab.abgr.Color;
 import org.mklab.abgr.Graphics;
 import org.mklab.abgr.LineType;
 import org.mklab.graph.figure.AbstractFigure;
+import org.mklab.graph.figure.Canvas;
+import org.mklab.graph.function.Function2D;
+import org.mklab.graph.function.realtime.EffectiveCanvasUpdater;
+import org.mklab.graph.function.realtime.PeriodicalCanvasUpdaterWatcher;
+import org.mklab.graph.function.realtime.RealtimeFunction;
 import org.mklab.graph.g2d.model.LineModel;
-import org.mklab.graph.g2d.plotter.DefaultPlotterFactory;
 import org.mklab.graph.g2d.plotter.Plotter;
 
 
@@ -24,6 +28,8 @@ import org.mklab.graph.g2d.plotter.Plotter;
  */
 public class FunctionFigure extends AbstractFigure {
 
+  private static final PeriodicalCanvasUpdaterWatcher updaterWatcher = new PeriodicalCanvasUpdaterWatcher();
+
   /** 関数包含関係チェックの許容誤差です。 */
   private static final int DELTA = 5;
   /** この図のモデルです。 */
@@ -32,19 +38,26 @@ public class FunctionFigure extends AbstractFigure {
   private GridFigure grid;
   /** 関数描画を行うプロッターです。 */
   private Plotter plotter;
+  /** キャンバスの更新を行うオブジェクトです。 */
+  private EffectiveCanvasUpdater canvasUpdater;
+  /** リアルタイム描画モードであるかどうかです。 */
+  private boolean isRealtime = false;
 
-  /**
-   * {@link FunctionFigure}オブジェクトを構築します。
-   * 
-   * @param grid グラフの格子
-   */
-  FunctionFigure(GridFigure grid, LineModel lineModel) {
+  FunctionFigure(Canvas canvas, GridFigure grid, LineModel lineModel) {
+    if (canvas == null) throw new NullPointerException("canvas == null"); //$NON-NLS-1$
     if (grid == null) throw new NullPointerException("grid == null"); //$NON-NLS-1$
     if (lineModel == null) throw new NullPointerException("lineModel == null"); //$NON-NLS-1$
+
+    this.canvasUpdater = new EffectiveCanvasUpdater(canvas);
     this.lineModel = lineModel;
     this.grid = grid;
 
-    this.plotter = new DefaultPlotterFactory().create(lineModel.getFunction());
+    final Function2D function = lineModel.getFunction();
+    if (function instanceof RealtimeFunction) {
+      ((RealtimeFunction)function).setCanvasUpdater(this.canvasUpdater);
+      this.isRealtime = true;
+    }
+    this.plotter = lineModel.getPlotter();
   }
 
   /**
@@ -62,6 +75,8 @@ public class FunctionFigure extends AbstractFigure {
    */
   @Override
   protected void handleDraw(Graphics g) {
+    updaterWatcher.activate(this.canvasUpdater);
+
     final Color oldColor = g.getColor();
     final float oldLineWidth = g.getLineWidth();
     final LineType oldLineType = g.getLineType();
@@ -69,7 +84,15 @@ public class FunctionFigure extends AbstractFigure {
     g.setColor(this.lineModel.getLineColor());
     g.setLineWidth(this.lineModel.getLineWidth());
     g.setLineType(this.lineModel.getLineType());
+
     this.plotter.plot(g, this.grid);
+    if (this.isRealtime) {
+      if (((RealtimeFunction)this.lineModel.getFunction()).isComputing()) {
+        final String text = "Now computing..."; //$NON-NLS-1$
+        g.drawString(text, 0, getHeight() - g.getTextHeight() + g.getTextAscent());
+      }
+    }
+
     g.setLineType(oldLineType);
     g.setLineWidth(oldLineWidth);
     g.setColor(oldColor);

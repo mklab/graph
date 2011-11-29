@@ -9,6 +9,9 @@ import java.beans.PropertyChangeSupport;
 import org.mklab.abgr.Color;
 import org.mklab.abgr.LineType;
 import org.mklab.graph.function.Function2D;
+import org.mklab.graph.g2d.plotter.DefaultPlotterFactory;
+import org.mklab.graph.g2d.plotter.Plotter;
+import org.mklab.graph.g2d.plotter.PlotterFactory;
 
 
 /**
@@ -26,6 +29,8 @@ public class LineModel {
    * 線の名前、線の色については厳しくnullチェックしています。
    */
 
+  /** 関数の描画を行うオブジェクトを生成するファクトリーのプロパティ名です。 */
+  public static final String PLOTTER_PROPERTY_NAME = "plotter"; //$NON-NLS-1$
   /** 線幅のプロパティ名です。 */
   public static final String LINE_WIDTH_PROPERTY_NAME = "lineWidth"; //$NON-NLS-1$
   /** 線種プロパティ名です。 */
@@ -45,6 +50,10 @@ public class LineModel {
   private LineType lineType = LineType.DEFAULT;
   /** 線の太さです。 */
   private float lineWidth = 1f;
+  /** 関数を描画するオブジェクトです。 */
+  private Plotter plotter;
+
+  private static PlotterFactory plotterFactory = new DefaultPlotterFactory();
   /** {@link PropertyChangeListener}の管理に利用します。 */
   private PropertyChangeSupport propertyChangeSupport;
 
@@ -54,16 +63,31 @@ public class LineModel {
    * @param label ラベル
    * @param lineColor 線の色
    * @param function 関数
+   * @param plotter 関数の描画を行うオブジェクト
    */
-  public LineModel(String label, Color lineColor, Function2D function) {
+  public LineModel(String label, Color lineColor, Function2D function, Plotter plotter) {
     if (function == null) throw new NullPointerException("function == null"); //$NON-NLS-1$
     if (label == null) throw new NullPointerException("label == null"); //$NON-NLS-1$
     if (lineColor == null) throw new NullPointerException("lineColor == null"); //$NON-NLS-1$
+    if (plotter == null) throw new NullPointerException("plotter == null"); //$NON-NLS-1$
+
     this.propertyChangeSupport = new PropertyChangeSupport(this);
 
     this.function = function;
     this.lineColor = lineColor;
     this.label = label;
+    this.plotter = plotter;
+  }
+
+  /**
+   * {@link LineModel}オブジェクトを構築します。
+   * 
+   * @param label ラベル
+   * @param lineColor 線の色
+   * @param function 関数
+   */
+  public LineModel(String label, Color lineColor, Function2D function) {
+    this(label, lineColor, function, plotterFactory.create(function));
   }
 
   /**
@@ -148,9 +172,9 @@ public class LineModel {
   }
 
   /**
-   * lineWidthを設定します。
+   * 線幅を設定します。
    * 
-   * @param lineWidth lineWidth
+   * @param lineWidth 線幅(&gt;0)
    */
   @SuppressWarnings("boxing")
   public void setLineWidth(float lineWidth) {
@@ -158,6 +182,29 @@ public class LineModel {
     final float oldLineWidth = this.lineWidth;
     this.lineWidth = lineWidth;
     this.propertyChangeSupport.firePropertyChange(LINE_WIDTH_PROPERTY_NAME, oldLineWidth, lineWidth);
+  }
+
+  /**
+   * 関数の描画を行うオブジェクトを設定します。
+   * 
+   * @param plotter 関数の描画を行うオブジェクト
+   */
+  public void setPlotter(Plotter plotter) {
+    if (plotterFactory == null) throw new NullPointerException();
+    final Plotter old = this.plotter;
+    this.plotter = plotter;
+    if (plotter != old) {
+      this.propertyChangeSupport.firePropertyChange(PLOTTER_PROPERTY_NAME, old, plotter);
+    }
+  }
+
+  /**
+   * 関数の描画を行うオブジェクトを取得します。
+   * 
+   * @return 関数の描画を行うオブジェクト
+   */
+  public Plotter getPlotter() {
+    return this.plotter;
   }
 
   /**

@@ -14,6 +14,7 @@ import org.mklab.graph.figure.Point;
 import org.mklab.graph.figure.TextFigure;
 import org.mklab.graph.g2d.model.DataModelListener;
 import org.mklab.graph.g2d.model.GraphModel;
+import org.mklab.graph.g2d.model.GridType;
 import org.mklab.graph.g2d.model.LineModel;
 
 import java.beans.PropertyChangeEvent;
@@ -50,7 +51,7 @@ public class GraphFigure extends ContainerFigureImpl implements HasCoordinateSpa
 
     this.statusBar = new TextFigure();
     final InfoBoxFigure infoBox = new InfoBoxFigure(this.model.getDataModel());
-    final CoordinateSpaceFigure baseCoordinateSpace = new CoordinateSpaceFigure(infoBox);
+    final CoordinateSpaceFigure baseCoordinateSpace = new CoordinateSpaceFigure(this.canvas, infoBox);
     this.baseGraphFigure = new BaseGraphFigure(baseCoordinateSpace);
 
     add(this.statusBar);
@@ -87,8 +88,12 @@ public class GraphFigure extends ContainerFigureImpl implements HasCoordinateSpa
           setTitle((String)value);
         } else if (GraphModel.X_AXIS_NAME_PROPERTY_NAME.equals(propertyName)) {
           setXAxisName((String)value);
+        } else if (GraphModel.GRID_TYPE_X_PROPERTY_NAME.equals(propertyName)) {
+          setGridTypeX((GridType)value);
         } else if (GraphModel.Y_AXIS_NAME_PROPERTY_NAME.equals(propertyName)) {
           setYAxisName((String)value);
+        } else if (GraphModel.GRID_TYPE_Y_PROPERTY_NAME.equals(propertyName)) {
+          setGridTypeY((GridType)value);
         } else if (GraphModel.BACKGROUND_COLOR_PROPERTY_NAME.equals(propertyName)) {
           setBackgroundColor((Color)value);
         } else if (GraphModel.GRID_BACKGROUND_COLOR_PROPERTY_NAME.equals(propertyName)) {
@@ -123,6 +128,24 @@ public class GraphFigure extends ContainerFigureImpl implements HasCoordinateSpa
       }
     });
     return m;
+  }
+
+  void setGridTypeX(GridType gridType) {
+    getCoordinateSpace().getGrid().setGridFactoryX(createGridFactory(gridType));
+  }
+
+  void setGridTypeY(GridType gridType) {
+    getCoordinateSpace().getGrid().setGridFactoryY(createGridFactory(gridType));
+  }
+
+  private static GridFactory createGridFactory(GridType type) {
+    switch (type) {
+      case DEFAULT:
+        return new StandardGridFactory();
+      case LOG:
+        return new LogScaleGridFactory();
+    }
+    throw new UnsupportedOperationException();
   }
 
   CoordinateSpaceFigure getCoordinateSpace() {

@@ -24,5 +24,9 @@
 			<groupId>${project.groupId}</groupId>
 			<artifactId>graph-core</artifactId>
 		</dependency>
+		<dependency>
+			<groupId>org.mklab</groupId>
+			<artifactId>graph-control</artifactId>
+		</dependency>
 	</dependencies>
 </project>

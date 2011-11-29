@@ -62,6 +62,13 @@ public class ListFunction2D extends DiscreteFunction2D {
   }
 
   /**
+   * すべての点を削除します。
+   */
+  public void clearPoints() {
+    this.points.clear();
+  }
+
+  /**
    * {@inheritDoc}
    */
   @Override

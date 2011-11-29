@@ -17,7 +17,7 @@ import org.mklab.graph.g2d.Scope;
  * @author Yuhi Ishikura
  * @version $Revision$, 2011/07/01
  */
-class DiscreteFunctionPlotter implements Plotter {
+public class DiscreteFunctionPlotter implements Plotter {
 
   DiscreteFunction2D function;
 
@@ -26,9 +26,18 @@ class DiscreteFunctionPlotter implements Plotter {
    * 
    * @param function 関数
    */
-  DiscreteFunctionPlotter(DiscreteFunction2D function) {
+  public DiscreteFunctionPlotter(DiscreteFunction2D function) {
     super();
     this.function = function;
+  }
+
+  /**
+   * 関数を取得します。
+   * 
+   * @return 関数
+   */
+  public DiscreteFunction2D getFunction() {
+    return this.function;
   }
 
   /**

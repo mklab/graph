@@ -7,6 +7,7 @@ package org.mklab.graph.g2d;
 
 import org.mklab.abgr.Color;
 import org.mklab.abgr.Graphics;
+import org.mklab.graph.figure.Canvas;
 import org.mklab.graph.figure.ContainerFigureImpl;
 import org.mklab.graph.g2d.model.LineModel;
 
@@ -24,6 +25,8 @@ class CoordinateSpaceFigure extends ContainerFigureImpl implements HasCoordinate
   /** 目盛りと軸の間の余白です。 */
   private static final int GRADUATION_TO_AXIS_PADDING = 5;
 
+  /** 描画対象のキャンバスです。 */
+  private Canvas canvas;
   /** 格子部分の図です。 */
   private GridFigure grid;
   /** 関数を表示する図です。 */
@@ -45,7 +48,11 @@ class CoordinateSpaceFigure extends ContainerFigureImpl implements HasCoordinate
   /**
    * {@link CoordinateSpaceFigure}オブジェクトを構築します。
    */
-  CoordinateSpaceFigure(InfoBoxFigure functionInfoBoxFigure) {
+  CoordinateSpaceFigure(Canvas canvas, InfoBoxFigure functionInfoBoxFigure) {
+    if (canvas == null) throw new NullPointerException();
+    if (functionInfoBoxFigure == null) throw new NullPointerException();
+
+    this.canvas = canvas;
     this.grid = new GridFigure();
     this.functionsFigure = new FunctionsFigure();
     this.guideFigure = new GuideFigure(this.grid);
@@ -233,7 +240,7 @@ class CoordinateSpaceFigure extends ContainerFigureImpl implements HasCoordinate
    */
   void addLine(LineModel lineModel) {
     if (lineModel == null) throw new NullPointerException();
-    final FunctionFigure figure = new FunctionFigure(this.grid, lineModel);
+    final FunctionFigure figure = new FunctionFigure(this.canvas, this.grid, lineModel);
     this.functionsFigure.addLine(lineModel, figure);
 
     this.lineInfoBox.invalidate();

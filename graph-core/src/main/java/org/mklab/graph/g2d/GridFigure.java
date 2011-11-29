@@ -99,6 +99,7 @@ public final class GridFigure extends AbstractFigure implements HasCoordinateSpa
    */
   public void setGridFactoryY(GridFactory gridFactoryY) {
     this.gridFactoryY = gridFactoryY;
+    invalidate();
   }
 
   /**
