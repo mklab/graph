@@ -83,6 +83,25 @@ public final class GridFigure extends AbstractFigure implements HasCoordinateSpa
   }
 
   /**
+   * x軸方向のグリッドを生成するファクトリを設定します。
+   * 
+   * @param gridFactoryX x軸方向のグリッドを生成するファクトリ
+   */
+  public void setGridFactoryX(GridFactory gridFactoryX) {
+    this.gridFactoryX = gridFactoryX;
+    invalidate();
+  }
+
+  /**
+   * y軸方向のグリッドを生成するファクトリを設定します。
+   * 
+   * @param gridFactoryY y軸方向のグリッドを生成するファクトリ
+   */
+  public void setGridFactoryY(GridFactory gridFactoryY) {
+    this.gridFactoryY = gridFactoryY;
+  }
+
+  /**
    * {@inheritDoc}
    */
   @Override
