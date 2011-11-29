@@ -10,6 +10,8 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.RenderingHints;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseWheelEvent;
@@ -18,6 +20,9 @@ import javax.swing.JComponent;
 import javax.swing.SwingUtilities;
 
 import org.mklab.abgr.awt.AwtGraphics;
+import org.mklab.graph.figure.Canvas;
+import org.mklab.graph.figure.CanvasListener;
+import org.mklab.graph.figure.CanvasListenerList;
 import org.mklab.graph.g2d.GraphFigure;
 
 
@@ -29,19 +34,31 @@ import org.mklab.graph.g2d.GraphFigure;
  * @author Yuhi Ishikura
  * @version $Revision$, 2010/10/18
  */
-public class GraphComponent extends JComponent {
+public class GraphComponent extends JComponent implements Canvas {
 
   private static final long serialVersionUID = -2072147966373187572L;
   private GraphFigure graph;
+  CanvasListenerList canvasListenerList = new CanvasListenerList();
 
   /**
    * 新しく生成された<code>GraphComponent</code>オブジェクトを初期化します。
    */
   public GraphComponent() {
     final MouseAdapter mouseListener = new GraphMouseHandler();
-    this.addMouseMotionListener(mouseListener);
-    this.addMouseListener(mouseListener);
-    this.addMouseWheelListener(mouseListener);
+    addMouseMotionListener(mouseListener);
+    addMouseListener(mouseListener);
+    addMouseWheelListener(mouseListener);
+    addComponentListener(new ComponentAdapter() {
+
+      /**
+       * {@inheritDoc}
+       */
+      @Override
+      public void componentResized(ComponentEvent e) {
+        super.componentResized(e);
+        GraphComponent.this.canvasListenerList.fireCanvasSizeChanged();
+      }
+    });
 
     setFont(new Font(Font.MONOSPACED, Font.PLAIN, 15));
   }
@@ -162,5 +179,45 @@ public class GraphComponent extends JComponent {
       getGraph().scaleScope(p.x, p.y, isExpanding ? 1.2 : 0.8);
       GraphComponent.this.repaint();
     }
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public int getCanvasWidth() {
+    return getWidth();
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public int getCanvasHeight() {
+    return getHeight();
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public void redrawCanvas() {
+    repaint();
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public void addCanvasListener(CanvasListener canvasListener) {
+    this.canvasListenerList.add(canvasListener);
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public void removeCanvasListener(CanvasListener canvasListener) {
+    this.canvasListenerList.remove(canvasListener);
   }
 }

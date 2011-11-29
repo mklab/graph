@@ -22,6 +22,7 @@ public class GraphFigureTest {
   @Test
   public void testModelBindings() {
     final GraphFigure figure = new GraphFigure();
+    figure.setCanvas(new CanvasMock());
     final GraphModel model = figure.getModel();
     final Color colorForTest = new Color(0, 1, 2);
     final String textForTest = "hoge"; //$NON-NLS-1$
@@ -53,7 +54,7 @@ public class GraphFigureTest {
     assertFalse(figure.getCoordinateSpace().getGrid().isMinorGridEnabled());
     model.setMinorGridEnabled(true);
     assertTrue(figure.getCoordinateSpace().getGrid().isMinorGridEnabled());
-    
+
     model.setGridEnabled(false);
     assertFalse(figure.getCoordinateSpace().getGrid().isGridEnabled());
     model.setGridEnabled(true);

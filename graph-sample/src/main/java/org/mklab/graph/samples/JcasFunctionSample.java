@@ -35,6 +35,7 @@ public class JcasFunctionSample {
     frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
     final GraphComponent graphComponent = new GraphComponent();
     final GraphFigure graph = new GraphFigure();
+    graph.setCanvas(graphComponent);
     graph.setSize(500, 500);
     graph.setScope(-100, 100, -100, 100);
 

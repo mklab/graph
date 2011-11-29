@@ -26,6 +26,7 @@ public class AndroidGraphSampleActivity extends Activity {
 
     final GraphView graphView = new GraphView(getApplicationContext());
     final GraphFigure graph = new GraphFigure();
+    graph.setCanvas(graphView);
     final GraphModel model = graph.getModel();
     model.setXAxisName("X軸"); //$NON-NLS-1$
     model.setYAxisName("Y軸"); //$NON-NLS-1$

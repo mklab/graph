@@ -25,6 +25,7 @@ public class SwtGraphViewer implements GraphViewer {
     shell.setLayout(new FillLayout());
 
     final GraphCanvas canvas = new GraphCanvas(shell);
+    graph.setCanvas(canvas);
     canvas.setGraphFigure(graph);
 
     shell.setSize(graph.getWidth(), graph.getHeight());

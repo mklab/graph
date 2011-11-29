@@ -36,6 +36,7 @@ public class SwingGraphViewer implements GraphViewer {
           frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 
           final GraphComponent graphComponent = new GraphComponent();
+          graph.setCanvas(graphComponent);
           graphComponent.setGraph(graph);
 
           frame.add(graphComponent);

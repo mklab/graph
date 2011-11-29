@@ -2,6 +2,8 @@ package org.mklab.graph.android;
 
 import org.mklab.abgr.Graphics;
 import org.mklab.abgr.android.AndroidGraphics;
+import org.mklab.graph.figure.CanvasListener;
+import org.mklab.graph.figure.CanvasListenerList;
 import org.mklab.graph.g2d.GraphFigure;
 import org.mklab.graph.g2d.HasCoordinateSpace;
 
@@ -16,9 +18,10 @@ import android.view.View;
  * @author ishikura
  * @version $Revision$, 2011/06/29
  */
-public class GraphView extends View {
+public class GraphView extends View implements org.mklab.graph.figure.Canvas {
 
   private GraphFigure graphFigure;
+  CanvasListenerList canvasListenerList = new CanvasListenerList();
 
   /**
    * {@link GraphView}オブジェクトを構築します。
@@ -29,6 +32,15 @@ public class GraphView extends View {
     super(context);
     setFocusable(true);
     setOnTouchListener(new GraphViewTouchListener());
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  @SuppressWarnings("unused")
+  @Override
+  protected void onSizeChanged(int w, int h, int oldw, int oldh) {
+    this.canvasListenerList.fireCanvasSizeChanged();
   }
 
   HasCoordinateSpace getGraphFigure() {
@@ -57,5 +69,45 @@ public class GraphView extends View {
     this.graphFigure.setHeight(getHeight());
 
     this.graphFigure.draw(g);
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public int getCanvasWidth() {
+    return getWidth();
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public int getCanvasHeight() {
+    return getHeight();
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public void redrawCanvas() {
+    invalidate();
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public void addCanvasListener(CanvasListener canvasListener) {
+    this.canvasListenerList.add(canvasListener);
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public void removeCanvasListener(CanvasListener canvasListener) {
+    this.canvasListenerList.remove(canvasListener);
   }
 }

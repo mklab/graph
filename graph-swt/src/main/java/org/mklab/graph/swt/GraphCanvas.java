@@ -11,6 +11,8 @@ import org.eclipse.swt.widgets.Canvas;
 import org.eclipse.swt.widgets.Composite;
 import org.mklab.abgr.Graphics;
 import org.mklab.abgr.swt.SwtGraphics;
+import org.mklab.graph.figure.CanvasListener;
+import org.mklab.graph.figure.CanvasListenerList;
 import org.mklab.graph.g2d.GraphFigure;
 
 
@@ -20,9 +22,10 @@ import org.mklab.graph.g2d.GraphFigure;
  * @author ishikura
  * @version $Revision$, 2011/06/29
  */
-public class GraphCanvas extends Canvas {
+public class GraphCanvas extends Canvas implements org.mklab.graph.figure.Canvas {
 
   private GraphFigure graphFigure;
+  CanvasListenerList canvasListenerList = new CanvasListenerList();
 
   /**
    * {@link GraphCanvas}オブジェクトを構築します。
@@ -48,6 +51,18 @@ public class GraphCanvas extends Canvas {
       @Override
       public void controlResized(@SuppressWarnings("unused") ControlEvent e) {
         fitFigure();
+      }
+    });
+
+    addControlListener(new ControlAdapter() {
+
+      /**
+       * {@inheritDoc}
+       */
+      @SuppressWarnings("unused")
+      @Override
+      public void controlResized(ControlEvent e) {
+        GraphCanvas.this.canvasListenerList.fireCanvasSizeChanged();
       }
     });
 
@@ -84,5 +99,45 @@ public class GraphCanvas extends Canvas {
 
     if (this.graphFigure == null) return;
     this.graphFigure.draw(g);
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public int getCanvasWidth() {
+    return getSize().x;
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public int getCanvasHeight() {
+    return getSize().y;
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public void redrawCanvas() {
+    redraw();
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public void addCanvasListener(CanvasListener canvasListener) {
+    this.canvasListenerList.add(canvasListener);
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public void removeCanvasListener(CanvasListener canvasListener) {
+    this.canvasListenerList.remove(canvasListener);
   }
 }

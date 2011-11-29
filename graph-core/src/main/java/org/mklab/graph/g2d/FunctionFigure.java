@@ -48,15 +48,6 @@ public class FunctionFigure extends AbstractFigure {
   }
 
   /**
-   * 線のモデルを取得します。
-   * 
-   * @return lineModel
-   */
-  public LineModel getLineModel() {
-    return this.lineModel;
-  }
-
-  /**
    * {@inheritDoc}
    */
   @Override

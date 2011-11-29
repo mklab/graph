@@ -3,11 +3,11 @@
  */
 package org.mklab.graph.g2d;
 
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
-
 import org.mklab.abgr.Color;
 import org.mklab.abgr.Graphics;
+import org.mklab.graph.figure.Canvas;
+import org.mklab.graph.figure.CanvasListener;
+import org.mklab.graph.figure.CanvasListenerList;
 import org.mklab.graph.figure.ContainerFigureImpl;
 import org.mklab.graph.figure.Figures;
 import org.mklab.graph.figure.Point;
@@ -15,6 +15,9 @@ import org.mklab.graph.figure.TextFigure;
 import org.mklab.graph.g2d.model.DataModelListener;
 import org.mklab.graph.g2d.model.GraphModel;
 import org.mklab.graph.g2d.model.LineModel;
+
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 
 
 /**
@@ -26,7 +29,7 @@ import org.mklab.graph.g2d.model.LineModel;
  * @author Yuhi Ishikura
  * @version $Revision$, 2010/10/22
  */
-public class GraphFigure extends ContainerFigureImpl implements HasCoordinateSpace {
+public class GraphFigure extends ContainerFigureImpl implements HasCoordinateSpace, CanvasListener {
 
   /** ステータス描画を行う図です。 */
   private TextFigure statusBar;
@@ -34,11 +37,15 @@ public class GraphFigure extends ContainerFigureImpl implements HasCoordinateSpa
   private BaseGraphFigure baseGraphFigure;
   /** グラフのモデルです。 */
   private GraphModel model;
+  /** 描画対象のキャンバスです。 */
+  private CanvasWrapper canvas;
 
   /**
    * {@link GraphFigure}オブジェクトを構築します。
    */
   public GraphFigure() {
+    this.canvas = new CanvasWrapper();
+    this.canvas.addCanvasListener(this);
     this.model = createGraphModel();
 
     this.statusBar = new TextFigure();
@@ -231,4 +238,102 @@ public class GraphFigure extends ContainerFigureImpl implements HasCoordinateSpa
     this.baseGraphFigure.setScope(scope);
   }
 
+  /**
+   * 描画対象のキャンバスを設定します。
+   * 
+   * @param canvas キャンバス
+   */
+  public void setCanvas(Canvas canvas) {
+    this.canvas.setCanvas(canvas);
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public void canvasSizeChanged() {
+    final int w = this.canvas.getCanvasWidth();
+    final int h = this.canvas.getCanvasHeight();
+
+    setSize(w, h);
+    this.canvas.redrawCanvas();
+  }
+
+  /**
+   * キャンバスをラップするクラスです。
+   * <p>
+   * キャンバスの遅延初期化の際に、まだ初期化されていなくても一旦キャンバスインスタンスを子の図に設定するために必要とされます。 リスナー関連の処理以外は、
+   * {@link #setCanvas(Canvas)}を行うまで実行することができません。
+   * 
+   * @author Yuhi Ishikura
+   */
+  static class CanvasWrapper implements Canvas, CanvasListener {
+
+    private Canvas canvas;
+    private CanvasListenerList listeners = new CanvasListenerList();
+
+    void setCanvas(Canvas canvas) {
+      if (this.canvas != null) {
+        this.canvas.removeCanvasListener(this);
+      }
+      this.canvas = canvas;
+      this.canvas.addCanvasListener(this);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public int getCanvasWidth() {
+      checkCanvasIsSet();
+      return this.canvas.getCanvasWidth();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public int getCanvasHeight() {
+      checkCanvasIsSet();
+      return this.canvas.getCanvasHeight();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void redrawCanvas() {
+      checkCanvasIsSet();
+      this.canvas.redrawCanvas();
+    }
+
+    private void checkCanvasIsSet() {
+      if (this.canvas == null) throw new IllegalStateException("Invalid graph state.  Canvas not set yet."); //$NON-NLS-1$
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void removeCanvasListener(CanvasListener canvasListener) {
+      this.listeners.remove(canvasListener);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void addCanvasListener(CanvasListener canvasListener) {
+      this.listeners.add(canvasListener);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void canvasSizeChanged() {
+      this.listeners.fireCanvasSizeChanged();
+    }
+
+  }
 }
