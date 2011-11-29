@@ -45,7 +45,7 @@ class StandardGridFactory implements GridFactory {
    */
   // FIXME 近似の仕方が分からない
   @SuppressWarnings("boxing")
-  private double fix(double d) {
+  private static double fix(double d) {
     return Double.parseDouble(String.format("%f", d)); //$NON-NLS-1$
   }
 

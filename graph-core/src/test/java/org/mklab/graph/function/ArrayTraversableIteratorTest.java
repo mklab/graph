@@ -52,7 +52,8 @@ public class ArrayTraversableIteratorTest extends AbstractTraversableIteratorTes
    * @param offs 行列中の有効領域のオフセット
    * @param length 有効領域のサイズ
    */
-  private void testArrayTraversableIteratorThrowsException(int arraySize, int offs, int length) {
+  @SuppressWarnings("unused")
+  private static void testArrayTraversableIteratorThrowsException(int arraySize, int offs, int length) {
     Object[] obj = new Object[arraySize];
     boolean thrown = false;
     try {
@@ -70,7 +71,8 @@ public class ArrayTraversableIteratorTest extends AbstractTraversableIteratorTes
    * @param offs 行列中の有効領域のオフセット
    * @param length 有効領域のサイズ
    */
-  private void testArrayTraversableIteratorNotThrowException(int arraySize, int offs, int length) {
+  @SuppressWarnings("unused")
+  private static void testArrayTraversableIteratorNotThrowException(int arraySize, int offs, int length) {
     Object[] obj = new Object[arraySize];
     boolean thrown = false;
     try {

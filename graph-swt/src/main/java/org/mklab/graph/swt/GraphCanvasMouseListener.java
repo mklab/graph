@@ -24,7 +24,7 @@ class GraphCanvasMouseListener implements MouseListener, MouseMoveListener, Mous
   /**
    * {@link GraphCanvasMouseListener}オブジェクトを構築します。
    * 
-   * @param graphCanvas
+   * @param graphCanvas グラフキャンバス
    */
   GraphCanvasMouseListener(GraphCanvas graphCanvas) {
     super();

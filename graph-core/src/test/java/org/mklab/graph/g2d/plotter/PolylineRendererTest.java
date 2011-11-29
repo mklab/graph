@@ -129,7 +129,7 @@ public class PolylineRendererTest {
     assertEquals(width + 7, r.filterBySaturator(width + 7, width));
   }
 
-  private PolylineRenderer create(final int width) {
+  private static PolylineRenderer create(final int width) {
     final GridFigure grid = new GridFigure();
     grid.setSize(width, width);
     final PolylineRenderer r = new PolylineRenderer(grid);

@@ -45,7 +45,7 @@ public class JcasContinuousFunction2D extends ContinuousFunction2D {
   /**
    * {@link JcasContinuousFunction2D}オブジェクトを構築します。
    * 
-   * @param function
+   * @param function 関数
    */
   private JcasContinuousFunction2D(Function function) {
     if (function == null) throw new NullPointerException();
