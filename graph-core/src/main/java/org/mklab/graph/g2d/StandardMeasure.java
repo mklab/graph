@@ -55,4 +55,12 @@ final class StandardMeasure extends AbstractMeasure {
     }
     return viewValueInt;
   }
+
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public Bound fixBound(@SuppressWarnings("hiding") Bound bound) {
+    return bound;
+  }
 }

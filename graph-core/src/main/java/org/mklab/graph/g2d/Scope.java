@@ -29,7 +29,7 @@ public class Scope {
    * @param x x方向の範囲
    * @param y y方向の範囲
    */
-  private Scope(Bound x, Bound y) {
+  Scope(Bound x, Bound y) {
     if (x == null || y == null) throw new NullPointerException();
     this.x = x;
     this.y = y;

@@ -44,7 +44,7 @@ public class BodePlotSample extends GraphFigureSample {
     final LineModel gainLine = new LineModel("gain", Color.RED, gainFunction, new BodePlotter(gainFunction));
     final LineModel phaseLine = new LineModel("phase", Color.GREEN, phaseFunction, new BodePlotter(phaseFunction));
 
-    //model.addLineModel(gainLine);
+    model.addLineModel(gainLine);
     model.addLineModel(phaseLine);
   }
 
@@ -53,8 +53,8 @@ public class BodePlotSample extends GraphFigureSample {
    */
   @Override
   protected void initGraphFigure(GraphFigure figure) {
-    super.initGraphFigure(figure);
     figure.setScope(1e-2, 1e0, -300, 50);
+    figure.setSize(500, 500);
   }
 
   /**

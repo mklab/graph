@@ -66,10 +66,13 @@ public final class GridFigure extends AbstractFigure implements HasCoordinateSpa
   @Override
   public void setScope(Scope scope) {
     if (scope == null) throw new NullPointerException();
-    this.measureX.setBound(scope.getX());
-    this.measureY.setBound(scope.getY());
+    final Bound fixedX = this.measureX.fixBound(scope.getX());
+    final Bound fixedY = this.measureY.fixBound(scope.getY());
 
-    this.scope = scope;
+    this.measureX.setBound(fixedX);
+    this.measureY.setBound(fixedY);
+
+    this.scope = new Scope(fixedX, fixedY);
     invalidate();
   }
 
@@ -99,6 +102,26 @@ public final class GridFigure extends AbstractFigure implements HasCoordinateSpa
    */
   public void setGridFactoryY(GridFactory gridFactoryY) {
     this.gridFactoryY = gridFactoryY;
+    invalidate();
+  }
+
+  /**
+   * x軸方向の数値的な座標とビュー上の座標の変換を行うオブジェクトを設定します。
+   * 
+   * @param measureX 数値的な座標とビュー上の座標の変換を行うオブジェクト
+   */
+  public void setMeasureX(Measure measureX) {
+    this.measureX = measureX;
+    invalidate();
+  }
+
+  /**
+   * y軸方向の数値的な座標とビュー上の座標の変換を行うオブジェクトを設定します。
+   * 
+   * @param measureY 数値的な座標とビュー上の座標の変換を行うオブジェクト
+   */
+  public void setMeasureY(Measure measureY) {
+    this.measureY = measureY;
     invalidate();
   }
 

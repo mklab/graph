@@ -12,6 +12,16 @@ package org.mklab.graph.g2d;
 interface Measure {
 
   /**
+   * ビュー上の表示範囲をフィルタリングします。
+   * <p>
+   * 区間に問題があった場合には修正して新しい区間を返します。
+   * 
+   * @param bound 表示範囲
+   * @return 問題を修正した表示範囲
+   */
+  Bound fixBound(Bound bound);
+
+  /**
    * ビュー上の表示範囲を設定します。
    * 
    * @param bound 表示範囲

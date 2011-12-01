@@ -53,7 +53,7 @@ public class ListFunction2D extends DiscreteFunction2D {
    * 
    * @param point 追加する座標
    */
-  public void addPoint(Point2D point) {
+  public synchronized void addPoint(Point2D point) {
     if (point == null) throw new NullPointerException();
     if (point.getX() < this.maximumX) throw new IllegalArgumentException("point addition should be monotone increasement."); //$NON-NLS-1$
 
@@ -64,7 +64,7 @@ public class ListFunction2D extends DiscreteFunction2D {
   /**
    * すべての点を削除します。
    */
-  public void clearPoints() {
+  public synchronized void clearPoints() {
     this.points.clear();
     this.maximumX = Double.NEGATIVE_INFINITY;
   }
@@ -73,7 +73,7 @@ public class ListFunction2D extends DiscreteFunction2D {
    * {@inheritDoc}
    */
   @Override
-  public TraversableIterator<Point2D> iterator(double startOfX) {
+  public synchronized TraversableIterator<Point2D> iterator(double startOfX) {
     List<Point2D> copyOfPoints = new ArrayList<Point2D>(this.points);
     for (int i = 0; i < copyOfPoints.size(); i++) {
       final double x = copyOfPoints.get(i).getX();
