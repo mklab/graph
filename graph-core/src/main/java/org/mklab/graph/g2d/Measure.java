@@ -9,7 +9,7 @@ package org.mklab.graph.g2d;
  * @author Yuhi Ishikura
  * @version $Revision$, 2011/06/25
  */
-interface Measure {
+public interface Measure {
 
   /**
    * ビュー上の表示範囲をフィルタリングします。
@@ -41,13 +41,6 @@ interface Measure {
    * @return viewSize
    */
   int getViewSize();
-
-  /**
-   * ビューとモデルの比率を計算します。
-   * 
-   * @return ビューとモデルの比率
-   */
-  double getViewToModelRatio();
 
   /**
    * 数学的な座標からビュー上の座標に変換します。

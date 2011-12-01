@@ -21,6 +21,10 @@ final class StandardMeasure extends AbstractMeasure {
     return this.bound.getStart() + getViewToModelRatio() * viewValue;
   }
 
+  private double getViewToModelRatio() {
+    return this.bound.getWidth() / (this.viewSize - 1);
+  }
+
   /**
    * {@inheritDoc}
    */

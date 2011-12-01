@@ -58,7 +58,8 @@ public class DiscreteFunctionPlotter implements Plotter {
       int y1 = grid.modelToViewYIgnoreBound(lastPoint.getY());
       int x2 = grid.modelToViewXIgnoreBound(currentPoint.getX());
       int y2 = grid.modelToViewYIgnoreBound(currentPoint.getY());
-      g.drawLine(x1, y1, x2, y2);
+      g.drawLine(x1, y1, x1, y1);
+      g.drawLine(x2, y2, x2, y2);
 
       lastPoint = currentPoint;
       if (currentPoint.getX() > scope.getX().getEnd()) break;

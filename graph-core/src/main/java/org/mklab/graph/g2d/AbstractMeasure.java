@@ -52,12 +52,4 @@ abstract class AbstractMeasure implements Measure {
     return viewValue < this.viewSize && viewValue >= 0;
   }
 
-  /**
-   * {@inheritDoc}
-   */
-  @Override
-  public final double getViewToModelRatio() {
-    return this.bound.getWidth() / (this.viewSize - 1);
-  }
-
 }
