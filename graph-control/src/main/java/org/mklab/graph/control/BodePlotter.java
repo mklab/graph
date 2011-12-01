@@ -17,13 +17,18 @@ package org.mklab.graph.control;
 
 import org.mklab.abgr.Graphics;
 import org.mklab.graph.g2d.GridFigure;
+import org.mklab.graph.g2d.Measure;
 import org.mklab.graph.g2d.plotter.DiscreteFunctionPlotter;
+
+import java.util.Arrays;
 
 
 /**
  * @author Yuhi Ishikura
  */
 public class BodePlotter extends DiscreteFunctionPlotter {
+
+  private double[] previousFreqs;
 
   /**
    * {@link BodePlotter}オブジェクトを構築します。
@@ -38,9 +43,24 @@ public class BodePlotter extends DiscreteFunctionPlotter {
    * {@inheritDoc}
    */
   @Override
-  public void plot(Graphics g, GridFigure grid) {
-    ((BodeFunction)getFunction()).compute(grid.getScope(), grid.getWidth());
+  public synchronized void plot(Graphics g, GridFigure grid) {
+    final double[] freqs = computeAngularFrequencies(grid);
+    if (this.previousFreqs == null || Arrays.equals(this.previousFreqs, freqs) == false) {
+      ((BodeFunction)getFunction()).compute(freqs);
+    }
+    this.previousFreqs = freqs;
     super.plot(g, grid);
+  }
+
+  @SuppressWarnings("static-method")
+  private double[] computeAngularFrequencies(GridFigure grid) {
+    final int canvasWidth = grid.getWidth();
+    final Measure measure = grid.getMeasureX();
+    final double[] freqs = new double[canvasWidth];
+    for (int i = 0; i < canvasWidth; i++) {
+      freqs[i] = measure.viewToModel(i);
+    }
+    return freqs;
   }
 
 }

@@ -17,7 +17,6 @@ package org.mklab.graph.control;
 
 import org.mklab.graph.function.ListFunction2D;
 import org.mklab.graph.function.realtime.RealtimeFunction;
-import org.mklab.graph.g2d.Scope;
 import org.mklab.nfc.matrix.DoubleMatrix;
 
 
@@ -47,16 +46,15 @@ public abstract class BodeFunction extends ListFunction2D implements RealtimeFun
   /**
    * ボード線図の再計算を行います。
    * 
-   * @param scope 表示されているグラフの領域
-   * @param width キャンバスの横幅
+   * @param freqs 計算する周波数
    */
-  public final void compute(Scope scope, int width) {
+  public final void compute(double[] freqs) {
     this.computing = true;
-    this.bode.compute(scope.getX().getStart(), scope.getX().getEnd(), width, new Bode.Callback() {
+    this.bode.compute(freqs, new Bode.Callback() {
 
       @SuppressWarnings({"unqualified-field-access", "synthetic-access"})
       @Override
-      public void computed(DoubleMatrix freqs, DoubleMatrix magnitudes, DoubleMatrix phases) {
+      public void computed(@SuppressWarnings("hiding") DoubleMatrix freqs, DoubleMatrix magnitudes, DoubleMatrix phases) {
         computing = false;
         clearPoints();
         BodeFunction.this.computed(freqs, magnitudes, phases);

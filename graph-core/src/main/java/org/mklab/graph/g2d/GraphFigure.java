@@ -143,11 +143,15 @@ public class GraphFigure extends ContainerFigureImpl implements HasCoordinateSpa
   }
 
   void setGridTypeX(GridType gridType) {
-    getCoordinateSpace().getGrid().setGridFactoryX(createGridFactory(gridType));
+    final GridFigure grid = getCoordinateSpace().getGrid();
+    grid.setGridFactoryX(createGridFactory(gridType));
+    grid.setMeasureX(createMeasure(gridType));
   }
 
   void setGridTypeY(GridType gridType) {
-    getCoordinateSpace().getGrid().setGridFactoryY(createGridFactory(gridType));
+    final GridFigure grid = getCoordinateSpace().getGrid();
+    grid.setGridFactoryY(createGridFactory(gridType));
+    grid.setMeasureY(createMeasure(gridType));
   }
 
   private static GridFactory createGridFactory(GridType type) {
@@ -156,8 +160,20 @@ public class GraphFigure extends ContainerFigureImpl implements HasCoordinateSpa
         return new StandardGridFactory();
       case LOG:
         return new LogScaleGridFactory();
+      default:
+        throw new UnsupportedOperationException();
     }
-    throw new UnsupportedOperationException();
+  }
+
+  private static Measure createMeasure(GridType type) {
+    switch (type) {
+      case DEFAULT:
+        return new StandardMeasure();
+      case LOG:
+        return new LogScaleMeasure();
+      default:
+        throw new UnsupportedOperationException();
+    }
   }
 
   CoordinateSpaceFigure getCoordinateSpace() {

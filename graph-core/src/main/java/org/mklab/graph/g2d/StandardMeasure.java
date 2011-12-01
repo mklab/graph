@@ -31,6 +31,10 @@ final class StandardMeasure extends AbstractMeasure {
     return this.bound.getStart() + getViewToModelRatio() * viewValue;
   }
 
+  private double getViewToModelRatio() {
+    return this.bound.getWidth() / (this.viewSize - 1);
+  }
+
   /**
    * {@inheritDoc}
    */
@@ -64,5 +68,13 @@ final class StandardMeasure extends AbstractMeasure {
       if (viewValueInt == this.viewSize && viewValue < this.viewSize) return viewValueInt - 1;
     }
     return viewValueInt;
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public Bound fixBound(@SuppressWarnings("hiding") Bound bound) {
+    return bound;
   }
 }

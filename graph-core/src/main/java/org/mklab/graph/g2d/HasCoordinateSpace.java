@@ -42,8 +42,10 @@ public interface HasCoordinateSpace {
 
   /**
    * 表示範囲を設定します。
+   * <p>
+   * 現在のグラフがその表示範囲に対応していない場合は自動的に修正します。
    * 
-   * @param scope 表示範囲
+   * @param scope 表示範囲。不正な場合は修正されるため実際の表示範囲が設定した値と異なることもあります。
    */
   void setScope(Scope scope);
 

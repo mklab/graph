@@ -20,6 +20,7 @@ import org.mklab.nfc.matrix.NumericalMatrix;
 import org.mklab.tool.control.LinearSystem;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -49,13 +50,11 @@ public class Bode {
   /**
    * ボード線図の計算を行います。
    * 
-   * @param xStart 開始周波数
-   * @param xEnd 終了周波数
-   * @param canvasWidth キャンバスの横幅
+   * @param freqs 計算する周波数
    * @param callback 結果を受け取るコールバック
    */
-  public synchronized void compute(final double xStart, final double xEnd, final int canvasWidth, Callback callback) {
-    final CallbackKey key = new CallbackKey(xStart, xEnd, canvasWidth);
+  public synchronized void compute(final double[] freqs, Callback callback) {
+    final CallbackKey key = new CallbackKey(freqs);
     List<Callback> callbacksForKey = this.callbacks.get(key);
     if (callbacksForKey == null) {
       callbacksForKey = new ArrayList<Bode.Callback>();
@@ -67,7 +66,7 @@ public class Bode {
         @SuppressWarnings("synthetic-access")
         @Override
         public void run() {
-          computeNow(xStart, xEnd, canvasWidth);
+          computeNow(freqs);
         }
       });
     } else {
@@ -76,9 +75,11 @@ public class Bode {
     }
   }
 
-  private void computeNow(double xStart, double xEnd, int canvasWidth) {
-    final List<List<NumericalMatrix<?>>> result = this.bode.getGainAndPhase(computeAngularFrequencies(xStart, xEnd, canvasWidth));
-    final CallbackKey callbackKey = new CallbackKey(xStart, xEnd, canvasWidth);
+  private void computeNow(double[] freqs) {
+
+    final CallbackKey callbackKey = new CallbackKey(freqs);
+    final DoubleMatrix freqsMatrix = new DoubleMatrix(freqs);
+    final List<List<NumericalMatrix<?>>> result = this.bode.getGainAndPhase(freqsMatrix);
     List<Callback> resultTarget = this.callbacks.get(callbackKey); // ConcurrentModification対策
     if (resultTarget == null) return;
 
@@ -87,36 +88,19 @@ public class Bode {
       final List<NumericalMatrix<?>> magnitudesPhases = result.get(index);
       final DoubleMatrix magnitudes = (DoubleMatrix)magnitudesPhases.get(0);
       final DoubleMatrix phases = (DoubleMatrix)magnitudesPhases.get(1);
-      final DoubleMatrix freqs = (DoubleMatrix)magnitudesPhases.get(2);
-      callback.computed(freqs, magnitudes, phases);
+      callback.computed(freqsMatrix, magnitudes, phases);
     }
     resultTarget.clear();
     this.callbacks.remove(callbackKey);
   }
 
-  @SuppressWarnings("static-method")
-  private NumericalMatrix<?> computeAngularFrequencies(double xStart, double xEnd, int canvasWidth) {
-    final double dx = (xEnd - xStart) / canvasWidth;
-    final double[] freqs = new double[canvasWidth];
-    double x = xStart;
-    for (int i = 0; i < freqs.length; i++) {
-      freqs[i] = x;
-      x += dx;
-    }
-    return new DoubleMatrix(freqs);
-  }
-
   static class CallbackKey {
 
-    double xStart;
-    double xEnd;
-    int canvasWidth;
+    double[] freqs;
 
-    CallbackKey(double xStart, double xEnd, int canvasWidth) {
+    CallbackKey(double[] freqs) {
       super();
-      this.xStart = xStart;
-      this.xEnd = xEnd;
-      this.canvasWidth = canvasWidth;
+      this.freqs = freqs;
     }
 
     /**
@@ -126,12 +110,7 @@ public class Bode {
     public int hashCode() {
       final int prime = 31;
       int result = 1;
-      result = prime * result + this.canvasWidth;
-      long temp;
-      temp = Double.doubleToLongBits(this.xEnd);
-      result = prime * result + (int)(temp ^ (temp >>> 32));
-      temp = Double.doubleToLongBits(this.xStart);
-      result = prime * result + (int)(temp ^ (temp >>> 32));
+      result = prime * result + Arrays.hashCode(this.freqs);
       return result;
     }
 
@@ -144,9 +123,7 @@ public class Bode {
       if (obj == null) return false;
       if (getClass() != obj.getClass()) return false;
       CallbackKey other = (CallbackKey)obj;
-      if (this.canvasWidth != other.canvasWidth) return false;
-      if (Double.doubleToLongBits(this.xEnd) != Double.doubleToLongBits(other.xEnd)) return false;
-      if (Double.doubleToLongBits(this.xStart) != Double.doubleToLongBits(other.xStart)) return false;
+      if (!Arrays.equals(this.freqs, other.freqs)) return false;
       return true;
     }
 

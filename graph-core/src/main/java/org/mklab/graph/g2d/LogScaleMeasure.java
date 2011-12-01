@@ -23,6 +23,8 @@ package org.mklab.graph.g2d;
  */
 final class LogScaleMeasure extends AbstractMeasure {
 
+  private double minimumValue = 1e-10;
+
   /**
    * {@inheritDoc}
    */
@@ -70,6 +72,31 @@ final class LogScaleMeasure extends AbstractMeasure {
     double logModelValue = logModelStart + viewValue * (logModelEnd - logModelStart) / this.viewSize;
 
     return Math.pow(10, logModelValue);
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public Bound fixBound(@SuppressWarnings("hiding") Bound bound) {
+    double start = bound.getStart();
+    double end = bound.getEnd();
+
+    boolean changed = false;
+    if (end <= this.minimumValue) {
+      final double d = end - start;
+      start = this.minimumValue;
+      end = start + d;
+      changed = true;
+    } else if (start <= this.minimumValue) {
+      start = this.minimumValue;
+      if (end == this.minimumValue) {
+        end = this.minimumValue * 2;
+      }
+      changed = true;
+    }
+
+    return changed ? new Bound(start, end) : bound;
   }
 
 }
