@@ -54,7 +54,7 @@ public class BodePlotSample extends GraphFigureSample {
   @Override
   protected void initGraphFigure(GraphFigure figure) {
     super.initGraphFigure(figure);
-    figure.setScope(1e-2, 1e2, -300, 50);
+    figure.setScope(1e-2, 1e0, -300, 50);
   }
 
   /**
