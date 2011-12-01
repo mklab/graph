@@ -16,7 +16,7 @@ import java.util.List;
 public class ListFunction2D extends DiscreteFunction2D {
 
   private List<Point2D> points;
-  private double maximumX = -Double.MAX_VALUE;
+  private double maximumX = Double.NEGATIVE_INFINITY;
 
   /**
    * {@link ListFunction2D}オブジェクトを構築します。
@@ -66,6 +66,7 @@ public class ListFunction2D extends DiscreteFunction2D {
    */
   public void clearPoints() {
     this.points.clear();
+    this.maximumX = Double.NEGATIVE_INFINITY;
   }
 
   /**
@@ -73,13 +74,14 @@ public class ListFunction2D extends DiscreteFunction2D {
    */
   @Override
   public TraversableIterator<Point2D> iterator(double startOfX) {
-    for (int i = 0; i < this.points.size(); i++) {
-      final double x = this.points.get(i).getX();
+    List<Point2D> copyOfPoints = new ArrayList<Point2D>(this.points);
+    for (int i = 0; i < copyOfPoints.size(); i++) {
+      final double x = copyOfPoints.get(i).getX();
       if (x == startOfX) {
-        return new ListTraversableIterator<Point2D>(this.points, i);
+        return new ListTraversableIterator<Point2D>(copyOfPoints, i);
       } else if (x > startOfX) {
-        if (i == 0) return new ListTraversableIterator<Point2D>(this.points, i);
-        return new ListTraversableIterator<Point2D>(this.points, i - 1);
+        if (i == 0) return new ListTraversableIterator<Point2D>(copyOfPoints, i);
+        return new ListTraversableIterator<Point2D>(copyOfPoints, i - 1);
       }
     }
     return new EmptyTraversableIterator<Point2D>();
